@@ -121,7 +121,13 @@ available on demand.
   about 2x any month since 1980; Oct 27 2026 = highest hour on record at both
   gauges; gauges agree (corr 0.91). Oct-Nov data still NOAA-preliminary.
 - Open question: baseline trend differs (SD +0.09 vs LJ +0.05 ft/decade).
-- Next: start the automated daily forecast logger before Dec king tides.
+- Forecast logger LIVE since 2026-11-13: GitHub Actions runs
+  pipeline/forecast_logger.py at 14:00 and 02:00 UTC and commits snapshots to
+  forecast_log/ (tides + extra water, CDIP MOP D0360-D0425 both models, NWS
+  alerts). Always `git pull` before working locally (the bot commits).
+- First snapshots captured an NWS Coastal Flood + High Surf Advisory
+  (Sat Nov 14 10:42am high tide) - good Phase 3 test case.
+- Next: pipeline/verify_forecasts.py (compare logged forecasts to observed).
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed
   water levels for San Diego 9410170 for the past month and computes the
