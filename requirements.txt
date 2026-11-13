@@ -1,0 +1,3 @@
+requests      # download data from web APIs (NOAA, CDIP)
+pandas        # tables of time + water level, math on columns
+matplotlib    # quick charts while exploring

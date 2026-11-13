@@ -1,0 +1,12 @@
+# Python environment (rebuilt from requirements.txt, never committed)
+.venv/
+__pycache__/
+*.pyc
+
+# Raw downloads can be large (LiDAR!) and can always be re-downloaded
+data/raw/*
+!data/raw/.gitkeep
+
+# Mac / editor clutter
+.DS_Store
+.vscode/
