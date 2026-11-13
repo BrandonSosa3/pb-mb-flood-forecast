@@ -1,0 +1,17 @@
+{
+  "method": "morphological reconstruction by erosion (4-connected), scikit-image",
+  "inputs": [
+    "dem_pbmb_navd88_ft.tif",
+    "water_mask_pbmb.tif"
+  ],
+  "outputs": {
+    "bay": "danger_from_bay_navd88_ft.tif",
+    "ocean": "danger_from_ocean_navd88_ft.tif"
+  },
+  "units": "feet NAVD88",
+  "notes": [
+    "Bare-earth ground only: walls/berms narrower than 1 m may be under-represented.",
+    "No storm drains: water arriving through pipes is not modeled.",
+    "Survey gaps are treated as walls."
+  ]
+}
