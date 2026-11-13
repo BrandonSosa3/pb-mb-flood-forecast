@@ -134,7 +134,13 @@ available on demand.
   Mission Bay, berm broke) matches reports (Bayside Walk, Belmont Park ->
   Catamaran, Mission Blvd & N Jetty Rd, PB Dr). Briarfield Dr = near miss
   (storm drains likely). Model likely over-predicts extent (static model).
-- Next: ocean side + wave run-up; area breakdown; optional berm; verify_forecasts.py.
+- Ocean side done: shore_profiles.py (slope + crest per CDIP MOP point) and
+  runup.py (Stockdon R2; clear / reaches within 2 ft / over). Backtest
+  (docs/evidence/backtest_scorecard.md): Jan 6 2023 + Dec 2023 hits, Jan 4 2024
+  + Oct 2026 correct no's. Model under-states extent: "reaches" = water on
+  boardwalk in practice. Logged prediction for Sat Nov 14 2026 (fill result).
+- Next: area breakdown for home screen; berm option; verify_forecasts.py;
+  more backtest days (Feb 2023, king tides, NWS storm reports).
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed
   water levels for San Diego 9410170 for the past month and computes the
