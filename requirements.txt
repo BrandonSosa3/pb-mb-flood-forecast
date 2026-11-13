@@ -1,3 +1,5 @@
 requests      # download data from web APIs (NOAA, CDIP)
 pandas        # tables of time + water level, math on columns
 matplotlib    # quick charts while exploring
+xarray        # read gridded/scientific data files (CDIP wave model)
+netCDF4       # the file format CDIP and NOAA use (.nc), read over the web
