@@ -10,3 +10,6 @@ data/raw/*
 # Mac / editor clutter
 .DS_Store
 .vscode/
+
+# Large rasters are rebuilt by pipeline/dem_prepare.py (their .meta.json files are kept)
+data/processed/*.tif

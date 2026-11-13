@@ -28,3 +28,18 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
 - Outputs: `data/processed/hourly_extra_water_9410230.csv.gz`,
   `data/processed/monthly_extra_water_9410230.csv` (+ `.meta.json`).
 - Baseline trend: +0.05 ft/decade. Two months missing (gauge outages).
+
+### USGS 3DEP 1 m lidar DEM, project CA_SanDiegoCo_D24
+- Source: https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SanDiegoCo_D24/
+  (tiles x47y363, x47y364), found via the USGS TNM API. Metadata:
+  https://www.sciencebase.gov/catalog/item/6aa9fadb1ba49b23655bd480
+- Lidar flown 2024-11-08 to 2024-12-01; published 2026-09-14. Bare earth, 1 m cells,
+  NAD83 / UTM 11N (EPSG:26911), vertical NAVD88 meters (converted to feet).
+- Downloaded 2026-11-13 by `pipeline/dem_prepare.py`. Outputs (not in git, rebuilt by
+  the script): `data/processed/dem_pbmb_navd88_ft.tif`, `data/processed/water_mask_pbmb.tif`.
+- Mission Bay is hydro-flattened at 2.198 ft NAVD88; the ocean is no-data.
+
+### NOAA tidal datums (for NAVD88 <-> MLLW conversion)
+- Source: https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/<id>/datums.json
+- Epoch 1983-2001. NAVD88 is 0.19 ft above MLLW at La Jolla 9410230, 0.43 ft above
+  MLLW at San Diego 9410170. Retrieved 2026-11-13.

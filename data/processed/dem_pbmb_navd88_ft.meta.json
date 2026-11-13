@@ -1,0 +1,37 @@
+{
+  "source": "USGS 3DEP standard 1 m bare-earth DEM",
+  "project": "CA_SanDiegoCo_D24",
+  "tiles": [
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SanDiegoCo_D24/TIFF/USGS_1M_11_x47y363_CA_SanDiegoCo_D24.tif",
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SanDiegoCo_D24/TIFF/USGS_1M_11_x47y364_CA_SanDiegoCo_D24.tif"
+  ],
+  "lidar_collected": "2024-11-08 to 2024-12-01",
+  "published": "2026-09-14",
+  "downloaded_at_utc": "2026-11-13T22:53:01+00:00",
+  "crs": "EPSG:26911",
+  "vertical_datum": "NAVD88",
+  "units": "feet",
+  "cell_size_m": 1.0,
+  "study_bbox_lonlat": [
+    -117.262,
+    32.752,
+    -117.222,
+    32.81
+  ],
+  "shape_rows_cols": [
+    6438,
+    3761
+  ],
+  "water_mask": {
+    "file": "water_mask_pbmb.tif",
+    "hydro_flattened_bay_height_ft_navd88": 2.198,
+    "bay_water_fraction": 0.2889,
+    "ocean_or_nodata_fraction": 0.1568
+  },
+  "land_elevation_ft_min_median_max": [
+    -0.71,
+    20.0,
+    314.08
+  ],
+  "nodata_fraction": 0.1568
+}
