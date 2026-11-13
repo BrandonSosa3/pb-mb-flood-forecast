@@ -1,0 +1,50 @@
+# Runs the forecast logger twice a day on GitHub's servers and commits the
+# snapshot to the repo. The commit timestamp proves each forecast was saved
+# BEFORE the event it predicts.
+name: Log forecast
+
+on:
+  schedule:
+    # Times are UTC. 14:00 UTC = 6 am PST, 02:00 UTC = 6 pm PST.
+    # (GitHub may start scheduled runs a few minutes late; that's fine.)
+    - cron: "0 14 * * *"
+    - cron: "0 2 * * *"
+  workflow_dispatch: {} # adds a "Run workflow" button for manual runs
+
+permissions:
+  contents: write # allow this job to commit to this repo (and nothing else)
+
+concurrency:
+  group: forecast-log # never run two loggers at once
+  cancel-in-progress: false
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Save forecast snapshot
+        run: python pipeline/forecast_logger.py
+
+      - name: Commit snapshot
+        run: |
+          git config user.name "forecast-logger[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add forecast_log
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+            exit 0
+          fi
+          git commit -m "Forecast snapshot $(date -u +%Y-%m-%dT%H%MZ)"
+          git pull --rebase
+          git push
