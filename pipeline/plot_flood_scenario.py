@@ -106,7 +106,7 @@ def main() -> None:
     acres = lambda m: m.sum() / 4046.86  # 1 cell = 1 m^2
     ax.legend(handles=[
         Patch(color=DEPTH_RAMP(0.6), label=f"Water reaches this ground ({acres(unusual):.0f} acres above normal high tide)"),
-        Patch(color=WALLED, label=f"Lower than the water, but walled off ({acres(walled):.0f} acres)"),
+        Patch(color=WALLED, label=f"Lower than the water, no surface path: can flood via storm drains ({acres(walled):.0f} acres)"),
         Patch(color=BAY, label="Bay / ocean"),
     ], loc="upper right", frameon=True, facecolor="white", edgecolor="none", fontsize=9, framealpha=0.95)
 
