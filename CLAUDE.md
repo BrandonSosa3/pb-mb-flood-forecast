@@ -127,7 +127,14 @@ available on demand.
   alerts). Always `git pull` before working locally (the bot commits).
 - First snapshots captured an NWS Coastal Flood + High Surf Advisory
   (Sat Nov 14 10:42am high tide) - good Phase 3 test case.
-- Next: pipeline/verify_forecasts.py (compare logged forecasts to observed).
+- Phase 2 progress: 2024 USGS lidar DEM + water mask; connected flood model
+  (danger height per 1 m cell, bay + ocean); OSM buildings/streets with danger
+  heights (buildings: within 2 m; streets: 25 m pieces, edges vs road covered).
+- Validation so far (docs/evidence/2026-10_king_tides.md): Oct 26 (~8.12 ft
+  Mission Bay, berm broke) matches reports (Bayside Walk, Belmont Park ->
+  Catamaran, Mission Blvd & N Jetty Rd, PB Dr). Briarfield Dr = near miss
+  (storm drains likely). Model likely over-predicts extent (static model).
+- Next: ocean side + wave run-up; area breakdown; optional berm; verify_forecasts.py.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed
   water levels for San Diego 9410170 for the past month and computes the

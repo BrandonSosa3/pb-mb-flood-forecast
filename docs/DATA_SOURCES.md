@@ -43,3 +43,11 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
 - Source: https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/<id>/datums.json
 - Epoch 1983-2001. NAVD88 is 0.19 ft above MLLW at La Jolla 9410230, 0.43 ft above
   MLLW at San Diego 9410170. Retrieved 2026-11-13.
+
+### OpenStreetMap buildings and streets
+- Source: OpenStreetMap contributors (ODbL, https://www.openstreetmap.org/copyright), via the
+  Overpass API (https://overpass-api.de/api/interpreter). Box S 32.752, W -117.262, N 32.810, E -117.222.
+- Downloaded 2026-11-13 by `pipeline/osm_download.py`: 12,762 buildings, 4,489 street/walkway ways.
+- Privacy: only building shape + type kept; addresses and all other building tags dropped.
+- Outputs: `data/processed/osm_buildings.geojson`, `osm_ways.geojson`, and (with danger heights)
+  `buildings_danger.geojson`, `street_pieces_danger.geojson`.

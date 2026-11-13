@@ -1,0 +1,18 @@
+{
+  "inputs": [
+    "osm_buildings.geojson",
+    "osm_ways.geojson",
+    "danger_from_bay/ocean_navd88_ft.tif",
+    "dem_pbmb_navd88_ft.tif"
+  ],
+  "units": "feet above MLLW (NAVD88 + 0.19 ft, NOAA La Jolla datums)",
+  "building_buffer_m": 2.0,
+  "piece_length_m": 25.0,
+  "side_offset_m": 3.0,
+  "columns": {
+    "danger_bay_ft": "lowest still-water level at which water from Mission Bay reaches it",
+    "danger_ocean_ft": "same, from the open ocean (waves not included)",
+    "covered_bay_ft / covered_ocean_ft": "streets only: level at which the middle of the road is under water along at least half of the 25 m stretch",
+    "ground_min_ft": "lowest ground nearby (below the water but above danger height = storm-drain risk)"
+  }
+}

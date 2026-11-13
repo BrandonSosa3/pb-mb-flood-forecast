@@ -1,0 +1,17 @@
+{
+  "source": "OpenStreetMap contributors, ODbL",
+  "api": "https://overpass-api.de/api/interpreter",
+  "bbox_s_w_n_e": [
+    32.752,
+    -117.262,
+    32.81,
+    -117.222
+  ],
+  "downloaded_at_utc": "2026-11-13T23:11:32+00:00",
+  "buildings": 12762,
+  "ways": {
+    "street": 2608,
+    "walkway": 1881
+  },
+  "privacy": "building tags other than 'building' type dropped at download"
+}

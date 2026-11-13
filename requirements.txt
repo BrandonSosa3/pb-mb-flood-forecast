@@ -6,3 +6,5 @@ netCDF4       # the file format CDIP and NOAA use (.nc), read over the web
 rasterio      # read/write map grids (GeoTIFF elevation files)
 scipy         # image tools: find connected areas (water, flood spreading)
 scikit-image  # fast 'how high must water rise to reach here' calculation (morphological reconstruction)
+geopandas     # tables of map shapes (buildings, streets) with geometry
+shapely       # geometry math: lengths, buffers, splitting lines
