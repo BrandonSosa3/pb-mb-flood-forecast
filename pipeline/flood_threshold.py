@@ -32,6 +32,7 @@ import time
 import numpy as np
 import rasterio
 from scipy import ndimage
+from rasterio.warp import transform as warp_transform
 from skimage.morphology import reconstruction
 
 from noaa_tides import PROCESSED_DIR, PROJECT_ROOT
@@ -40,6 +41,7 @@ DEM_PATH = PROCESSED_DIR / "dem_pbmb_navd88_ft.tif"
 WATER_MASK_PATH = PROCESSED_DIR / "water_mask_pbmb.tif"
 BARRIER_FT = 1000.0  # "water can't pass" (used for survey gaps / the other water body)
 FOUR_NEIGHBOURS = ndimage.generate_binary_structure(2, 1)
+OCEAN_SIDE_MIN_LAT = 32.7598  # just north of the Mission Bay north jetty
 
 
 def danger_heights(ground: np.ndarray, source: np.ndarray) -> np.ndarray:
@@ -66,9 +68,18 @@ def main() -> None:
     bay = mask == 1
     print(f"Cells: {dem.size:,}  bay water {bay.mean():.1%}, ocean {ocean.mean():.1%}, survey gaps {gaps.mean():.1%}")
 
+    # Ocean-side water (where waves matter) enters only across the PB / MB beach.
+    # Ocean cells at the channel mouth and south of it are walls for that run:
+    # water in the channel is at the same level as the bay and is handled by
+    # the bay run.
+    (_,), (y_cut,) = warp_transform("EPSG:4326", profile["crs"], [-117.256], [OCEAN_SIDE_MIN_LAT])
+    rows_south = np.arange(dem.shape[0]) > rasterio.transform.rowcol(profile["transform"], 0, y_cut)[0]
+    channel_ocean = ocean & rows_south[:, None]
+    beach_ocean = ocean & ~channel_ocean
+
     OCEAN_SURFACE_FT = -3.0  # ocean cells have no height in the data; any value below land works
     outputs = {}
-    for name, source, blocked in [("bay", bay, ocean | gaps), ("ocean", ocean, bay | gaps)]:
+    for name, source, blocked in [("bay", bay, ocean | gaps), ("ocean", beach_ocean, bay | gaps | channel_ocean)]:
         ground = dem.copy()
         ground[ocean] = OCEAN_SURFACE_FT
         ground[blocked] = BARRIER_FT  # the OTHER water body is treated as a wall
@@ -92,6 +103,7 @@ def main() -> None:
             "Bare-earth ground only: walls/berms narrower than 1 m may be under-represented.",
             "No storm drains: water arriving through pipes is not modeled.",
             "Survey gaps are treated as walls.",
+            "Ocean run: water enters only across the PB/MB beach (north of the channel mouth).",
         ],
     }
     (PROCESSED_DIR / "danger_heights.meta.json").write_text(json.dumps(meta, indent=2))

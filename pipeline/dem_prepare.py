@@ -42,17 +42,24 @@ RAW_DIR = PROJECT_ROOT / "data" / "raw" / "usgs_dem"
 
 # Study area (longitude/latitude): Mission Beach jetty to Tourmaline (N-S),
 # ocean to the east edge of Crown Point / Sail Bay (W-E).
-STUDY_BBOX_LONLAT = (-117.262, 32.752, -117.222, 32.810)  # west, south, east, north
+STUDY_BBOX_LONLAT = (-117.270, 32.752, -117.222, 32.812)  # west, south, east, north
+# (west edge a little offshore of Tourmaline so the whole PB beach is included)
 
 METERS_TO_FEET = 3.28084
 OUT_PATH = PROCESSED_DIR / "dem_pbmb_navd88_ft.tif"
 WATER_MASK_PATH = PROCESSED_DIR / "water_mask_pbmb.tif"
 
 # "Hydro-flattening": lidar can't measure water, so the data producer replaced
-# Mission Bay with one flat height. We detect it to build a water mask.
-# (The open ocean was left as no-data instead.)
+# water with one flat height (Mission Bay, plus a strip along the ocean edge);
+# the open ocean further out is no-data. We detect it to build a water mask.
 MIN_WATER_AREA_M2 = 5_000  # ignore small flat patches on land (parking lots etc.)
 FLAT_TOLERANCE_FT = 0.01
+# The flattened ocean strip and Mission Bay touch through the entrance channel
+# (and through gaps in the narrow jetties). Rule: flattened water within
+# OCEAN_REACH_M of the open ocean, measured by "swimming" through water, is
+# OCEAN; the rest is bay. The beach-side strip is ~55 m wide, so it all becomes
+# ocean; only the outer channel mouth between the jetties is affected otherwise.
+OCEAN_REACH_M = 250
 
 
 def download_tiles() -> list:
@@ -77,7 +84,7 @@ def download_tiles() -> list:
 
 
 def build_water_mask(elev_ft: np.ndarray) -> tuple[np.ndarray, float]:
-    """1 = bay water (hydro-flattened), 2 = ocean / no-data, 0 = land."""
+    """0 = land, 1 = Mission Bay water (hydro-flattened), 2 = ocean (or no-data)."""
     from scipy import ndimage
 
     valid = np.isfinite(elev_ft)
@@ -87,9 +94,21 @@ def build_water_mask(elev_ft: np.ndarray) -> tuple[np.ndarray, float]:
     labels, n = ndimage.label(candidate)
     sizes = ndimage.sum(candidate, labels, index=np.arange(1, n + 1))
     big = np.flatnonzero(sizes >= MIN_WATER_AREA_M2) + 1
+    flattened = np.isin(labels, big)
+
+    # Open ocean = no-data connected to the west edge (other no-data = survey gaps).
+    nodata_labels, _ = ndimage.label(~valid)
+    west_ids = np.setdiff1d(np.unique(nodata_labels[:, 0]), [0])
+    open_ocean = np.isin(nodata_labels, west_ids)
+    # Grow from the open ocean through flattened water, 1 m per step (4-neighbour).
+    four = ndimage.generate_binary_structure(2, 1)
+    reach = ndimage.binary_dilation(open_ocean, structure=four, iterations=OCEAN_REACH_M,
+                                    mask=open_ocean | flattened)
+    ocean_flat = reach & flattened
+
     mask = np.zeros(elev_ft.shape, dtype="uint8")
-    mask[np.isin(labels, big)] = 1
-    mask[~valid] = 2
+    mask[flattened] = 1
+    mask[ocean_flat | ~valid] = 2
     return mask, flat_value
 
 
@@ -127,7 +146,7 @@ def main() -> None:
     mask_profile = {**profile, "dtype": "uint8", "nodata": None, "predictor": 2}
     with rasterio.open(WATER_MASK_PATH, "w", **mask_profile) as dst:
         dst.write(mask, 1)
-        dst.update_tags(values="0 = land, 1 = bay water (hydro-flattened), 2 = ocean / no data")
+        dst.update_tags(values="0 = land, 1 = Mission Bay water (hydro-flattened), 2 = ocean / no data")
 
     valid = elev_ft[np.isfinite(elev_ft) & (mask == 0)]  # land only
     meta = {

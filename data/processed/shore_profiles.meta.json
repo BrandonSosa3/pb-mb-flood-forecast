@@ -1,0 +1,12 @@
+{
+  "dem": "dem_pbmb_navd88_ft.tif",
+  "units": "feet above MLLW (La Jolla datums)",
+  "step_m": 0.5,
+  "ridge_search_m": 300,
+  "ridge_drop_ft": 2.0,
+  "slope_band_ft_mllw": [
+    2.7,
+    7.3
+  ],
+  "mop_source": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0000_nowcast.nc"
+}

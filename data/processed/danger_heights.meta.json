@@ -12,6 +12,7 @@
   "notes": [
     "Bare-earth ground only: walls/berms narrower than 1 m may be under-represented.",
     "No storm drains: water arriving through pipes is not modeled.",
-    "Survey gaps are treated as walls."
+    "Survey gaps are treated as walls.",
+    "Ocean run: water enters only across the PB/MB beach (north of the channel mouth)."
   ]
 }
