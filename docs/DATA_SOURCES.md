@@ -9,3 +9,15 @@ Every dataset used in this project: where it came from and when we downloaded it
 Each processed CSV in `data/processed/` has a matching `.meta.json` file with the exact
 request, download time, and data-quality counts. Recent NOAA data is *preliminary*
 and may be revised slightly once NOAA verifies it; re-download before final results.
+
+## Dataset details
+
+### NOAA hourly history, San Diego 9410170, 1980-01-01 to 2026-11-13
+- Source: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter
+- Products: `hourly_height` (verified, through 2026-09-30), `water_level` 6-min
+  preliminary data for 2026-10-01 onward (top-of-hour readings), `predictions` (interval=h).
+- Datum MLLW, feet, UTC. Downloaded 2026-11-13 by `pipeline/noaa_history.py`.
+- Outputs: `data/processed/hourly_extra_water_9410170.csv.gz`,
+  `data/processed/monthly_extra_water_9410170.csv` (+ `.meta.json`).
+- Baseline: straight-line trend of monthly extra water, fitted excluding the
+  1982-83, 1997-98, 2015-16 and 2026-27 El Nino winters (+0.09 ft/decade).

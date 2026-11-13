@@ -39,15 +39,25 @@ RAW_DIR = PROJECT_ROOT / "data" / "raw" / "noaa"
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 
 
-def fetch_noaa(station: str, product: str, start: date, end: date) -> list[dict]:
-    """Ask NOAA for one product ('water_level' or 'predictions') over a date range.
+def fetch_noaa(
+    station: str,
+    product: str,
+    start: date,
+    end: date,
+    interval: str = "6",
+    chunk_days: int = MAX_DAYS_PER_REQUEST,
+) -> list[dict]:
+    """Ask NOAA for one product over a date range.
 
+    product: 'water_level' (6-min measured), 'hourly_height' (hourly measured,
+             verified data only), or 'predictions'.
+    interval: for predictions only, '6' (every 6 min) or 'h' (hourly).
     Returns the raw list of readings, e.g. [{'t': '2026-10-27 16:48', 'v': '8.52', ...}].
     """
     readings: list[dict] = []
     chunk_start = start
     while chunk_start <= end:
-        chunk_end = min(chunk_start + timedelta(days=MAX_DAYS_PER_REQUEST - 1), end)
+        chunk_end = min(chunk_start + timedelta(days=chunk_days - 1), end)
         params = {
             "station": station,
             "product": product,
@@ -59,11 +69,15 @@ def fetch_noaa(station: str, product: str, start: date, end: date) -> list[dict]
             "format": "json",
         }
         if product == "predictions":
-            params["interval"] = "6"  # every 6 minutes, to line up with observations
+            params["interval"] = interval  # match the spacing of the measured data
 
         response = requests.get(API_URL, params=params, timeout=60)
         response.raise_for_status()
         body = response.json()
+        if "error" in body and "No data was found" in body["error"].get("message", ""):
+            # A gap (e.g. gauge offline, or not yet verified) - skip this chunk.
+            chunk_start = chunk_end + timedelta(days=1)
+            continue
         if "error" in body:
             raise RuntimeError(f"NOAA error for {product} {chunk_start}..{chunk_end}: {body['error']}")
 
