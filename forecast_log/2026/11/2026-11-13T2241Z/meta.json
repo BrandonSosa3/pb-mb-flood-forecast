@@ -1,0 +1,45 @@
+{
+  "issued_at_utc": "2026-11-13T22:41:00+00:00",
+  "horizon_hours": 96.0,
+  "sources": {
+    "tides": "NOAA CO-OPS API (water_level + predictions, MLLW, feet, 6-min)",
+    "waves": {
+      "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0000_<model>.nc",
+      "models": {
+        "forecast": "CDIP MOP driven by NOAA WaveWatch III",
+        "ecmwf_fc": "CDIP MOP driven by ECMWF wave model"
+      },
+      "model_issued_utc": {
+        "forecast": "2026-11-13T19:04:46Z",
+        "ecmwf_fc": "2026-11-13T21:29:08Z"
+      },
+      "points": "D0360-D0425"
+    },
+    "alerts": "https://api.weather.gov/alerts/active?zone=CAZ043"
+  },
+  "errors": {},
+  "tides": {
+    "9410230": {
+      "name": "La Jolla (Scripps Pier)",
+      "side": "ocean",
+      "last_observation_utc": "2026-11-13 22:36:00+00:00",
+      "latest_observed_ft": 3.6,
+      "extra_water_25h_ft": 1.478,
+      "peak_still_water_ft": 6.342,
+      "peak_time_utc": "2026-11-14 18:42:00+00:00"
+    },
+    "9410170": {
+      "name": "San Diego (Broadway Pier)",
+      "side": "bay",
+      "last_observation_utc": "2026-11-13 22:36:00+00:00",
+      "latest_observed_ft": 4.035,
+      "extra_water_25h_ft": 1.568,
+      "peak_still_water_ft": 6.77,
+      "peak_time_utc": "2026-11-14 18:42:00+00:00"
+    }
+  },
+  "active_alerts": [
+    "Coastal Flood Advisory",
+    "High Surf Advisory"
+  ]
+}
