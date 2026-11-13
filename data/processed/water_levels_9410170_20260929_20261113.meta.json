@@ -1,0 +1,22 @@
+{
+  "source": "NOAA CO-OPS Tides & Currents API",
+  "source_url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter",
+  "station": "9410170",
+  "station_name": "San Diego (Broadway Pier)",
+  "start_date": "2026-09-29",
+  "end_date": "2026-11-13",
+  "datum": "MLLW",
+  "units": "feet",
+  "interval": "6 minutes",
+  "downloaded_at_utc": "2026-11-13T22:15:04+00:00",
+  "quality_counts": {
+    "p": 10542,
+    "v": 480
+  },
+  "columns": {
+    "observed_ft": "measured water level",
+    "predicted_ft": "astronomical tide prediction (moon + sun only)",
+    "extra_water_ft": "observed - predicted",
+    "quality": "p = preliminary, v = verified by NOAA"
+  }
+}
