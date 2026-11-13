@@ -21,3 +21,10 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
   `data/processed/monthly_extra_water_9410170.csv` (+ `.meta.json`).
 - Baseline: straight-line trend of monthly extra water, fitted excluding the
   1982-83, 1997-98, 2015-16 and 2026-27 El Nino winters (+0.09 ft/decade).
+
+### NOAA hourly history, La Jolla 9410230, 1980-01-01 to 2026-11-13
+- Same source, products, and processing as the San Diego history above.
+  Downloaded 2026-11-13 by `pipeline/noaa_history.py --station 9410230`.
+- Outputs: `data/processed/hourly_extra_water_9410230.csv.gz`,
+  `data/processed/monthly_extra_water_9410230.csv` (+ `.meta.json`).
+- Baseline trend: +0.05 ft/decade. Two months missing (gauge outages).

@@ -114,8 +114,14 @@ available on demand.
   private until Phase 2 looks good, then goes public.
 
 ## Where we are right now
-- Plan approved. Folder set up (git init, .venv, folder structure). No
-  pipeline code yet.
+- Plan approved. Folder set up; private repo BrandonSosa3/pb-mb-flood-forecast.
+- Phase 1 mostly done: 45-day 6-min chart, 1980-2026 hourly history for
+  San Diego + La Jolla, El Nino comparison, two-gauge check.
+  Key results (Nov 13, 2026): extra water above normal ~+1.1-1.2 ft (Oct-Nov),
+  about 2x any month since 1980; Oct 27 2026 = highest hour on record at both
+  gauges; gauges agree (corr 0.91). Oct-Nov data still NOAA-preliminary.
+- Open question: baseline trend differs (SD +0.09 vs LJ +0.05 ft/decade).
+- Next: start the automated daily forecast logger before Dec king tides.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed
   water levels for San Diego 9410170 for the past month and computes the

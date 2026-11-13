@@ -1,0 +1,35 @@
+{
+  "source": "NOAA CO-OPS Tides & Currents API",
+  "source_url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter",
+  "products": "hourly_height (verified), water_level (preliminary fill), predictions interval=h",
+  "station": "9410230",
+  "station_name": "La Jolla (Scripps Pier)",
+  "start_date": "1980-01-01",
+  "end_date": "2026-11-13",
+  "last_verified_hour_utc": "2026-09-30 23:00:00+00:00",
+  "datum": "MLLW",
+  "units": "feet",
+  "downloaded_at_utc": "2026-11-13T22:24:42+00:00",
+  "baseline": {
+    "slope_ft_per_decade": 0.05,
+    "baseline_today_ft": 0.14,
+    "fit_excludes": {
+      "1982-83": [
+        "1982-06",
+        "1983-08"
+      ],
+      "1997-98": [
+        "1997-05",
+        "1998-08"
+      ],
+      "2015-16": [
+        "2015-03",
+        "2016-08"
+      ],
+      "2026-27": [
+        "2026-05",
+        "2027-12"
+      ]
+    }
+  }
+}
