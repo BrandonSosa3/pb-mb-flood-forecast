@@ -153,7 +153,10 @@ available on demand.
   docs/evidence/track_record.json, kept by hand -> about.json via build_site_data.py).
 - Search done (pipeline/search_index.py -> search.json; Home search box -> #/map?spot=<key>,
   SpotCard with bay + nearby-waves lines).
-- Next: fill Nov 14 result, 3D view, desktop layout;
+- Desktop layout done. Logger saves NWS rain/wind forecast + KSAN obs since 2026-11-14T1943Z
+  (weather.csv.gz, weather_obs.csv.gz). Planned: rain+high tide -> storm-drain risk on site.
+- Next: wave check (verify_forecasts.py vs CDIP buoys, model bias), surfer's wave size line,
+  then rain on site; fill Nov 14 result, 3D view;
   verify_forecasts.py; more backtest days; fill Nov 14 prediction result.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed
