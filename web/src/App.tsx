@@ -60,9 +60,10 @@ export function App() {
 
   const current = route.startsWith("/map") ? "map" : route === "/about" ? "about" : "forecast";
   return (
-    <div className="app">
+    <div className={`app${route.startsWith("/map") ? " app-map" : ""}`}>
       {screen}
       <nav className="nav" aria-label="Main">
+        <a href="#/" className="nav-brand">PB &amp; MB Flood Forecast</a>
         <a href="#/" aria-current={current === "forecast" ? "page" : undefined}>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15c3 0 3-2 6-2s3 2 6 2 3-2 6-2" /><path d="M3 19c3 0 3-2 6-2s3 2 6 2 3-2 6-2" /><path d="M12 3v6M9 6l3 3 3-3" /></svg>
           Forecast

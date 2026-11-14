@@ -251,3 +251,54 @@ h2 { margin: 6px 0 0; font-size: 18px; font-weight: 700; }
 .tone-ok { background: var(--low-bg); } .tone-watch { background: var(--minor-bg); } .tone-bad { background: var(--major-bg); }
 .chip-solid { align-self: flex-start; background: var(--accent); border-color: var(--accent); color: #fff; }
 .chip-solid:hover { background: var(--accent-hover); }
+
+/* ---------- layout wrappers (phones: plain stacks, same look as before) ---------- */
+.home-head, .area-grid, .home-foot, .area-cols, .col { display: flex; flex-direction: column; gap: 14px; }
+.nav-brand { display: none !important; }
+
+/* ---------- laptops and desktops ---------- */
+@media (min-width: 960px) {
+  .app { max-width: none; }  /* full-width top bar; each page centers its own content */
+  .screen { width: 100%; max-width: 1160px; margin: 0 auto; padding: 32px 32px 64px; gap: 20px; }
+
+  /* nav becomes a top bar: brand on the left, links on the right */
+  .nav {
+    order: -1; position: sticky; top: 0; bottom: auto; max-width: none; margin: 0;
+    display: flex; align-items: center; gap: 4px; padding: 0 32px; height: 60px;
+    border-top: none; border-bottom: 1px solid var(--line);
+  }
+  .nav a { flex-direction: row; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 10px; font-size: 14px; }
+  .nav a:hover { background: var(--ground); color: var(--text); }
+  .nav a[aria-current="page"] { background: var(--info-bg); }
+  .nav svg { width: 18px; height: 18px; }
+  .nav .nav-brand { display: flex !important; margin-right: auto; padding: 0; font-size: 16px; font-weight: 700; color: var(--text); }
+  .nav .nav-brand:hover { background: none; }
+
+  /* home: title + search side by side, three area cards in a row */
+  .home-head { flex-direction: row; justify-content: space-between; align-items: flex-end; gap: 32px; }
+  .home-head .eyebrow { display: none; }
+  .home-head h1 { font-size: 34px; }
+  .home-head .searchbox { width: 380px; flex-shrink: 0; }
+  .area-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .area-grid .card { padding: 20px; }
+  .home-foot { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 16px; align-items: end; }
+
+  /* area detail: status + days + berm left, drivers + places right */
+  .area-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+  .h2-top { margin-top: 0; }
+
+  /* how it works: a comfortable reading column */
+  .about { max-width: 760px; width: 100%; margin: 0 auto; gap: 36px; }
+
+  /* map: full width; controls in a left side panel; cards float top-right over the map */
+  .map-screen { flex-direction: row; height: calc(100dvh - 60px); }
+  .map { order: 2; height: 100%; }
+  .sheet {
+    order: 1; width: 360px; flex-shrink: 0; margin: 0; padding: 24px 20px; border-radius: 0; gap: 14px;
+    box-shadow: 1px 0 0 var(--line); overflow-y: auto;
+  }
+  .detail { left: auto; right: 16px; top: 16px; width: 380px; }
+  .spot { max-height: calc(100% - 32px); }
+}
+.map-fallback { height: 100%; max-width: 460px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 24px; text-align: center; font-size: 14px; line-height: 1.45; color: var(--muted); background: #e9ecef; }
+.map-fallback strong { color: var(--text); font-size: 16px; }

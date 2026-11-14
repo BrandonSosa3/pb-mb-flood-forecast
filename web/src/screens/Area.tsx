@@ -26,6 +26,8 @@ export function Area({ forecast, areaSlug }: { forecast: Forecast; areaSlug: str
         All areas
       </a>
 
+      <div className="area-cols">
+      <div className="col">
       <div className="stack-8">
         <h1 className="h1-lg">{area.name}</h1>
         <div className="row-wrap">
@@ -56,8 +58,12 @@ export function Area({ forecast, areaSlug }: { forecast: Forecast; areaSlug: str
         </div>
       </section>
 
+      <BermCard day={day} />
+      </div>
+
+      <div className="col">
       <section className="stack-10">
-        <h2>What's driving it</h2>
+        <h2 className="h2-top">What's driving it</h2>
         <div className="tiles">
           <Tile label="Tide" value={tide !== null ? `${tide.toFixed(1)} ft` : "—"} note={`High tide ${timeLabel(day.bay_peak_time)}`} />
           <Tile label="Extra water" value={forecast.extra_water_ft !== null ? `+${forecast.extra_water_ft.toFixed(1)} ft` : "—"}
@@ -90,13 +96,13 @@ export function Area({ forecast, areaSlug }: { forecast: Forecast; areaSlug: str
         </section>
       )}
 
-      <BermCard day={day} />
-
       <a href="#/map" className="button-primary">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z" /><path d="M9 4v14M15 6v14" /></svg>
         See it on the map
       </a>
       <a href="#/about" className="link-center">How this forecast is made</a>
+      </div>
+      </div>
     </main>
   );
 }

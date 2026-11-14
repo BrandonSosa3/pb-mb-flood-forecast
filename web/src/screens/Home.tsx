@@ -14,14 +14,16 @@ export function Home({ forecast }: { forecast: Forecast }) {
 
   return (
     <main className="screen">
-      <div>
-        <div className="eyebrow">PB &amp; MB Flood Forecast</div>
-        <h1>Is my area at risk this week?</h1>
-        <div className="sub">Updated {updatedLabel(forecast.issued_at)}</div>
+      <div className="home-head">
+        <div>
+          <div className="eyebrow">PB &amp; MB Flood Forecast</div>
+          <h1>Is my area at risk this week?</h1>
+          <div className="sub">Updated {updatedLabel(forecast.issued_at)}</div>
+        </div>
+        <SearchBox />
       </div>
 
-      <SearchBox />
-
+      <div className="area-grid">
       {areas.map((area) => {
         const day = headlineDay(area.days);
         if (!day) return null;
@@ -40,7 +42,10 @@ export function Home({ forecast }: { forecast: Forecast }) {
           </a>
         );
       })}
+      </div>
 
+      <div className="home-foot">
+      <div className="stack-8">
       <div className="section-label">Next {dates.length} days, all areas</div>
       <div className="days">
         {dates.map((date) => {
@@ -55,11 +60,14 @@ export function Home({ forecast }: { forecast: Forecast }) {
         })}
       </div>
 
+      </div>
+
       <div className="notice">
         {alerts.length > 0 && (
           <>Official: {alerts.map((a) => `NWS ${a.event}`).join(" and ")} in effect. </>
         )}
         This app is not an official warning. <a href={NWS_URL}>Check the National Weather Service</a>.
+      </div>
       </div>
     </main>
   );

@@ -19,6 +19,7 @@ export function MapScreen({ forecast, spotKey }: { forecast: Forecast; spotKey: 
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const [ready, setReady] = useState(false);
+  const [noMap, setNoMap] = useState(false); // device can't draw the map (no WebGL)
   const [curves, setCurves] = useState<Curves | null>(null);
   const satPeak = useMemo(() => {
     const days = upcoming(forecast.areas[0]?.days ?? []);
@@ -44,9 +45,11 @@ export function MapScreen({ forecast, spotKey }: { forecast: Forecast; spotKey: 
     marker.current = null;
     if (!m || !ready || !spot) return;
     setSelected(null);
-    const sheetPad = { top: 280, left: 40, right: 40, bottom: 40 }; // keep the pin clear of the card
+    // Keep the pin clear of the card: on phones it covers the top, on wide screens the right side.
+    const wide = window.matchMedia("(min-width: 960px)").matches;
+    const sheetPad = wide ? { top: 60, left: 60, right: 440, bottom: 60 } : { top: 280, left: 40, right: 40, bottom: 40 };
     if (spot.bbox) m.fitBounds([[spot.bbox[0], spot.bbox[1]], [spot.bbox[2], spot.bbox[3]]], { padding: sheetPad, maxZoom: 17.5, duration: 900 });
-    else m.flyTo({ center: [spot.lon, spot.lat], zoom: spot.kind === "landmark" ? 16 : 17.5, offset: [0, 110], duration: 900 });
+    else m.flyTo({ center: [spot.lon, spot.lat], zoom: spot.kind === "landmark" ? 16 : 17.5, offset: wide ? [-200, 0] : [0, 110], duration: 900 });
     marker.current = new maplibregl.Marker({ color: "#10202f" }).setLngLat([spot.lon, spot.lat]).addTo(m);
   }, [spot, ready]);
   const closeSpot = () => {
@@ -57,11 +60,17 @@ export function MapScreen({ forecast, spotKey }: { forecast: Forecast; spotKey: 
   // Create the map once.
   useEffect(() => {
     if (!container.current || map.current) return;
-    const m = new maplibregl.Map({
-      container: container.current, style: BASEMAP, center: CENTER, zoom: 14.9,
-      minZoom: 12.5, maxZoom: 18.5, attributionControl: { compact: true },
-      maxBounds: [[-117.32, 32.72], [-117.18, 32.84]],
-    });
+    let m: maplibregl.Map;
+    try {
+      m = new maplibregl.Map({
+        container: container.current, style: BASEMAP, center: CENTER, zoom: 14.9,
+        minZoom: 12.5, maxZoom: 18.5, attributionControl: { compact: true },
+        maxBounds: [[-117.32, 32.72], [-117.18, 32.84]],
+      });
+    } catch {
+      setNoMap(true); // keep the controls and counts working without the map
+      return;
+    }
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
     m.on("load", () => {
       // Soft blue water so bay and ocean read as water at a glance (the basemap's default is gray).
@@ -121,7 +130,15 @@ export function MapScreen({ forecast, spotKey }: { forecast: Forecast; spotKey: 
 
   return (
     <main className="map-screen">
-      <div ref={container} className="map" role="region" aria-label="Flood map of Pacific Beach and Mission Beach" />
+      <div ref={container} className="map" role="region" aria-label="Flood map of Pacific Beach and Mission Beach">
+        {noMap && (
+          <div className="map-fallback">
+            <strong>This device can't show the interactive map.</strong>
+            <span>It needs WebGL, which is turned off or unsupported here. The water-level slider and counts still work,
+              and the forecast pages show everything else.</span>
+          </div>
+        )}
+      </div>
       {selected
         ? <DetailSheet sel={selected} level={level} bermHolds={bermHolds} onClose={() => setSelected(null)} />
         : spot && <SpotCard spot={spot} forecast={forecast} onClose={closeSpot}
