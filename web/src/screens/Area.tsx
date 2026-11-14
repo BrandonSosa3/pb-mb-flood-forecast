@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StatusPill } from "../components/StatusPill";
 import {
-  BERM_TOP_FT, type Forecast, type ForecastDay, dayLabel, headlineDay, riskIndex, slug, summary, timeLabel, upcoming,
+  BERM_TOP_FT, type Forecast, type ForecastDay, dayLabel, headlineDay, rainText, riskIndex, slug, summary, timeLabel, upcoming,
 } from "../data";
 
 function longDate(date: string) {
@@ -71,10 +71,32 @@ export function Area({ forecast, areaSlug }: { forecast: Forecast; areaSlug: str
           <Tile label="Extra water" value={forecast.extra_water_ft !== null ? `+${forecast.extra_water_ft.toFixed(1)} ft` : "—"}
             note="El Niño is holding the ocean higher than normal" />
           {hasBeach
-            ? <Tile label="Surf" value={day.surf_ft ? `Sets ~${surfText(day.surf_ft)} ft` : `${Math.round(day.wave_height_ft![0])}–${Math.round(day.wave_height_ft![1])} ft`}
-                note={`Waves ${day.wave_period_s![0]}–${day.wave_period_s![1]} seconds apart`} />
+            ? <Tile label="Surf" value={day.surf_ft ? `~${surfText(day.surf_ft)} ft` : `${Math.round(day.wave_height_ft![0])}–${Math.round(day.wave_height_ft![1])} ft`}
+                note={`${day.surf_ft ? "Bigger sets. " : ""}Waves ${day.wave_period_s![0]}–${day.wave_period_s![1]} seconds apart`} />
             : <Tile label="Waves" value="—" note="Bay shore: no ocean waves" />}
+          <Tile label="Rain" value={day.rain_day_in == null ? "—" : rainText(day.rain_day_in)}
+            note={day.rain_day_in == null ? "No forecast yet"
+              : (day.rain_near_tide_in ?? 0) >= 0.01 ? `${rainText(day.rain_near_tide_in!)} near high tide`
+              : day.rain_day_in >= 0.01 ? "Not near high tide" : `Chance ${day.rain_chance_pct ?? 0}%`} />
         </div>
+        {day.rain_ponding && (
+          <p className="note">Rain during high tide: storm drains here empty into the bay and ocean, and near high tide
+            their outlets are underwater, so rain has nowhere to go and can pond in low streets.</p>
+        )}
+        {(day.rain_hourly ?? []).some(([, r]) => r >= 0.01) && (
+          <details className="disclosure">
+            <summary>Hourly rain</summary>
+            <ul className="rain-hours">
+              {day.rain_hourly!.filter(([, r]) => r >= 0.01).map(([t, r, c]) => (
+                <li key={t}><span>{timeLabel(t)}</span>
+                  <span className="rain-bar" style={{ width: `${Math.min(100, r * 400)}%` }} />
+                  <span>{r.toFixed(2)} in · {c}%</span></li>
+              ))}
+            </ul>
+            <p className="fine">National Weather Service hourly forecast (multi-hour totals spread evenly). Chance = chance of
+              any rain that hour.</p>
+          </details>
+        )}
         {hasBeach && day.nws_surf && <p className="body-14">National Weather Service surf forecast: {day.nws_surf}.</p>}
         <p className="fine">Tide and extra water are feet above an ordinary low tide. Surf is our estimate of the bigger
           waves as they break. For flood risk we use the higher of two wave forecasts, because the lower one has
@@ -113,9 +135,10 @@ export function Area({ forecast, areaSlug }: { forecast: Forecast; areaSlug: str
 
 function causeWord(d: ForecastDay) {
   if (d.risk === "Low") return "—";
-  if (d.cause === "ocean") return "waves";
-  if (d.cause === "both") return "waves + bay";
-  return d.properties_reached > 0 ? "bay" : "drains";
+  if (d.cause === "ocean") return d.rain_ponding ? "waves + rain" : "waves";
+  if (d.cause === "both") return d.rain_ponding ? "waves, bay + rain" : "waves + bay";
+  const base = d.cause === "none" ? "" : d.properties_reached > 0 ? "bay" : "drains";
+  return d.rain_ponding ? (base ? `${base} + rain` : "rain") : base;
 }
 
 function Tile({ label, value, note }: { label: string; value: string; note: string }) {

@@ -37,7 +37,7 @@ from shapely.geometry import Point
 from forecast_logger import LOG_DIR
 from noaa_tides import PROCESSED_DIR, PROJECT_ROOT, fetch_noaa, to_frame
 from areas import ROUTINELY_WET_FT
-from risk import LEVELS, MISSION_BAY, area_status, load_curves
+from risk import LEVELS, MISSION_BAY, RAIN_WINDOW_H, area_status, load_curves, with_rain
 from runup import from_snapshot, total_water_level
 
 SITE_DATA = PROJECT_ROOT / "web" / "public" / "data"
@@ -85,6 +85,31 @@ def places_to_watch(twl: pd.DataFrame, profiles: pd.DataFrame, points: list[str]
                     "margin_ft": round(float(margin), 1), "over": bool(margin < 0),
                     "lon": round(lon, 5), "lat": round(lat, 5)})
     return out
+
+
+def rain_forecast(snapshot: Path) -> pd.DataFrame | None:
+    """NWS hourly rain forecast (inches per hour + chance) in local time; None for old snapshots."""
+    f = snapshot / "weather.csv.gz"
+    if not f.exists():
+        return None
+    w = pd.read_csv(f, parse_dates=["time_utc"]).set_index("time_utc")
+    w.index = w.index.tz_convert(LOCAL_TZ)
+    return w[["rain_in", "rain_chance_pct"]].fillna(0)
+
+
+def rain_for_day(rain: pd.DataFrame | None, d, tide_time: pd.Timestamp) -> dict:
+    """Rain that day, and within RAIN_WINDOW_H hours of the day's highest tide."""
+    if rain is None:
+        return {"rain_day_in": None, "rain_near_tide_in": None, "rain_chance_pct": None, "rain_hourly": []}
+    day = rain[rain.index.date == d]
+    win = rain[(rain.index >= tide_time - pd.Timedelta(hours=RAIN_WINDOW_H)) &
+               (rain.index <= tide_time + pd.Timedelta(hours=RAIN_WINDOW_H))]
+    covered = len(day) >= 6  # the forecast's last day can be cut short
+    return {"rain_day_in": round(float(day.rain_in.sum()), 2) if covered else None,
+            "rain_near_tide_in": round(float(win.rain_in.sum()), 2) if len(win) else None,
+            "rain_chance_pct": int(day.rain_chance_pct.max()) if len(day) else None,
+            # [local hour ISO, inches, chance %] for the details view
+            "rain_hourly": [[t.isoformat(), round(float(r.rain_in), 3), int(r.rain_chance_pct)] for t, r in day.iterrows()]}
 
 
 def nws_surf_by_date(snapshot: Path) -> dict[str, str]:
@@ -149,6 +174,7 @@ def forecast_json(snapshot: Path) -> dict:
 
     issued = pd.Timestamp(meta["issued_at_utc"]).tz_convert(LOCAL_TZ)
     nws_surf = nws_surf_by_date(snapshot)
+    rain = rain_forecast(snapshot)
     days = sorted(d for d in set(bay.index.date) if d >= issued.date())[:4]
     areas_out = []
     for name in curves["areas"]:
@@ -168,9 +194,12 @@ def forecast_json(snapshot: Path) -> dict:
             worst_wave_time = tdp.loc[tdp.margin_ft.idxmin(), "local"] if len(tdp) else None
             cause = head["cause"]
             worst = worst_wave_time if cause == "ocean" and worst_wave_time is not None else bay_time
+            r = rain_for_day(rain, d, bay_time)
+            risk, ponding = with_rain(head["risk"], r["rain_near_tide_in"], head["drain_buildings"])
+            risk_fail, _ = with_rain(head["risk_if_berm_fails"], r["rain_near_tide_in"], head["drain_buildings"])
             day_rows.append({
-                "date": str(d), "risk": head["risk"], "could_reach": LEVELS[upper],
-                "risk_if_berm_fails": head["risk_if_berm_fails"], "cause": cause,
+                "date": str(d), "risk": risk, "could_reach": max(LEVELS[upper], risk, key=LEVELS.index),
+                "risk_if_berm_fails": risk_fail, "cause": cause, "rain_ponding": ponding, **r,
                 "worst_time": worst.isoformat() if worst is not None else None,
                 "bay_peak_ft": round(bay_peak, 2), "bay_peak_time": bay_time.isoformat(),
                 "berm_overtopped": head["berm_overtopped"],

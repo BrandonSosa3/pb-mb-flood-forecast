@@ -301,6 +301,12 @@ function Technical({ updated }: { updated?: string }) {
         <Term t="Risk levels">Each area takes the worse of its bay and ocean sides. Bay: Minor from 3 properties reached, 0.1 mile of bayside path
           or 25 below the water (storm drains); Moderate from 25 reached or ¼ mile of road; Major from 200 reached or 1 mile.
           Ocean: Minor if waves reach the top at 1 spot; Moderate at 5, or water over at 1; Major if over at 3.</Term>
+        <Term t="Rain">Storm drains in these neighborhoods empty into Mission Bay and the ocean; near high tide their outlets
+          are underwater, so rain can't drain and ponds in low streets. Rule: at least 0.25 in of rain (NWS hourly forecast)
+          within 3 hours of the day's highest tide, where 10+ properties sit on ground below the water, raises the rating
+          one level (at most to Moderate). Since 2000 that happened about once a year at the San Diego airport gauge,
+          including the record storm of Jan 22, 2024. Rain flooding away from the coast (hillsides, canyons) isn't
+          modeled yet.</Term>
         <Term t="Not the same as sea-level-rise maps">USGS CoSMoS and NOAA's viewer show long-term sea level rise
           (decades). This forecasts the next few days, with this winter's real tide, extra water and waves.</Term>
         <Term t="Data">NOAA CO-OPS (tide gauges 9410230 La Jolla, 9410170 San Diego, 9410196 Mission Bay predictions);

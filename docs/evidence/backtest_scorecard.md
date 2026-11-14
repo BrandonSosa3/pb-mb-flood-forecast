@@ -73,6 +73,16 @@ Lessons:
 - Whether a sand berm breaches can't be forecast from water levels alone; that's why it's shown as
   a scenario, not hidden.
 
+## Rain rule (added 2026-11-14)
+Rule: ≥ 0.25 in of rain within 3 h of the day's highest tide, with 10+ properties below the water →
+rating up one level (max Moderate). History check (`rain_near_high_tide.md`): fires ~1.1 times a
+year since 2000 (32 days), including Jan 22, 2024 (2.35 in near a 6.3 ft tide; Pacific Beach water
+rescues from stuck cars: https://timesofsandiego.com/life/2024/01/22/widespread-heavy-rain-prompts-flash-flood-warning-for-coast-and-valleys/,
+https://www.axios.com/local/san-diego/2024/01/23/historic-rain-flood-sd). Mechanism: the City closes
+Mission Beach storm drains before high tide because they empty into the ocean
+(https://www.10news.com/news/local-news/mission-beach-flooding-king-tides-flood-alleyway-and-underground-parking).
+Not yet checked street by street for the other 31 days.
+
 ## Still to add
 - Feb 2023 and other king-tide days (bay side), more near-miss days with no flooding.
 - NWS Local Storm Reports as an independent, location-specific source.

@@ -69,3 +69,10 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
   reports only; pressure in hPa).
 - **Why:** rain during a high tide can't drain (storm-drain outlets are underwater), and
   strong onshore wind pushes water up. First logged 2026-11-14; public domain (NWS).
+
+## Hourly rain history, San Diego airport (rain rule check)
+- Iowa Environmental Mesonet ASOS archive, station KSAN, routine hourly METAR precipitation
+  (p01i, inches; trace counted as 0), 2000-01-01 to 2026-11-14. Downloaded 2026-11-14 by
+  `pipeline/rain_history.py` -> `data/processed/hourly_rain_KSAN.csv.gz` (wet hours only) + meta.
+  https://mesonet.agron.iastate.edu/request/download.phtml
+- Used to check how often the rain-near-high-tide rule fires (docs/evidence/rain_near_high_tide.md).

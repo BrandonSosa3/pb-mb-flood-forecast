@@ -29,6 +29,8 @@ export function Home({ forecast }: { forecast: Forecast }) {
         if (!day) return null;
         const extra: string[] = [];
         if (day.risk !== "Low") extra.push(`Worst: ${dayLabel(day.date)} around ${timeLabel(day.worst_time ?? day.bay_peak_time)}`);
+        const wet = upcoming(area.days).find((d) => d.rain_ponding);
+        if (wet && wet !== day) extra.push(`Rain ${dayLabel(wet.date)} during high tide: low streets may pond`);
         if (riskIndex(day.could_reach) > riskIndex(day.risk)) extra.push(`Could reach ${day.could_reach}`);
         else if (riskIndex(day.risk_if_berm_fails) > riskIndex(day.risk)) extra.push(`${day.risk_if_berm_fails} if the bay berm fails`);
         return (

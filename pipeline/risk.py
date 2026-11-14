@@ -37,6 +37,11 @@ LEVELS = ["Low", "Minor", "Moderate", "Major"]
 # Properties lower than the water but walled off (berm / high ground): water can
 # still come up through storm drains. This many or more -> at least Minor.
 DRAIN_MINOR = 25
+# Rain rule: drain outlets are underwater near high tide, so rain ponds in low streets.
+# Fires ~1x a year since 2000 (docs/evidence/rain_near_high_tide.md), incl. Jan 22, 2024.
+RAIN_NEAR_TIDE_IN = 0.25   # inches within RAIN_WINDOW_H hours of the day's highest tide
+RAIN_WINDOW_H = 3
+RAIN_MIN_PROPERTIES = 10   # properties on ground below the water (storm-drain count)
 BERM_TOP_MLLW_FT = 9.0  # must match flood_threshold.py
 MISSION_BAY, LA_JOLLA = "9410196", "9410230"
 
@@ -90,6 +95,15 @@ def area_status(name: str, curves: dict, bay_level: float, ocean_margins: pd.Ser
             "risk_if_berm_fails": LEVELS[level_fail], "berm_overtopped": not berm_holds,
             "bay_level_ft": round(bay_level, 2), **bf, **of,
             "buildings_if_berm_fails": bf_fail["buildings"], "road_mi_if_berm_fails": bf_fail["road_mi"]}
+
+
+def with_rain(level: str, rain_near_tide_in: float | None, drain_properties: int) -> tuple[str, bool]:
+    """Raise a rating one step (at most to Moderate) when enough rain falls near high tide in an
+    area with homes on ground below the water. Returns (level, rain_ponding)."""
+    if rain_near_tide_in is None or rain_near_tide_in < RAIN_NEAR_TIDE_IN or drain_properties < RAIN_MIN_PROPERTIES:
+        return level, False
+    i = LEVELS.index(level)
+    return LEVELS[max(i, min(i + 1, LEVELS.index("Moderate")))], True
 
 
 def mission_bay_still_water(start: date, end: date) -> pd.Series:

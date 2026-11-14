@@ -35,6 +35,14 @@ export interface ForecastDay {
   surf_ft?: [number, number] | null;
   /** NWS Surf Zone Forecast text for San Diego County beaches, when it covers this day. */
   nws_surf?: string | null;
+  /** Rain (NWS hourly forecast): whole day, and within 3 h of the day's highest tide. null = no forecast. */
+  rain_day_in?: number | null;
+  rain_near_tide_in?: number | null;
+  rain_chance_pct?: number | null;
+  /** [local hour ISO, inches, chance %] */
+  rain_hourly?: [string, number, number][];
+  /** Rain near high tide raised the rating (drains can't empty). */
+  rain_ponding?: boolean;
   places_to_watch: PlaceToWatch[];
   /** Every beach stretch's closest call: [ft below the boardwalk top (negative = over), local time]. */
   stretches?: Record<string, [number, string]>;
@@ -114,6 +122,7 @@ export function updatedLabel(iso: string): string {
 export function summary(day: ForecastDay): string {
   if (day.risk === "Low") return "No flooding expected.";
   const parts: string[] = [];
+  // Rain alone can raise a rating: then the tide/wave cause may be "none".
   const ocean = day.cause === "ocean" || day.cause === "both";
   const bay = day.cause === "bay" || day.cause === "both";
   if (ocean) {
@@ -126,7 +135,13 @@ export function summary(day: ForecastDay): string {
     else if (day.properties_below_water >= 25) parts.push("High bay tide: storm drains may back up into low streets.");
     else parts.push("Bay water may cover parts of the bayside paths.");
   }
+  if (day.rain_ponding) parts.push("Rain during high tide: low streets may pond.");
   return parts.join(" ");
+}
+
+/** Rain amount as people say it. */
+export function rainText(inches: number): string {
+  return inches < 0.01 ? "Dry" : inches < 0.1 ? `${inches.toFixed(2)} in` : `${inches.toFixed(1)} in`;
 }
 
 export const NWS_URL = "https://www.weather.gov/sgx/";
