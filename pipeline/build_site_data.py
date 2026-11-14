@@ -87,6 +87,38 @@ def places_to_watch(twl: pd.DataFrame, profiles: pd.DataFrame, points: list[str]
     return out
 
 
+def nws_surf_by_date(snapshot: Path) -> dict[str, str]:
+    """NWS Surf Zone Forecast text per local date ("Today"/"Tonight" = issue date, "Sunday" = the
+    next Sunday on or after it). Empty for snapshots saved before surf.json existed."""
+    f = snapshot / "surf.json"
+    if not f.exists():
+        return {}
+    srf = json.loads(f.read_text())
+    issued = pd.Timestamp(srf["issued_utc"]).tz_convert(LOCAL_TZ).date()
+    out = {}
+    for d in srf["days"]:
+        label = d["label"].split()[0].lower()
+        if label in ("today", "tonight", "this"):
+            day = issued
+        else:
+            names = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+            if label not in names:
+                continue
+            day = issued + pd.Timedelta(days=(names.index(label) - issued.weekday()) % 7)
+        out.setdefault(str(day), d["surf"].rstrip("."))
+    return out
+
+
+def surf_range(t: pd.DataFrame) -> list[float] | None:
+    """Surf size along an area's beach for one day: each stretch's biggest breaking-wave estimate,
+    then [typical stretch (median), biggest stretch]. Uses the average of the two wave models
+    (a size readout, so no cautious "higher model" choice here)."""
+    if t.empty:
+        return None
+    m = t.groupby("point").surf_ft.max()
+    return [round(float(m.median())), round(float(m.max()))]
+
+
 def stretch_worst(t: pd.DataFrame) -> dict[str, list]:
     """Every beach stretch's closest call of the day: [ft below the boardwalk/ridge top
     (negative = over), local time], for the search card's "waves near you" line."""
@@ -109,8 +141,14 @@ def forecast_json(snapshot: Path) -> dict:
         t = total_water_level(waves, still, profiles_ok)
         t["local"] = t.time_utc.dt.tz_convert(LOCAL_TZ)
         twl[model] = t
+    # Cautious choice (Nov 14, 2026 wave check: the NOAA-driven model ran ~15-20% low): for every
+    # stretch and hour, use whichever model puts the water higher.
+    both = pd.concat(twl.values(), ignore_index=True)
+    twl["higher"] = both.loc[both.groupby(["time_utc", "point"]).twl_ft.idxmax()].reset_index(drop=True)
+    surf = both.groupby(["time_utc", "point"], as_index=False).agg(surf_ft=("surf_ft", "mean"), local=("local", "first"))
 
     issued = pd.Timestamp(meta["issued_at_utc"]).tz_convert(LOCAL_TZ)
+    nws_surf = nws_surf_by_date(snapshot)
     days = sorted(d for d in set(bay.index.date) if d >= issued.date())[:4]
     areas_out = []
     for name in curves["areas"]:
@@ -119,12 +157,12 @@ def forecast_json(snapshot: Path) -> dict:
             b = bay[bay.index.date == d]
             bay_peak, bay_time = float(b.max()), b.idxmax()
             per_model = {}
-            for model, t in twl.items():
+            for model, t in twl.items():  # includes "higher" (the headline)
                 td = t[t.local.dt.date == d]
                 margins = td.groupby("point").margin_ft.min() if len(td) else None
                 per_model[model] = (area_status(name, curves, bay_peak, margins), td)
-            head, td = per_model["forecast"]
-            upper = max((LEVELS.index(s["risk"]) for s, _ in per_model.values()))
+            head, td = per_model["higher"]
+            upper = max((LEVELS.index(s["risk"]) for s, _ in per_model.values()))  # = headline now
             pts = curves["areas"][name]["beach_points"]
             tdp = td[td.point.isin(pts)]
             worst_wave_time = tdp.loc[tdp.margin_ft.idxmin(), "local"] if len(tdp) else None
@@ -144,6 +182,9 @@ def forecast_json(snapshot: Path) -> dict:
                 "stretches_reach_top_upper": max(s.get("stretches_reach_top") or 0 for s, _ in per_model.values()),
                 "wave_height_ft": [round(float(tdp.wave_height_ft.min()), 1), round(float(tdp.wave_height_ft.max()), 1)] if len(tdp) else None,
                 "wave_period_s": [round(float(tdp.period_s.min())), round(float(tdp.period_s.max()))] if len(tdp) else None,
+                # Surf size: each stretch's biggest breaking-wave estimate of the day, smallest-biggest stretch.
+                "surf_ft": surf_range(surf[(surf.local.dt.date == d) & surf.point.isin(pts)]),
+                "nws_surf": nws_surf.get(str(d)) if pts else None,
                 "places_to_watch": places_to_watch(td[td.local.dt.date == d], profiles, pts) if pts else [],
                 "stretches": stretch_worst(tdp),
             })
@@ -157,6 +198,7 @@ def forecast_json(snapshot: Path) -> dict:
         "extra_water_ft": tides.get("9410230", {}).get("extra_water_25h_ft"),
         "nws_alerts": json.loads((snapshot / "alerts.json").read_text()) if (snapshot / "alerts.json").exists() else [],
         "wave_models": MODELS,
+        "wave_rule": "higher of the two models, per stretch and hour (since 2026-11-14)",
         "areas": areas_out,
         "notes": {
             "heights": "feet above MLLW (an ordinary low tide), NOAA La Jolla datums",

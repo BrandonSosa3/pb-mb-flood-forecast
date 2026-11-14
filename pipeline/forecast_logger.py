@@ -14,6 +14,7 @@ What it saves, in forecast_log/YYYY/MM/<issued>Z/:
   weather.csv.gz NWS hourly forecast for Mission Beach (next 4 days): rain amount,
                  chance of rain, wind and gusts. Rain during a high tide can't drain
                  (storm-drain outlets are underwater), and onshore wind pushes water up.
+  surf.json      NWS Surf Zone Forecast for San Diego County beaches (surf height text per day).
   weather_obs.csv.gz  What the San Diego airport weather station (KSAN) measured over
                  the last 2 days, to check the weather forecast against later.
   meta.json      When it ran, data sources and their issue times, current
@@ -30,6 +31,7 @@ Usage:
 from __future__ import annotations
 
 import json
+import re
 import sys
 import traceback
 import warnings
@@ -78,6 +80,8 @@ GRID_VARS = {  # NWS name: (our column, conversion from NWS units, how to spread
     "windGust": ("gust_mph", 0.621371, "repeat"),
     "windDirection": ("wind_from_deg", 1, "repeat"),                 # direction wind comes FROM
 }
+NWS_SRF_URL = "https://api.weather.gov/products/types/SRF/locations/SGX"  # Surf Zone Forecast
+SRF_ZONE = "CAZ043"  # San Diego County Coastal Areas
 # NWS asks every client to identify itself; generic name, no personal info.
 HTTP_HEADERS = {"User-Agent": "coastal-flood-forecast-research (github.com)"}
 
@@ -216,6 +220,25 @@ def log_weather(now: datetime) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     return fc.round(3), obs.round(3), summary
 
 
+def log_surf() -> dict:
+    """Latest NWS Surf Zone Forecast: surf height text for each day it covers (San Diego County)."""
+    r = requests.get(NWS_SRF_URL, headers=HTTP_HEADERS, timeout=30)
+    r.raise_for_status()
+    latest = r.json()["@graph"][0]
+    r = requests.get(latest["@id"], headers=HTTP_HEADERS, timeout=30)
+    r.raise_for_status()
+    text = r.json()["productText"]
+    block = next(b for b in text.split("$$") if SRF_ZONE in b)
+    days = []
+    # Each day starts with a line like ".TODAY..." or ".SUNDAY..."; "Surf Height....." may wrap onto
+    # indented continuation lines.
+    for m in re.finditer(r"^\.([A-Z ]+)\.\.\.\s*$(.*?)(?=^\.[A-Z]|^&&)", block, re.M | re.S):
+        h = re.search(r"Surf Height\.+(.*?)\n(?! {10,})", m.group(2), re.S)
+        if h:
+            days.append({"label": m.group(1).strip().title(), "surf": " ".join(h.group(1).split())})
+    return {"issued_utc": latest["issuanceTime"], "zone": SRF_ZONE, "product_url": latest["@id"], "days": days}
+
+
 def main() -> int:
     now = datetime.now(timezone.utc).replace(second=0, microsecond=0)
     run_dir = LOG_DIR / f"{now:%Y}" / f"{now:%m}" / f"{now:%Y-%m-%dT%H%M}Z"
@@ -262,6 +285,12 @@ def main() -> int:
         meta["sources"]["weather"] = {"forecast": NWS_GRID_URL, "observed": NWS_OBS_URL + " (San Diego airport)",
                                       "units": "inches, mph, hPa; rain totals split evenly over each NWS time span"}
 
+    print("NWS surf forecast ...")
+    surf = attempt("surf", log_surf)
+    if surf:
+        (run_dir / "surf.json").write_text(json.dumps(surf, indent=2))
+        meta["sources"]["surf"] = NWS_SRF_URL + f" (zone {SRF_ZONE})"
+
     (run_dir / "meta.json").write_text(json.dumps(meta, indent=2))
 
     # Short human-readable summary.
@@ -284,7 +313,7 @@ def main() -> int:
         print(f"  Weather next 4 days: {w['rain_next_4_days_in']:.2f} in of rain "
               f"(highest chance {w['max_rain_chance_pct']}%), strongest gust {w['max_gust_mph']} mph")
 
-    if len(meta["errors"]) == 4:
+    if len(meta["errors"]) == 5:
         return 1  # nothing worked - make the scheduled run show as failed
     return 0
 

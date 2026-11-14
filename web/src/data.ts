@@ -31,6 +31,10 @@ export interface ForecastDay {
   stretches_reach_top_upper: number;
   wave_height_ft: [number, number] | null;
   wave_period_s: [number, number] | null;
+  /** Estimated set size as waves break: [typical stretch, biggest stretch], feet. */
+  surf_ft?: [number, number] | null;
+  /** NWS Surf Zone Forecast text for San Diego County beaches, when it covers this day. */
+  nws_surf?: string | null;
   places_to_watch: PlaceToWatch[];
   /** Every beach stretch's closest call: [ft below the boardwalk top (negative = over), local time]. */
   stretches?: Record<string, [number, string]>;

@@ -78,6 +78,13 @@ def stockdon_r2(H0: np.ndarray, T: np.ndarray, slope: np.ndarray) -> np.ndarray:
     return np.where(iribarren < 0.3, 0.043 * HL, r2)
 
 
+def breaking_height(H0: np.ndarray, T: np.ndarray) -> np.ndarray:
+    """Height of the waves as they break (what surfers call the wave size, roughly the face):
+    Komar & Gaylord (1972), Hb = 0.39 g^(1/5) (T H0^2)^(2/5). For display only, not used in
+    run-up. Tends to read high for very long-period swell (20 s+)."""
+    return 0.39 * G**0.2 * (T * H0**2) ** 0.4
+
+
 # ---------- inputs ----------
 
 def waves_archive(points: list[str], start: pd.Timestamp, end: pd.Timestamp) -> pd.DataFrame:
@@ -130,7 +137,8 @@ def total_water_level(waves: pd.DataFrame, still: pd.Series, profiles: pd.DataFr
         r2_ft = stockdon_r2(H0, w.peak_period_s.to_numpy(), prof.beach_slope) * M_TO_FT
         rows.append(pd.DataFrame({
             "time_utc": hours, "point": point, "wave_height_ft": w.wave_height_m.to_numpy() * M_TO_FT,
-            "period_s": w.peak_period_s.to_numpy(), "still_water_ft": sw.to_numpy(), "runup_ft": r2_ft,
+            "period_s": w.peak_period_s.to_numpy(),
+            "surf_ft": breaking_height(H0, w.peak_period_s.to_numpy()) * M_TO_FT, "still_water_ft": sw.to_numpy(), "runup_ft": r2_ft,
             "twl_ft": sw.to_numpy() + r2_ft, "crest_ft": prof.crest_ft, "barrier": prof.barrier}))
     out = pd.concat(rows, ignore_index=True)
     out["margin_ft"] = out.crest_ft - out.twl_ft  # positive = water stays below the crest

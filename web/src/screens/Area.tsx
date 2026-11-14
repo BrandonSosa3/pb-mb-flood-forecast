@@ -8,6 +8,8 @@ function longDate(date: string) {
   return new Date(`${date}T12:00:00`).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
 }
 
+const surfText = ([a, b]: [number, number]) => (a === b ? `${a}` : `${a}–${b}`);
+
 export function Area({ forecast, areaSlug }: { forecast: Forecast; areaSlug: string }) {
   const area = forecast.areas.find((a) => slug(a.name) === areaSlug);
   const days = area ? upcoming(area.days).slice(0, 4) : [];
@@ -69,12 +71,14 @@ export function Area({ forecast, areaSlug }: { forecast: Forecast; areaSlug: str
           <Tile label="Extra water" value={forecast.extra_water_ft !== null ? `+${forecast.extra_water_ft.toFixed(1)} ft` : "—"}
             note="El Niño is holding the ocean higher than normal" />
           {hasBeach
-            ? <Tile label="Waves" value={`${Math.round(day.wave_height_ft![0])}–${Math.round(day.wave_height_ft![1])} ft`}
-                note={`Period ${day.wave_period_s![0]}–${day.wave_period_s![1]} s`} />
+            ? <Tile label="Surf" value={day.surf_ft ? `Sets ~${surfText(day.surf_ft)} ft` : `${Math.round(day.wave_height_ft![0])}–${Math.round(day.wave_height_ft![1])} ft`}
+                note={`Waves ${day.wave_period_s![0]}–${day.wave_period_s![1]} seconds apart`} />
             : <Tile label="Waves" value="—" note="Bay shore: no ocean waves" />}
         </div>
-        <p className="fine">Heights are feet above an ordinary low tide. Tide + extra water = how high Mission Bay
-          and the ocean sit; waves add run-up on the ocean beaches.</p>
+        {hasBeach && day.nws_surf && <p className="body-14">National Weather Service surf forecast: {day.nws_surf}.</p>}
+        <p className="fine">Tide and extra water are feet above an ordinary low tide. Surf is our estimate of the bigger
+          waves as they break. For flood risk we use the higher of two wave forecasts, because the lower one has
+          come in too small.</p>
       </section>
 
       {day.places_to_watch.length > 0 && (

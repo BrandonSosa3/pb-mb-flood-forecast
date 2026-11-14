@@ -109,8 +109,9 @@ export function About() {
           </Piece>
           <Piece title="Waves" source="Scripps CDIP wave forecasts">
             Scripps Institution of Oceanography's CDIP forecasts wave height, period (seconds between waves) and direction
-            every ~100 m along the coast. We use two versions, driven by NOAA's and by Europe's (ECMWF) weather models; when
-            they disagree, the app says "could reach".
+            every ~100 m along the coast. We use two versions, driven by NOAA's and by Europe's (ECMWF) weather models. We
+            check both against what really happened after every forecast; the NOAA-driven one has come in too small, so
+            for flood risk we use whichever is higher, stretch by stretch and hour by hour.
           </Piece>
           <Piece title="Ground height" source="USGS laser survey, Nov 2024">
             A plane scanned the ground with lasers (lidar), giving its height every 1 m (about 3 ft). That shows the height
@@ -284,7 +285,14 @@ function Technical({ updated }: { updated?: string }) {
         <Term t="Wave run-up (R2)">Stockdon et al. (2006): an empirical formula from wave height, wave period and beach
           slope that gives the height only the top 2% of waves reach. Wave heights come from CDIP MOP points at 10 m depth,
           converted back to deep water. Beach slope and boardwalk/ridge top are measured from the lidar at each of 53 points
-          about 100 m apart. "Reaches" = within 2 ft of the top; "over" = above it.</Term>
+          about 100 m apart. "Reaches" = within 2 ft of the top; "over" = above it. In practice "reaches" has meant water
+          on the boardwalk (Dec 2023, Nov 14 2026).</Term>
+        <Term t="Surf size">The breaking height of the bigger waves, from Komar &amp; Gaylord (1972): 0.39 g<sup>1/5</sup>(T H<sub>0</sub><sup>2</sup>)<sup>2/5</sup>,
+          using the average of the two wave models. A size readout only (flood risk uses run-up). Shown next to the NWS Surf
+          Zone Forecast, which is the official number; ours tends to match NWS's set size.</Term>
+        <Term t="Checking the wave forecasts">After every forecast, each saved wave forecast is compared with CDIP's
+          nowcast (the same model driven by measured buoys). First result (Nov 13–14, 2026): NOAA-driven about 85% of the
+          actual height, ECMWF-driven about 105%. Updated twice a day in the project's wave check.</Term>
         <Term t="Where bay water can go">For every 1 m cell, the lowest water level at which water from the bay can flow
           there without going over higher ground (a "connected" flood fill, using morphological reconstruction). Each
           building gets the lowest value within 2 m of it; streets are split into 25 m pieces.</Term>
@@ -297,7 +305,8 @@ function Technical({ updated }: { updated?: string }) {
           (decades). This forecasts the next few days, with this winter's real tide, extra water and waves.</Term>
         <Term t="Data">NOAA CO-OPS (tide gauges 9410230 La Jolla, 9410170 San Diego, 9410196 Mission Bay predictions);
           Scripps CDIP MOP forecasts (WaveWatch III and ECMWF), hindcast and nowcast; USGS 3DEP 1 m lidar
-          CA_SanDiegoCo_D24 (flown Nov 2024); OpenStreetMap buildings and streets (addresses removed); NWS alerts.
+          CA_SanDiegoCo_D24 (flown Nov 2024); OpenStreetMap buildings and streets (addresses removed); NWS alerts, Surf Zone
+          Forecast and hourly weather forecast.
           {updated && <> Tide history downloaded {updated}.</>} Forecast inputs refresh twice a day.</Term>
       </div>
     </details>
