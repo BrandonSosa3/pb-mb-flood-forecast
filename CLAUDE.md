@@ -155,8 +155,13 @@ available on demand.
   SpotCard with bay + nearby-waves lines).
 - Desktop layout done. Logger saves NWS rain/wind forecast + KSAN obs since 2026-11-14T1943Z
   (weather.csv.gz, weather_obs.csv.gz). Planned: rain+high tide -> storm-drain risk on site.
-- Next: wave check (verify_forecasts.py vs CDIP buoys, model bias), surfer's wave size line,
-  then rain on site; fill Nov 14 result, 3D view;
+- Nov 14 2026 live forecast scored: ocean MISSED (under-predicted; water on boardwalk at San Rafael /
+  Santa Rita / PB Dr 11-11:45am, eyewitness video stills in docs/evidence/media), bay right.
+- Wave check live (verify_forecasts.py -> docs/evidence/wave_check.md, runs in the workflow):
+  NOAA-driven ~85% of CDIP nowcast, ECMWF ~105%. Site now uses the HIGHER model per stretch/hour.
+  Surf tile = Komar-Gaylord set size (model average) + NWS Surf Zone Forecast (logged as surf.json).
+- Pending: recalibrate "reaches" (2 ft band = water on boardwalk in practice) once more days are
+  scored; rain on site; Instagram/news evidence for Nov 14; 3D view;
   verify_forecasts.py; more backtest days; fill Nov 14 prediction result.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed
