@@ -64,3 +64,12 @@ forecast snapshot. Not the focus of this prediction.
 **Bay side: RIGHT.** No bay water on the streets; the Bayside Walk berm held (eyewitness).
 
 Not used as evidence: commercial surf-cam images (project rule: no Surfline data or footage).
+
+### Photos (stills from Brandon Sosa's phone video, 11:15:45 am PST, boardwalk near Pacific Beach Dr ≈ D0397)
+People blurred; no GPS or other metadata in the stills. The original video stays offline.
+- ![Seawater foam on the boardwalk behind the wall, looking north to Crystal Pier](media/2026-11-14/1115am_water_on_boardwalk_looking_north.jpg)
+- ![Wet boardwalk behind the wall](media/2026-11-14/1116am_boardwalk_wet_behind_wall.jpg)
+- ![Large sets breaking; temporary sand berm in front of the wall](media/2026-11-14/1116am_surf_and_sand_berm.jpg)
+
+Note: temporary sand berms had been pushed up on the beach in front of the wall. They are not in
+the 2024 lidar, and they block some run-up, so the model's "crest" here may differ day to day.
