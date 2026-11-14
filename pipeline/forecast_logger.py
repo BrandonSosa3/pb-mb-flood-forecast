@@ -11,6 +11,11 @@ What it saves, in forecast_log/YYYY/MM/<issued>Z/:
   waves.csv.gz   CDIP MOP wave forecast (every 3 h, next 4 days) at ~66 points
                  along Mission Beach + Pacific Beach, from two models.
   alerts.json    Active National Weather Service alerts for the San Diego coast.
+  weather.csv.gz NWS hourly forecast for Mission Beach (next 4 days): rain amount,
+                 chance of rain, wind and gusts. Rain during a high tide can't drain
+                 (storm-drain outlets are underwater), and onshore wind pushes water up.
+  weather_obs.csv.gz  What the San Diego airport weather station (KSAN) measured over
+                 the last 2 days, to check the weather forecast against later.
   meta.json      When it ran, data sources and their issue times, current
                  extra water, and any errors.
 
@@ -62,6 +67,17 @@ WAVE_VARS = {
 }
 
 NWS_ALERTS_URL = "https://api.weather.gov/alerts/active?zone=CAZ043"  # San Diego County Coastal Areas
+# NWS hourly forecast grid cell that covers Mission Beach / south Pacific Beach
+# (from api.weather.gov/points/32.78,-117.252 -> office SGX, cell 54,17).
+NWS_GRID_URL = "https://api.weather.gov/gridpoints/SGX/54,17"
+NWS_OBS_URL = "https://api.weather.gov/stations/KSAN/observations"  # San Diego airport, ~5 km SE
+GRID_VARS = {  # NWS name: (our column, conversion from NWS units, how to spread over its time span)
+    "quantitativePrecipitation": ("rain_in", 1 / 25.4, "split"),     # mm per span -> inches per hour
+    "probabilityOfPrecipitation": ("rain_chance_pct", 1, "repeat"),
+    "windSpeed": ("wind_mph", 0.621371, "repeat"),                  # km/h -> mph
+    "windGust": ("gust_mph", 0.621371, "repeat"),
+    "windDirection": ("wind_from_deg", 1, "repeat"),                 # direction wind comes FROM
+}
 # NWS asks every client to identify itself; generic name, no personal info.
 HTTP_HEADERS = {"User-Agent": "coastal-flood-forecast-research (github.com)"}
 
@@ -153,6 +169,53 @@ def log_alerts() -> list[dict]:
     return [{k: f["properties"].get(k) for k in keep} for f in response.json()["features"]]
 
 
+def hourly(values: list[dict], scale: float, how: str) -> pd.Series:
+    """NWS grid values come as "start/duration" spans (e.g. 6 hours of rain). Turn them into one
+    value per hour: rain totals are split evenly across the span, everything else repeats."""
+    out = {}
+    for v in values:
+        if v["value"] is None:
+            continue
+        start, span = v["validTime"].split("/")
+        hours = max(1, round(pd.Timedelta(span).total_seconds() / 3600))
+        value = v["value"] * scale / (hours if how == "split" else 1)
+        for t in pd.date_range(pd.Timestamp(start), periods=hours, freq="h"):
+            out[t] = value
+    return pd.Series(out, dtype=float)
+
+
+def log_weather(now: datetime) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
+    """NWS hourly forecast for Mission Beach + last 2 days measured at the airport."""
+    r = requests.get(NWS_GRID_URL, headers=HTTP_HEADERS, timeout=30)
+    r.raise_for_status()
+    grid = r.json()["properties"]
+    cols = {col: hourly(grid[name]["values"], scale, how) for name, (col, scale, how) in GRID_VARS.items()}
+    fc = pd.DataFrame(cols)
+    fc = fc[(fc.index >= pd.Timestamp(now).floor("h")) & (fc.index <= pd.Timestamp(now + HORIZON))]
+    fc.index.name = "time_utc"
+
+    r = requests.get(NWS_OBS_URL, headers=HTTP_HEADERS, timeout=30,
+                     params={"start": (now - timedelta(days=2)).isoformat()})
+    r.raise_for_status()
+    rows = []
+    for f in r.json()["features"]:
+        p = f["properties"]
+        val = lambda k: (p.get(k) or {}).get("value")  # missing or null -> None
+        rows.append({"time_utc": pd.Timestamp(p["timestamp"]),
+                     "rain_last_hour_in": None if val("precipitationLastHour") is None else val("precipitationLastHour") / 25.4,
+                     "pressure_hpa": None if val("barometricPressure") is None else val("barometricPressure") / 100,
+                     "wind_mph": None if val("windSpeed") is None else val("windSpeed") * 0.621371,
+                     "gust_mph": None if val("windGust") is None else val("windGust") * 0.621371,
+                     "wind_from_deg": val("windDirection"), "sky": p.get("textDescription")})
+    obs = pd.DataFrame(rows).set_index("time_utc").sort_index()
+
+    summary = {"grid_updated_utc": grid.get("updateTime"),
+               "rain_next_4_days_in": round(float(fc["rain_in"].sum()), 2),
+               "max_rain_chance_pct": None if fc["rain_chance_pct"].isna().all() else int(fc["rain_chance_pct"].max()),
+               "max_gust_mph": None if fc["gust_mph"].isna().all() else round(float(fc["gust_mph"].max()), 1)}
+    return fc.round(3), obs.round(3), summary
+
+
 def main() -> int:
     now = datetime.now(timezone.utc).replace(second=0, microsecond=0)
     run_dir = LOG_DIR / f"{now:%Y}" / f"{now:%m}" / f"{now:%Y-%m-%dT%H%M}Z"
@@ -190,6 +253,15 @@ def main() -> int:
         meta["active_alerts"] = [a["event"] for a in alerts]
         meta["sources"]["alerts"] = NWS_ALERTS_URL
 
+    print("Weather ...")
+    weather = attempt("weather", lambda: log_weather(now))
+    if weather:
+        weather[0].to_csv(run_dir / "weather.csv.gz")
+        weather[1].to_csv(run_dir / "weather_obs.csv.gz")
+        meta["weather"] = weather[2]
+        meta["sources"]["weather"] = {"forecast": NWS_GRID_URL, "observed": NWS_OBS_URL + " (San Diego airport)",
+                                      "units": "inches, mph, hPa; rain totals split evenly over each NWS time span"}
+
     (run_dir / "meta.json").write_text(json.dumps(meta, indent=2))
 
     # Short human-readable summary.
@@ -207,8 +279,12 @@ def main() -> int:
             print(f"  Biggest waves next 4 days ({model}): {biggest['wave_height_m'] * 3.281:.1f} ft, "
                   f"{biggest['peak_period_s']:.0f} s period at {biggest['point']}, {local:%a %-I %p}")
     print(f"  NWS alerts: {', '.join(meta.get('active_alerts', [])) or 'none'}")
+    if weather:
+        w = weather[2]
+        print(f"  Weather next 4 days: {w['rain_next_4_days_in']:.2f} in of rain "
+              f"(highest chance {w['max_rain_chance_pct']}%), strongest gust {w['max_gust_mph']} mph")
 
-    if len(meta["errors"]) == 3:
+    if len(meta["errors"]) == 4:
         return 1  # nothing worked - make the scheduled run show as failed
     return 0
 

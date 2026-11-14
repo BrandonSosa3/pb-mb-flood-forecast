@@ -58,3 +58,14 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
 - Downloaded 2026-11-14 by `pipeline/search_index.py` (8,049 addresses inside the three areas).
 - Privacy: only house number + street + location kept; used for the search box, never drawn on the map.
 - Output: `web/public/data/search.json` (+ `data/processed/search_index.meta.json`).
+
+## NWS weather forecast + airport observations (forecast logger, from 2026-11-14)
+- **Forecast:** National Weather Service hourly forecast grid, office SGX cell 54,17
+  (covers Mission Beach / south Pacific Beach): https://api.weather.gov/gridpoints/SGX/54,17
+  Saved every logger run (next 4 days): rain amount (in/hour; NWS gives totals per
+  multi-hour span, split evenly), chance of rain, wind, gusts, wind direction.
+- **Observed:** San Diego airport station KSAN, last 2 days each run:
+  https://api.weather.gov/stations/KSAN/observations (rain is reported on the hourly
+  reports only; pressure in hPa).
+- **Why:** rain during a high tide can't drain (storm-drain outlets are underwater), and
+  strong onshore wind pushes water up. First logged 2026-11-14; public domain (NWS).
