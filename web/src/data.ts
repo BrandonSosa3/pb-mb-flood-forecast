@@ -124,3 +124,36 @@ export function summary(day: ForecastDay): string {
 }
 
 export const NWS_URL = "https://www.weather.gov/sgx/";
+
+// ---------- slider counts (area_curves.json) ----------
+
+export interface AreaCurve {
+  buildings: number[]; drain_buildings: number[]; road_mi: number[]; walk_mi: number[];
+  buildings_berm: number[]; drain_buildings_berm: number[]; road_mi_berm: number[]; walk_mi_berm: number[];
+}
+export interface Curves { levels_ft_mllw: number[]; areas: Record<string, AreaCurve> }
+
+export async function loadCurves(): Promise<Curves> {
+  const res = await fetch("/data/area_curves.json");
+  if (!res.ok) throw new Error(`area_curves.json: ${res.status}`);
+  return res.json();
+}
+
+export const BERM_TOP_FT = 9.0; // must match pipeline/risk.py (an estimate)
+
+/** Totals over all areas at a water level. Above the berm top the berm no longer matters. */
+export function countsAt(curves: Curves, level: number, bermHolds: boolean) {
+  const lv = curves.levels_ft_mllw;
+  let i = lv.findIndex((x) => x > level + 1e-6) - 1;
+  if (i < -1) i = lv.length - 1;
+  const useBerm = bermHolds && level < BERM_TOP_FT;
+  const total = { reached: 0, belowWater: 0, roadMi: 0, walkMi: 0 };
+  if (i < 0) return { ...total, useBerm };
+  for (const a of Object.values(curves.areas)) {
+    total.reached += useBerm ? a.buildings_berm[i] : a.buildings[i];
+    total.belowWater += useBerm ? a.drain_buildings_berm[i] : a.drain_buildings[i];
+    total.roadMi += useBerm ? a.road_mi_berm[i] : a.road_mi[i];
+    total.walkMi += useBerm ? a.walk_mi_berm[i] : a.walk_mi[i];
+  }
+  return { ...total, useBerm };
+}

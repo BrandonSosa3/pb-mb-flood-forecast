@@ -33,6 +33,7 @@ from shapely.geometry import Point
 
 from forecast_logger import LOG_DIR
 from noaa_tides import PROCESSED_DIR, PROJECT_ROOT, fetch_noaa, to_frame
+from areas import ROUTINELY_WET_FT
 from risk import LEVELS, MISSION_BAY, area_status, load_curves
 from runup import from_snapshot, total_water_level
 
@@ -154,10 +155,11 @@ def forecast_json(snapshot: Path) -> dict:
 def trimmed_assets() -> tuple[gpd.GeoDataFrame, gpd.GeoDataFrame]:
     b = gpd.read_file(PROCESSED_DIR / "buildings_danger.geojson")
     b = b[np.fmin(b.danger_bay_ft.fillna(99), b.danger_ocean_ft.fillna(99)) <= MAX_LEVEL_FT]
+    b = b[~(b.danger_bay_ft <= ROUTINELY_WET_FT)]  # wet on ordinary high tides; left out of counts too
     b = b[["danger_bay_ft", "danger_bay_berm_ft", "ground_min_ft", "geometry"]].rename(
         columns={"danger_bay_ft": "d", "danger_bay_berm_ft": "db", "ground_min_ft": "g"})
     s = gpd.read_file(PROCESSED_DIR / "street_pieces_danger.geojson")
-    s = s[s.danger_bay_ft.fillna(99) <= MAX_LEVEL_FT]
+    s = s[(s.danger_bay_ft.fillna(99) <= MAX_LEVEL_FT) & ~(s.danger_bay_ft <= ROUTINELY_WET_FT)]
     s = s[["name", "kind", "danger_bay_ft", "covered_bay_ft", "danger_bay_berm_ft", "covered_bay_berm_ft",
            "ground_min_ft", "geometry"]].rename(columns={
         "danger_bay_ft": "d", "covered_bay_ft": "c", "danger_bay_berm_ft": "db", "covered_bay_berm_ft": "cb",

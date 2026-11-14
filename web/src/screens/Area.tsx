@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { StatusPill } from "../components/StatusPill";
 import {
-  type Forecast, type ForecastDay, dayLabel, headlineDay, riskIndex, slug, summary, timeLabel, upcoming,
+  BERM_TOP_FT, type Forecast, type ForecastDay, dayLabel, headlineDay, riskIndex, slug, summary, timeLabel, upcoming,
 } from "../data";
-
-const BERM_TOP_FT = 9.0; // must match pipeline/risk.py (an estimate)
 
 function longDate(date: string) {
   return new Date(`${date}T12:00:00`).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
