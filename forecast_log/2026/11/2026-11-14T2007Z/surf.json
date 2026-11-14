@@ -1,0 +1,15 @@
+{
+  "issued_utc": "2026-11-14T08:40:00+00:00",
+  "zone": "CAZ043",
+  "product_url": "https://api.weather.gov/products/aba4a70e-807d-4350-9621-cc9424edd77c",
+  "days": [
+    {
+      "label": "Today",
+      "surf": "6 to 8 feet, with sets to 10 feet south of Del Mar."
+    },
+    {
+      "label": "Sunday",
+      "surf": "5 to 8 feet with locally higher sets."
+    }
+  ]
+}
