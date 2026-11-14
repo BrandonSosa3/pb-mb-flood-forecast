@@ -139,8 +139,12 @@ available on demand.
   (docs/evidence/backtest_scorecard.md): Jan 6 2023 + Dec 2023 hits, Jan 4 2024
   + Oct 2026 correct no's. Model under-states extent: "reaches" = water on
   boardwalk in practice. Logged prediction for Sat Nov 14 2026 (fill result).
-- Next: area breakdown for home screen; berm option; verify_forecasts.py;
-  more backtest days (Feb 2023, king tides, NWS storm reports).
+- Areas + risk (pipeline/areas.py, risk.py): Mission Beach / Pacific Beach /
+  Crown Point; Low/Minor/Moderate/Major = worse of bay (properties, road) and
+  ocean (stretches reaching/over top). Scale is a PROPOSAL awaiting Brandon's OK.
+  Logger now also logs Mission Bay (9410196 predictions + La Jolla extra).
+- Next: Brandon to approve risk scale; then berm option, then screen design
+  (sketch first), verify_forecasts.py, more backtest days.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed
   water levels for San Diego 9410170 for the past month and computes the

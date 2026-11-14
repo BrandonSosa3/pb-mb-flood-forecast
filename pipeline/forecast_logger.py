@@ -40,7 +40,11 @@ LOG_DIR = PROJECT_ROOT / "forecast_log"
 HORIZON = timedelta(days=4)
 
 # Which gauge represents which side of our study area.
-TIDE_STATIONS = {"9410230": "ocean", "9410170": "bay"}
+# Gauges with live measurements. 9410170 (San Diego Bay) is kept as a reference;
+# its side label was "bay" in snapshots before 2026-11-13T2330Z.
+TIDE_STATIONS = {"9410230": "ocean", "9410170": "san_diego_bay"}
+# Mission Bay has tide predictions but no gauge: we add La Jolla's extra water.
+MISSION_BAY = "9410196"
 
 # CDIP MOP points ~100 m apart, from the Mission Beach jetty (D0360) to north
 # Pacific Beach near Tourmaline (D0425). Each sits at ~10 m water depth.
@@ -98,6 +102,21 @@ def log_tides(now: datetime) -> tuple[pd.DataFrame, dict]:
             "peak_still_water_ft": round(float(frame.loc[peak_time, "still_water_ft"]), 3),
             "peak_time_utc": str(peak_time),
         }
+    # Mission Bay (what the bay-side flood model uses): prediction + La Jolla extra water.
+    lj_extra = summary["9410230"]["extra_water_25h_ft"]
+    mb = to_frame(fetch_noaa(MISSION_BAY, "predictions", now.date(), (now + HORIZON).date()))["v"]
+    future = mb[(mb.index >= now) & (mb.index <= now + HORIZON)]
+    frame = pd.DataFrame({"station": MISSION_BAY, "side": "mission_bay", "predicted_tide_ft": future,
+                          "extra_water_ft": lj_extra, "still_water_ft": future + lj_extra})
+    frame.index.name = "time_utc"
+    frames.append(frame)
+    peak_time = frame["still_water_ft"].idxmax()
+    summary[MISSION_BAY] = {
+        "name": STATIONS[MISSION_BAY], "side": "mission_bay",
+        "extra_water_25h_ft": round(float(lj_extra), 3), "extra_water_from": "9410230",
+        "peak_still_water_ft": round(float(frame.loc[peak_time, "still_water_ft"]), 3),
+        "peak_time_utc": str(peak_time),
+    }
     return pd.concat(frames).round(3), summary
 
 
@@ -177,7 +196,7 @@ def main() -> int:
     print(f"\nSaved {run_dir.relative_to(PROJECT_ROOT)}")
     for station, s in meta.get("tides", {}).items():
         peak_local = pd.Timestamp(s["peak_time_utc"]).tz_convert("America/Los_Angeles")
-        print(f"  {s['name']} ({s['side']}): extra water now {s['extra_water_25h_ft']:+.2f} ft; "
+        print(f"  {s['name']} ({s['side']}): extra water {s['extra_water_25h_ft']:+.2f} ft; "
               f"highest still water next 4 days {s['peak_still_water_ft']:.2f} ft, {peak_local:%a %b %d %-I:%M %p}")
     if waves:
         all_waves = waves[0].reset_index()  # many rows share a time, so use row numbers

@@ -28,7 +28,8 @@ import pandas as pd
 import requests
 
 API_URL = "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter"
-STATIONS = {"9410170": "San Diego (Broadway Pier)", "9410230": "La Jolla (Scripps Pier)"}
+STATIONS = {"9410170": "San Diego (Broadway Pier)", "9410230": "La Jolla (Scripps Pier)",
+            "9410196": "Mission Bay (Campland), predictions only"}
 LOCAL_TZ = "America/Los_Angeles"
 
 # NOAA only returns ~31 days of 6-minute data per request, so we ask in chunks.

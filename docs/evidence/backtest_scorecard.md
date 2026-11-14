@@ -42,6 +42,28 @@ Chart: `figures/runup_backtest.png`.
 
 Details: `docs/evidence/2026-10_king_tides.md`.
 
+## Area ratings (proposed scale, pipeline/risk.py)
+
+Levels Low / Minor / Moderate / Major; an area takes the worse of its bay side and ocean side.
+Peak day of each event:
+
+| Day | Mission Beach | Pacific Beach | Crown Point | Reality |
+|---|---|---|---|---|
+| Fri Jan 6, 2023 | 🔴 Major (waves) | 🟡 Minor | 🟢 Low | MB boardwalk flooded ✅ |
+| Thu Dec 28, 2023 | 🟡 Minor (waves) | 🟢 Low | 🟢 Low | flooding began? (day unconfirmed) |
+| Fri Dec 29, 2023 | 🟠 Moderate (waves) | 🟡 Minor | 🟢 Low | boardwalk flooding (day unconfirmed) |
+| Sat Dec 30, 2023 | 🔴 Major (waves) | 🟡 Minor | 🟢 Low | boardwalk flooding (day unconfirmed) |
+| Thu Jan 4, 2024 | 🟢 Low | 🟢 Low | 🟢 Low | no flooding found ✅ |
+| Sun Oct 25, 2026 | 🔴 Major (bay) | 🟠 Moderate | 🟡 Minor | berm likely held → ❌ over-warning (model has no berm) |
+| Mon Oct 26, 2026 | 🔴 Major (bay) | 🟠 Moderate | 🟡 Minor | berm broke, major bay-side flooding ✅ |
+| Tue–Wed Oct 27–28, 2026 | 🔴 Major (bay) | 🟠 Moderate | 🟡 Minor | rebuilt berm held in MB ❌ (no berm); PB streets flooded ✅ |
+
+Forecast for Sat Nov 14, 2026 (frozen snapshot 2026-11-13T2241Z): Mission Beach 🟡 Minor (NOAA-driven
+waves) / 🟠 Moderate (ECMWF-driven), Pacific Beach 🟡 Minor, Crown Point 🟢 Low.
+
+Lesson: the bay side needs a **berm option** (Mission Beach's winter sand berm along Bayside Walk);
+without it, every day above ~7.4 ft reads Major for Mission Beach even when the berm holds.
+
 ## Still to add
 - Feb 2023 and other king-tide days (bay side), more near-miss days with no flooding.
 - NWS Local Storm Reports as an independent, location-specific source.
