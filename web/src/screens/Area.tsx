@@ -127,7 +127,7 @@ function Tile({ label, value, note }: { label: string; value: string; note: stri
 function BermCard({ day }: { day: ForecastDay }) {
   const fails = day.risk_if_berm_fails;
   return (
-    <section className="panel stack-8">
+    <section className="panel stack-8 berm-card">
       <h2 className="h2-sm">Bay side: the sand berm</h2>
       {day.berm_overtopped ? (
         <p className="body-15">Mission Bay is forecast to reach {day.bay_peak_ft.toFixed(1)} ft, above the top of the

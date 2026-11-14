@@ -255,6 +255,12 @@ h2 { margin: 6px 0 0; font-size: 18px; font-weight: 700; }
 /* ---------- layout wrappers (phones: plain stacks, same look as before) ---------- */
 .home-head, .area-grid, .home-foot, .area-cols, .col { display: flex; flex-direction: column; gap: 14px; }
 .nav-brand { display: none !important; }
+/* Phones: one column in the approved order (berm card after places to watch, before the map button). */
+@media (max-width: 959px) {
+  .area-cols > .col { display: contents; }
+  .area-cols .berm-card { order: 1; }
+  .area-cols .button-primary, .area-cols .link-center { order: 2; }
+}
 
 /* ---------- laptops and desktops ---------- */
 @media (min-width: 960px) {
