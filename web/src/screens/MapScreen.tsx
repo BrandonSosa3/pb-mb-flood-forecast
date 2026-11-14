@@ -5,7 +5,7 @@ import { BERM_TOP_FT, type Curves, type Forecast, countsAt, loadCurves, upcoming
 
 // Free, keyless, muted basemap (OpenStreetMap data, OpenFreeMap tiles).
 const BASEMAP = "https://tiles.openfreemap.org/styles/positron";
-const CENTER: [number, number] = [-117.2495, 32.7775];
+const CENTER: [number, number] = [-117.2515, 32.7790]; // Mission Beach + south PB
 const BLUE = "#2A78D6", DEEP = "#0D3A73", LIGHT = "#8FBCEF", AMBER = "#E3A008";
 const OCT26 = 8.1;
 
@@ -32,12 +32,16 @@ export function MapScreen({ forecast }: { forecast: Forecast }) {
   useEffect(() => {
     if (!container.current || map.current) return;
     const m = new maplibregl.Map({
-      container: container.current, style: BASEMAP, center: CENTER, zoom: 14.1,
+      container: container.current, style: BASEMAP, center: CENTER, zoom: 14.9,
       minZoom: 12.5, maxZoom: 18.5, attributionControl: { compact: true },
       maxBounds: [[-117.32, 32.72], [-117.18, 32.84]],
     });
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
     m.on("load", () => {
+      // Soft blue water so bay and ocean read as water at a glance (the basemap's default is gray).
+      for (const layer of m.getStyle().layers) {
+        if (layer.type === "fill" && /water/.test(layer.id)) m.setPaintProperty(layer.id, "fill-color", "#d4e4f1");
+      }
       m.addSource("streets", { type: "geojson", data: "/data/streets.geojson" });
       m.addSource("buildings", { type: "geojson", data: "/data/buildings.geojson" });
       m.addLayer({ id: "buildings", type: "fill", source: "buildings", paint: { "fill-color": "#d9d7d0", "fill-opacity": 0 } });
