@@ -1,0 +1,53 @@
+{
+  "issued_at_utc": "2026-11-14T08:16:00+00:00",
+  "horizon_hours": 96.0,
+  "sources": {
+    "tides": "NOAA CO-OPS API (water_level + predictions, MLLW, feet, 6-min)",
+    "waves": {
+      "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0000_<model>.nc",
+      "models": {
+        "forecast": "CDIP MOP driven by NOAA WaveWatch III",
+        "ecmwf_fc": "CDIP MOP driven by ECMWF wave model"
+      },
+      "model_issued_utc": {
+        "forecast": "2026-11-14T07:04:38Z",
+        "ecmwf_fc": "2026-11-14T03:32:20Z"
+      },
+      "points": "D0360-D0425"
+    },
+    "alerts": "https://api.weather.gov/alerts/active?zone=CAZ043"
+  },
+  "errors": {},
+  "tides": {
+    "9410230": {
+      "name": "La Jolla (Scripps Pier)",
+      "side": "ocean",
+      "last_observation_utc": "2026-11-14 08:06:00+00:00",
+      "latest_observed_ft": 4.538,
+      "extra_water_25h_ft": 1.5,
+      "peak_still_water_ft": 6.364,
+      "peak_time_utc": "2026-11-14 18:42:00+00:00"
+    },
+    "9410170": {
+      "name": "San Diego (Broadway Pier)",
+      "side": "san_diego_bay",
+      "last_observation_utc": "2026-11-14 08:06:00+00:00",
+      "latest_observed_ft": 4.871,
+      "extra_water_25h_ft": 1.597,
+      "peak_still_water_ft": 6.799,
+      "peak_time_utc": "2026-11-14 18:42:00+00:00"
+    },
+    "9410196": {
+      "name": "Mission Bay (Campland), predictions only",
+      "side": "mission_bay",
+      "extra_water_25h_ft": 1.5,
+      "extra_water_from": "9410230",
+      "peak_still_water_ft": 6.518,
+      "peak_time_utc": "2026-11-14 18:42:00+00:00"
+    }
+  },
+  "active_alerts": [
+    "High Surf Advisory",
+    "Coastal Flood Advisory"
+  ]
+}

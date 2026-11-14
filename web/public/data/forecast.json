@@ -1,7 +1,7 @@
 {
- "issued_at": "2026-11-13T21:25:00-08:00",
- "snapshot": "2026-11-14T0525Z",
- "built_at": "2026-11-14T05:54:10+00:00",
+ "issued_at": "2026-11-14T00:16:00-08:00",
+ "snapshot": "2026-11-14T0816Z",
+ "built_at": "2026-11-14T08:17:01+00:00",
  "extra_water_ft": 1.5,
  "nws_alerts": [
   {
@@ -34,32 +34,6 @@
    "name": "Mission Beach",
    "days": [
     {
-     "date": "2026-11-13",
-     "risk": "Low",
-     "could_reach": "Low",
-     "risk_if_berm_fails": "Low",
-     "cause": "none",
-     "worst_time": "2026-11-13T23:54:00-08:00",
-     "bay_peak_ft": 4.37,
-     "bay_peak_time": "2026-11-13T23:54:00-08:00",
-     "berm_overtopped": false,
-     "properties_below_water": 0,
-     "properties_reached": 0,
-     "properties_if_berm_fails": 0,
-     "stretches_reach_top": 0,
-     "stretches_over": 0,
-     "stretches_reach_top_upper": 0,
-     "wave_height_ft": [
-      3.4,
-      5.1
-     ],
-     "wave_period_s": [
-      12,
-      15
-     ],
-     "places_to_watch": []
-    },
-    {
      "date": "2026-11-14",
      "risk": "Minor",
      "could_reach": "Moderate",
@@ -76,7 +50,7 @@
      "stretches_over": 0,
      "stretches_reach_top_upper": 10,
      "wave_height_ft": [
-      3.9,
+      4.1,
       6.2
      ],
      "wave_period_s": [
@@ -85,20 +59,20 @@
      ],
      "places_to_watch": [
       {
+       "point": "D0396",
+       "near": "Santa Rita Pl",
+       "margin_ft": 1.4,
+       "over": false,
+       "lon": -117.25475,
+       "lat": 32.78901
+      },
+      {
        "point": "D0395",
        "near": "San Rafael Pl",
        "margin_ft": 1.8,
        "over": false,
        "lon": -117.25444,
        "lat": 32.78753
-      },
-      {
-       "point": "D0396",
-       "near": "Santa Rita Pl",
-       "margin_ft": 2.0,
-       "over": false,
-       "lon": -117.25475,
-       "lat": 32.78901
       }
      ]
     },
@@ -119,7 +93,7 @@
      "stretches_over": 0,
      "stretches_reach_top_upper": 1,
      "wave_height_ft": [
-      2.3,
+      2.4,
       5.6
      ],
      "wave_period_s": [
@@ -145,12 +119,38 @@
      "stretches_over": 0,
      "stretches_reach_top_upper": 0,
      "wave_height_ft": [
-      2.3,
+      2.4,
       5.5
      ],
      "wave_period_s": [
       14,
       20
+     ],
+     "places_to_watch": []
+    },
+    {
+     "date": "2026-11-17",
+     "risk": "Low",
+     "could_reach": "Minor",
+     "risk_if_berm_fails": "Low",
+     "cause": "none",
+     "worst_time": "2026-11-17T04:48:00-08:00",
+     "bay_peak_ft": 5.44,
+     "bay_peak_time": "2026-11-17T04:48:00-08:00",
+     "berm_overtopped": false,
+     "properties_below_water": 0,
+     "properties_reached": 0,
+     "properties_if_berm_fails": 0,
+     "stretches_reach_top": 0,
+     "stretches_over": 0,
+     "stretches_reach_top_upper": 3,
+     "wave_height_ft": [
+      4.0,
+      6.5
+     ],
+     "wave_period_s": [
+      14,
+      17
      ],
      "places_to_watch": []
     }
@@ -159,32 +159,6 @@
   {
    "name": "Pacific Beach",
    "days": [
-    {
-     "date": "2026-11-13",
-     "risk": "Low",
-     "could_reach": "Low",
-     "risk_if_berm_fails": "Low",
-     "cause": "none",
-     "worst_time": "2026-11-13T23:54:00-08:00",
-     "bay_peak_ft": 4.37,
-     "bay_peak_time": "2026-11-13T23:54:00-08:00",
-     "berm_overtopped": false,
-     "properties_below_water": 0,
-     "properties_reached": 0,
-     "properties_if_berm_fails": 0,
-     "stretches_reach_top": 0,
-     "stretches_over": 0,
-     "stretches_reach_top_upper": 0,
-     "wave_height_ft": [
-      3.1,
-      5.1
-     ],
-     "wave_period_s": [
-      14,
-      15
-     ],
-     "places_to_watch": []
-    },
     {
      "date": "2026-11-14",
      "risk": "Minor",
@@ -238,7 +212,7 @@
      "stretches_reach_top_upper": 0,
      "wave_height_ft": [
       2.0,
-      5.8
+      5.7
      ],
      "wave_period_s": [
       14,
@@ -271,32 +245,38 @@
       20
      ],
      "places_to_watch": []
+    },
+    {
+     "date": "2026-11-17",
+     "risk": "Low",
+     "could_reach": "Minor",
+     "risk_if_berm_fails": "Low",
+     "cause": "none",
+     "worst_time": "2026-11-17T04:48:00-08:00",
+     "bay_peak_ft": 5.44,
+     "bay_peak_time": "2026-11-17T04:48:00-08:00",
+     "berm_overtopped": false,
+     "properties_below_water": 0,
+     "properties_reached": 0,
+     "properties_if_berm_fails": 0,
+     "stretches_reach_top": 0,
+     "stretches_over": 0,
+     "stretches_reach_top_upper": 1,
+     "wave_height_ft": [
+      3.4,
+      6.5
+     ],
+     "wave_period_s": [
+      7,
+      17
+     ],
+     "places_to_watch": []
     }
    ]
   },
   {
    "name": "Crown Point",
    "days": [
-    {
-     "date": "2026-11-13",
-     "risk": "Low",
-     "could_reach": "Low",
-     "risk_if_berm_fails": "Low",
-     "cause": "none",
-     "worst_time": "2026-11-13T23:54:00-08:00",
-     "bay_peak_ft": 4.37,
-     "bay_peak_time": "2026-11-13T23:54:00-08:00",
-     "berm_overtopped": false,
-     "properties_below_water": 0,
-     "properties_reached": 0,
-     "properties_if_berm_fails": 0,
-     "stretches_reach_top": null,
-     "stretches_over": null,
-     "stretches_reach_top_upper": 0,
-     "wave_height_ft": null,
-     "wave_period_s": null,
-     "places_to_watch": []
-    },
     {
      "date": "2026-11-14",
      "risk": "Low",
@@ -346,6 +326,26 @@
      "worst_time": "2026-11-16T12:48:00-08:00",
      "bay_peak_ft": 5.68,
      "bay_peak_time": "2026-11-16T12:48:00-08:00",
+     "berm_overtopped": false,
+     "properties_below_water": 0,
+     "properties_reached": 0,
+     "properties_if_berm_fails": 0,
+     "stretches_reach_top": null,
+     "stretches_over": null,
+     "stretches_reach_top_upper": 0,
+     "wave_height_ft": null,
+     "wave_period_s": null,
+     "places_to_watch": []
+    },
+    {
+     "date": "2026-11-17",
+     "risk": "Low",
+     "could_reach": "Low",
+     "risk_if_berm_fails": "Low",
+     "cause": "none",
+     "worst_time": "2026-11-17T04:48:00-08:00",
+     "bay_peak_ft": 5.44,
+     "bay_peak_time": "2026-11-17T04:48:00-08:00",
      "berm_overtopped": false,
      "properties_below_water": 0,
      "properties_reached": 0,
