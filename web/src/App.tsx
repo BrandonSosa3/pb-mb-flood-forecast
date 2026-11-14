@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { type Forecast, loadForecast } from "./data";
+import { Area } from "./screens/Area";
 import { Home } from "./screens/Home";
 
 // Tiny hash router: #/ (home), #/area/<slug>, #/map. Keeps the site a set of
@@ -38,7 +39,8 @@ export function App() {
       </main>
     );
   } else if (route.startsWith("/area/")) {
-    screen = <main className="screen"><a href="#/">‹ All areas</a><h1>Area detail (next step)</h1></main>;
+    const areaSlug = route.slice("/area/".length);
+    screen = <Area key={areaSlug} forecast={forecast} areaSlug={areaSlug} />;
   } else if (route === "/map") {
     screen = <main className="screen"><h1>Map (coming soon)</h1></main>;
   } else {
