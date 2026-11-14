@@ -1,8 +1,21 @@
 {
-  "created_utc": "2026-11-14T20:29:55+00:00",
+  "created_utc": "2026-11-14T22:09:48+00:00",
   "source": "USGS 3DEP Lidar Point Cloud CA_SanDiegoCo_D24 (collected Nov 2024), via rockyweb.usgs.gov",
   "tiles": [
-    "USGS_LPC_CA_SanDiegoCo_D24_11SMS475628.laz"
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS475628.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS475629.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS475630.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS476624.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS476625.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS476626.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS476628.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS476629.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS476630.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS477624.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS477625.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS477627.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS478625.laz",
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS478626.laz"
   ],
   "points": "class 1 (unclassified) first returns",
   "roof_percentile": 75,
@@ -14,7 +27,7 @@
   ],
   "default_m": 6.0,
   "buildings": 12762,
-  "estimated_default_height": 12717,
+  "estimated_default_height": 6473,
   "height_m_median": 6.0,
   "purpose": "3D display only"
 }
