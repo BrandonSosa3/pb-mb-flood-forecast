@@ -76,3 +76,17 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
   `pipeline/rain_history.py` -> `data/processed/hourly_rain_KSAN.csv.gz` (wet hours only) + meta.
   https://mesonet.agron.iastate.edu/request/download.phtml
 - Used to check how often the rain-near-high-tide rule fires (docs/evidence/rain_near_high_tide.md).
+
+## USGS lidar point cloud, 2024 (building heights for the 3D view)
+- USGS 3DEP Lidar Point Cloud, project CA_SanDiegoCo_D24 (flown Nov 8 - Dec 1, 2024; published
+  Sep 2026), LAZ tiles from https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_SanDiegoCo_D24/
+  (tile list from the TNM Access API, saved in data/raw/lpc/urls.txt). Downloaded 2026-11-14.
+  Public domain. Raw tiles (~1.7 GB) stay in data/raw (not committed).
+- `pipeline/building_heights.py`: roof = 75th percentile of unclassified first returns inside each
+  OSM outline (shrunk 0.5 m); ground = median bare-earth DEM under it. Display only.
+
+## Derived files for the 3D view (no new downloads)
+- `pipeline/water_bands.py` -> web/public/data/water_bands.geojson: bay flood shapes in 0.1 ft bands
+  (6.0-9.5 ft MLLW), berm holds / fails, from the existing connected-flood rasters.
+- `pipeline/events_3d.py` -> web/public/data/events.json: Mission Bay level every 20 min for the
+  Oct 26 and Oct 27, 2026 high tides (NOAA 9410196 prediction + La Jolla measured extra water).

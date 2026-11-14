@@ -165,6 +165,10 @@ available on demand.
   (6) rain flooding for greater PB + La Jolla (new phase: wider lidar, ponding/flow analysis,
   Get It Done + NWS reports, rain thresholds) (7) Phase 5 write-up + demo video (8) repo public.
   Also: Instagram/news evidence for Nov 14.
+- 3D view (step 3) built 2026-11-14 with MapLibre's native fill-extrusion instead of deck.gl
+  (same look, no extra library, keeps clicks/search/slider): Map screen 2D/3D switch (#/map?view=3d),
+  water_bands.geojson + buildings3d.geojson (lidar roof heights, building_heights.py), Play Oct 26 /
+  Oct 27 (events.json). Re-run building_heights.py once all 33 LPC tiles are in data/raw/lpc.
   verify_forecasts.py; more backtest days; fill Nov 14 prediction result.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed

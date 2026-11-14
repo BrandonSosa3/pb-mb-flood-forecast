@@ -307,6 +307,11 @@ function Technical({ updated }: { updated?: string }) {
           one level (at most to Moderate). Since 2000 that happened about once a year at the San Diego airport gauge,
           including the record storm of Jan 22, 2024. Rain flooding away from the coast (hillsides, canyons) isn't
           modeled yet.</Term>
+        <Term t="3D view">Building heights come from the same 2024 USGS lidar survey: the height of laser hits on each
+          roof minus the ground under it. The blue water surface is the bay flood model cut into 0.1 ft steps. "Play"
+          replays a real high tide every 20 minutes (Mission Bay prediction + extra water measured at La Jolla). The exact
+          time the berm broke on Oct 26 wasn't reported, so that replay shows the berm gone for the whole tide. Building
+          height is for the picture only; floor heights are unknown.</Term>
         <Term t="Not the same as sea-level-rise maps">USGS CoSMoS and NOAA's viewer show long-term sea level rise
           (decades). This forecasts the next few days, with this winter's real tide, extra water and waves.</Term>
         <Term t="Data">NOAA CO-OPS (tide gauges 9410230 La Jolla, 9410170 San Diego, 9410196 Mission Bay predictions);

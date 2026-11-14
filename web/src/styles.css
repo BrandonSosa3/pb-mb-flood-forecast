@@ -316,3 +316,10 @@ h2 { margin: 6px 0 0; font-size: 18px; font-weight: 700; }
 .rain-hours li { display: grid; grid-template-columns: 56px 1fr 96px; align-items: center; gap: 8px; }
 .rain-bar { height: 8px; min-width: 3px; border-radius: 4px; background: #4f8ad6; }
 .rain-hours li span:last-child { color: var(--muted); text-align: right; }
+
+/* map overlay tools (2D/3D switch) */
+.map { position: relative; }
+.map-tools { position: absolute; top: 10px; left: 10px; z-index: 2; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.segmented-sm { box-shadow: 0 1px 4px rgba(16, 32, 47, 0.18); }
+.segmented-sm button { min-width: 44px; }
+.chip-map { background: var(--card); box-shadow: 0 1px 4px rgba(16, 32, 47, 0.18); }

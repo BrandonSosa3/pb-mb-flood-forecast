@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-11-14T20:28:26+00:00",
+  "inputs": [
+    "danger_from_bay_berm_navd88_ft.tif",
+    "danger_from_bay_navd88_ft.tif"
+  ],
+  "levels_ft_mllw": [
+    6.0,
+    9.5,
+    0.1
+  ],
+  "simplify_m": 1.0,
+  "min_area_m2": 6.0,
+  "bay_surface_excluded_below_ft": 2.6,
+  "features": 22493
+}

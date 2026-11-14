@@ -10,12 +10,20 @@ const BASEMAP = "https://tiles.openfreemap.org/styles/positron";
 const CENTER: [number, number] = [-117.2515, 32.7790]; // Mission Beach + south PB
 const BLUE = "#2A78D6", DEEP = "#0D3A73", LIGHT = "#8FBCEF", AMBER = "#E3A008";
 const OCT26 = 8.1;
+const WATER = "#8EC1F0"; // lighter than the reached-building blue so the two read apart
+// 3D camera: tilted, looking from the ocean toward the bay (east-northeast).
+const VIEW_3D = { pitch: 55, bearing: 72 };
+const PLAY_MS = 10000; // a whole event plays in about 10 seconds
+
+interface PlayEvent {
+  key: string; label: string; berm: "holds" | "fails"; note: string; peak_ft: number; peak_time: string; frames: [string, number][];
+}
 
 type Selected =
   | { kind: "street"; name: string; d: number; c: number; db: number; cb: number; g: number }
   | { kind: "building"; d: number; db: number; g: number };
 
-export function MapScreen({ forecast, spotKey }: { forecast: Forecast; spotKey: string | null }) {
+export function MapScreen({ forecast, spotKey, start3d = false }: { forecast: Forecast; spotKey: string | null; start3d?: boolean }) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const [ready, setReady] = useState(false);
@@ -29,10 +37,21 @@ export function MapScreen({ forecast, spotKey }: { forecast: Forecast; spotKey: 
   const [bermHolds, setBermHolds] = useState(true);
   const [selected, setSelected] = useState<Selected | null>(null);
 
+  const [view3d, setView3d] = useState(start3d);
+  const [loading3d, setLoading3d] = useState(false);
+  const [events, setEvents] = useState<PlayEvent[]>([]);
+  const [playing, setPlaying] = useState<{ ev: PlayEvent; i: number } | null>(null);
+  const [lastPlayed, setLastPlayed] = useState<PlayEvent | null>(null);
+  const timer = useRef<number | null>(null);
+
   const [spot, setSpot] = useState<Spot | null>(null);
   const marker = useRef<maplibregl.Marker | null>(null);
 
   useEffect(() => { loadCurves().then(setCurves); }, []);
+  useEffect(() => {
+    fetch("/data/events.json").then((r) => (r.ok ? r.json() : null)).then((d) => d && setEvents(d.events)).catch(() => {});
+    return () => { if (timer.current) window.clearInterval(timer.current); };
+  }, []);
 
   // A place picked in search (#/map?spot=...): look it up, then fly there and drop a pin.
   useEffect(() => {
@@ -110,6 +129,76 @@ export function MapScreen({ forecast, spotKey }: { forecast: Forecast; spotKey: 
     m.setPaintProperty("streets", "line-opacity", ["case", reach(useBerm ? "db" : "d"), 0.95, 0]);
   }, [level, bermHolds, ready]);
 
+  // 3D: load the extra data the first time, then add tall buildings and the water surface.
+  useEffect(() => {
+    const m = map.current;
+    if (!m || !ready) return;
+    const phone = !window.matchMedia("(min-width: 960px)").matches;
+    if (view3d) {
+      if (!m.getSource("water3d")) {
+        setLoading3d(true);
+        m.addSource("water3d", { type: "geojson", data: "/data/water_bands.geojson" });
+        m.addSource("bld3d", { type: "geojson", data: "/data/buildings3d.geojson" });
+        m.addLayer({ id: "water-3d", type: "fill-extrusion", source: "water3d",
+          paint: { "fill-extrusion-color": WATER, "fill-extrusion-height": 0.6, "fill-extrusion-opacity": 0.75 } });
+        m.addLayer({ id: "bld-3d", type: "fill-extrusion", source: "bld3d",
+          paint: { "fill-extrusion-height": ["coalesce", ["get", "h"], 6], "fill-extrusion-opacity": 0.92,
+            "fill-extrusion-vertical-gradient": true } });
+        m.on("click", "bld-3d", (e) => e.features?.[0] && setSelected(toSelected("buildings", e.features[0])));
+        m.on("mouseenter", "bld-3d", () => (m.getCanvas().style.cursor = "pointer"));
+        m.on("mouseleave", "bld-3d", () => (m.getCanvas().style.cursor = ""));
+        const done = () => { if (m.isSourceLoaded("bld3d") && m.isSourceLoaded("water3d")) { setLoading3d(false); m.off("sourcedata", done); } };
+        m.on("sourcedata", done);
+      }
+      for (const id of ["water-3d", "bld-3d"]) m.setLayoutProperty(id, "visibility", "visible");
+      m.setLayoutProperty("buildings", "visibility", "none");
+      m.easeTo({ ...VIEW_3D, pitch: phone ? 48 : VIEW_3D.pitch, zoom: Math.max(m.getZoom(), phone ? 14.8 : 15.3), duration: 1200 });
+    } else if (m.getLayer("bld-3d")) {
+      for (const id of ["water-3d", "bld-3d"]) m.setLayoutProperty(id, "visibility", "none");
+      m.setLayoutProperty("buildings", "visibility", "visible");
+      m.easeTo({ pitch: 0, bearing: 0, duration: 900 });
+    }
+  }, [view3d, ready]);
+
+  // Raise the water and recolor the 3D buildings with the slider.
+  useEffect(() => {
+    const m = map.current;
+    if (!m || !ready || !view3d || !m.getLayer("bld-3d")) return;
+    const useBerm = bermHolds && level < BERM_TOP_FT;
+    m.setFilter("water-3d", ["all", ["==", ["get", "berm"], useBerm ? 1 : 0], ["<=", ["get", "lv"], level + 1e-6]]);
+    const reach: ExpressionSpecification = ["<=", ["coalesce", ["get", useBerm ? "db" : "d"], 99], level];
+    const below: ExpressionSpecification = ["<", ["coalesce", ["get", "g"], 99], level];
+    m.setPaintProperty("bld-3d", "fill-extrusion-color", ["case", reach, BLUE, below, AMBER, "#d9d7d0"]);
+  }, [level, bermHolds, ready, view3d, loading3d]);
+
+  const resetView = () => map.current?.easeTo({
+    center: CENTER, zoom: view3d ? 15.3 : 14.9, ...(view3d ? VIEW_3D : { pitch: 0, bearing: 0 }), duration: 900,
+  });
+
+  const stop = () => {
+    if (timer.current) window.clearInterval(timer.current);
+    timer.current = null;
+    setPlaying(null);
+  };
+  const play = (ev: PlayEvent) => {
+    stop();
+    setSelected(null);
+    setBermHolds(ev.berm === "holds");
+    setLastPlayed(ev);
+    let i = 0;
+    setPlaying({ ev, i });
+    setLevel(ev.frames[0][1]);
+    timer.current = window.setInterval(() => {
+      i += 1;
+      if (i >= ev.frames.length) { stop(); setLevel(Math.round(ev.peak_ft * 10) / 10); return; } // settle on the peak
+      setPlaying({ ev, i });
+      setLevel(ev.frames[i][1]);
+    }, PLAY_MS / ev.frames.length);
+  };
+  const clock = (iso: string) => new Date(iso).toLocaleTimeString("en-US",
+    { hour: "numeric", minute: "2-digit", timeZone: "America/Los_Angeles" }).replace(" AM", " am").replace(" PM", " pm");
+  const frameTime = playing ? clock(playing.ev.frames[playing.i][0]) : "";
+
   const counts = curves ? countsAt(curves, level, bermHolds) : null;
   let headline = "", detail = "";
   if (counts) {
@@ -131,6 +220,16 @@ export function MapScreen({ forecast, spotKey }: { forecast: Forecast; spotKey: 
   return (
     <main className="map-screen">
       <div ref={container} className="map" role="region" aria-label="Flood map of Pacific Beach and Mission Beach">
+        {!noMap && (
+          <div className="map-tools">
+            <div className="segmented segmented-sm" role="group" aria-label="Map view">
+              <button type="button" aria-pressed={!view3d} onClick={() => setView3d(false)}>2D</button>
+              <button type="button" aria-pressed={view3d} onClick={() => setView3d(true)}>3D</button>
+            </div>
+            {view3d && <button type="button" className="chip chip-map" onClick={resetView}>Reset view</button>}
+            {loading3d && <span className="chip chip-map" role="status">Loading 3D…</span>}
+          </div>
+        )}
         {noMap && (
           <div className="map-fallback">
             <strong>This device can't show the interactive map.</strong>
@@ -146,25 +245,34 @@ export function MapScreen({ forecast, spotKey }: { forecast: Forecast; spotKey: 
       <section className="sheet" aria-label="Water level controls">
         <div className="sheet-top">
           <div className="stack-2">
-            <span className="sheet-label">Mission Bay water level</span>
+            <span className="sheet-label">{playing ? `${playing.ev.label} · ${frameTime}` : "Mission Bay water level"}</span>
             <span className="sheet-level">{level.toFixed(1)} ft</span>
           </div>
           <span className="sheet-label">above low tide</span>
         </div>
         <label htmlFor="level" className="visually-hidden">Water level in feet</label>
-        <input id="level" type="range" min={6} max={9.5} step={0.1} value={level}
-          onChange={(e) => setLevel(Number(e.target.value))} className="slider" />
+        <input id="level" type="range" min={6} max={9.5} step={0.1} value={Math.max(6, Math.min(9.5, level))}
+          onChange={(e) => { stop(); setLevel(Number(e.target.value)); }} className="slider" />
         <div className="chips">
-          <button type="button" className="chip" onClick={() => { setLevel(Math.round(satPeak * 10) / 10); setBermHolds(true); }}>
+          <button type="button" className="chip" onClick={() => { stop(); setLevel(Math.round(satPeak * 10) / 10); setBermHolds(true); }}>
             Forecast peak · {satPeak.toFixed(1)} ft
           </button>
-          <button type="button" className="chip" onClick={() => { setLevel(OCT26); setBermHolds(false); }}>
+          <button type="button" className="chip" onClick={() => { stop(); setLevel(OCT26); setBermHolds(false); }}>
             Oct 26, 2026 · {OCT26} ft
           </button>
         </div>
+        {events.length > 0 && (
+          <div className="chips">
+            {events.map((ev) => playing?.ev.key === ev.key
+              ? <button key={ev.key} type="button" className="chip chip-solid" onClick={stop}>■ Stop</button>
+              : <button key={ev.key} type="button" className="chip" onClick={() => play(ev)}>▶ Play {ev.label.replace(", 2026", "")}</button>)}
+          </div>
+        )}
+        {lastPlayed && <p className="fine">{lastPlayed.label}: peak {lastPlayed.peak_ft.toFixed(1)} ft at
+          {" "}{clock(lastPlayed.peak_time)}. {lastPlayed.note}</p>}
         <div className="segmented" role="group" aria-label="Bay-side sand berm">
-          <button type="button" aria-pressed={bermHolds} onClick={() => setBermHolds(true)}>Berm holds</button>
-          <button type="button" aria-pressed={!bermHolds} onClick={() => setBermHolds(false)}>Berm fails</button>
+          <button type="button" aria-pressed={bermHolds} onClick={() => { stop(); setBermHolds(true); }}>Berm holds</button>
+          <button type="button" aria-pressed={!bermHolds} onClick={() => { stop(); setBermHolds(false); }}>Berm fails</button>
         </div>
         <div className="result" aria-live="polite">
           <span className="result-head">{headline}</span>
@@ -174,6 +282,7 @@ export function MapScreen({ forecast, spotKey }: { forecast: Forecast; spotKey: 
           <span><i style={{ background: BLUE }} /> Water reaches the property</span>
           <span><i style={{ background: AMBER }} /> Below water level (drains)</span>
           <span><i style={{ background: DEEP }} /> Road covered</span>
+          {view3d && <span><i style={{ background: WATER }} /> Bay water surface</span>}
         </div>
       </section>
     </main>

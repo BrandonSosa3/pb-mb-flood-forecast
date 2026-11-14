@@ -8,3 +8,4 @@ scipy         # image tools: find connected areas (water, flood spreading)
 scikit-image  # fast 'how high must water rise to reach here' calculation (morphological reconstruction)
 geopandas     # tables of map shapes (buildings, streets) with geometry
 shapely       # geometry math: lengths, buffers, splitting lines
+laspy[lazrs]  # read lidar point clouds (.laz) for building heights (3D view)
