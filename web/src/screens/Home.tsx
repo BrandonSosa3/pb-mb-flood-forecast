@@ -1,3 +1,4 @@
+import { SearchBox } from "../components/SearchBox";
 import { StatusDot, StatusPill } from "../components/StatusPill";
 import {
   type Forecast, type Risk, NWS_URL, dayLabel, headlineDay, riskIndex, slug,
@@ -19,13 +20,7 @@ export function Home({ forecast }: { forecast: Forecast }) {
         <div className="sub">Updated {updatedLabel(forecast.issued_at)}</div>
       </div>
 
-      <div className="search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4F5D6B" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-          <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" />
-        </svg>
-        <label htmlFor="search" className="visually-hidden">Search a street or address</label>
-        <input id="search" type="search" placeholder="Search a street or address" />
-      </div>
+      <SearchBox />
 
       {areas.map((area) => {
         const day = headlineDay(area.days);

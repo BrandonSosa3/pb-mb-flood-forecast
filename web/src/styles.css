@@ -235,3 +235,19 @@ h2 { margin: 6px 0 0; font-size: 18px; font-weight: 700; }
 
 .limits { margin: 0; padding: 14px 16px 14px 34px; background: var(--card); border-radius: 18px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.5; }
 @media (prefers-reduced-motion: reduce) { .disclosure-chev { transition: none; } }
+
+/* ---------- search ---------- */
+.searchbox { position: relative; z-index: 5; }
+.suggest {
+  position: absolute; left: 0; right: 0; top: calc(100% + 6px); margin: 0; padding: 6px; list-style: none;
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 8px 24px rgba(16, 32, 47, 0.12);
+}
+.suggest li { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; min-height: 44px; border-radius: 10px; cursor: pointer; }
+.suggest li[aria-selected="true"] { background: var(--ground); }
+.suggest .suggest-empty { cursor: default; font-size: 14px; color: var(--muted); }
+.spot { max-height: 58dvh; overflow-y: auto; }
+.spot-head { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; font-size: 14px; line-height: 1.4; }
+.spot-head strong { font-size: 15px; }
+.tone-ok { background: var(--low-bg); } .tone-watch { background: var(--minor-bg); } .tone-bad { background: var(--major-bg); }
+.chip-solid { align-self: flex-start; background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip-solid:hover { background: var(--accent-hover); }

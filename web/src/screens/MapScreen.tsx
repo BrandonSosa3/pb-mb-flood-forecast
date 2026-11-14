@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import maplibregl, { type ExpressionSpecification, type MapGeoJSONFeature } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { BERM_TOP_FT, type Curves, type Forecast, countsAt, loadCurves, upcoming } from "../data";
+import { type Spot, loadSearch, spotFromKey } from "../search";
+import { SpotCard } from "../components/SpotCard";
 
 // Free, keyless, muted basemap (OpenStreetMap data, OpenFreeMap tiles).
 const BASEMAP = "https://tiles.openfreemap.org/styles/positron";
@@ -13,7 +15,7 @@ type Selected =
   | { kind: "street"; name: string; d: number; c: number; db: number; cb: number; g: number }
   | { kind: "building"; d: number; db: number; g: number };
 
-export function MapScreen({ forecast }: { forecast: Forecast }) {
+export function MapScreen({ forecast, spotKey }: { forecast: Forecast; spotKey: string | null }) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const [ready, setReady] = useState(false);
@@ -26,7 +28,31 @@ export function MapScreen({ forecast }: { forecast: Forecast }) {
   const [bermHolds, setBermHolds] = useState(true);
   const [selected, setSelected] = useState<Selected | null>(null);
 
+  const [spot, setSpot] = useState<Spot | null>(null);
+  const marker = useRef<maplibregl.Marker | null>(null);
+
   useEffect(() => { loadCurves().then(setCurves); }, []);
+
+  // A place picked in search (#/map?spot=...): look it up, then fly there and drop a pin.
+  useEffect(() => {
+    if (!spotKey) { setSpot(null); return; }
+    loadSearch().then((ix) => setSpot(spotFromKey(ix, spotKey))).catch(() => setSpot(null));
+  }, [spotKey]);
+  useEffect(() => {
+    const m = map.current;
+    marker.current?.remove();
+    marker.current = null;
+    if (!m || !ready || !spot) return;
+    setSelected(null);
+    const sheetPad = { top: 280, left: 40, right: 40, bottom: 40 }; // keep the pin clear of the card
+    if (spot.bbox) m.fitBounds([[spot.bbox[0], spot.bbox[1]], [spot.bbox[2], spot.bbox[3]]], { padding: sheetPad, maxZoom: 17.5, duration: 900 });
+    else m.flyTo({ center: [spot.lon, spot.lat], zoom: spot.kind === "landmark" ? 16 : 17.5, offset: [0, 110], duration: 900 });
+    marker.current = new maplibregl.Marker({ color: "#10202f" }).setLngLat([spot.lon, spot.lat]).addTo(m);
+  }, [spot, ready]);
+  const closeSpot = () => {
+    setSpot(null);
+    if (spotKey) history.replaceState(null, "", "#/map");
+  };
 
   // Create the map once.
   useEffect(() => {
@@ -96,7 +122,10 @@ export function MapScreen({ forecast }: { forecast: Forecast }) {
   return (
     <main className="map-screen">
       <div ref={container} className="map" role="region" aria-label="Flood map of Pacific Beach and Mission Beach" />
-      {selected && <DetailSheet sel={selected} level={level} bermHolds={bermHolds} onClose={() => setSelected(null)} />}
+      {selected
+        ? <DetailSheet sel={selected} level={level} bermHolds={bermHolds} onClose={() => setSelected(null)} />
+        : spot && <SpotCard spot={spot} forecast={forecast} onClose={closeSpot}
+            onShowLevel={(lv, holds) => { setLevel(lv); setBermHolds(holds); }} />}
       <section className="sheet" aria-label="Water level controls">
         <div className="sheet-top">
           <div className="stack-2">

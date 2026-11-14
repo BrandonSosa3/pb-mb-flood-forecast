@@ -32,6 +32,8 @@ export interface ForecastDay {
   wave_height_ft: [number, number] | null;
   wave_period_s: [number, number] | null;
   places_to_watch: PlaceToWatch[];
+  /** Every beach stretch's closest call: [ft below the boardwalk top (negative = over), local time]. */
+  stretches?: Record<string, [number, string]>;
 }
 
 export interface AreaForecast {

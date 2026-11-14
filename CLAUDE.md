@@ -151,7 +151,9 @@ available on demand.
 - Website live: https://pb-mb-flood-forecast.vercel.app (Vercel, personal account, auto-deploys
   on push). Screens: Home, Area, Map, How it works (#/about; track record from
   docs/evidence/track_record.json, kept by hand -> about.json via build_site_data.py).
-- Next: street search, 3D view, desktop layout;
+- Search done (pipeline/search_index.py -> search.json; Home search box -> #/map?spot=<key>,
+  SpotCard with bay + nearby-waves lines).
+- Next: fill Nov 14 result, 3D view, desktop layout;
   verify_forecasts.py; more backtest days; fill Nov 14 prediction result.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed

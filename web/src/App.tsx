@@ -7,7 +7,7 @@ import { Home } from "./screens/Home";
 // The map library is large; load it only when someone opens the map.
 const MapScreen = lazy(() => import("./screens/MapScreen").then((m) => ({ default: m.MapScreen })));
 
-// Tiny hash router: #/ (home), #/area/<slug>, #/map. Keeps the site a set of
+// Tiny hash router: #/ (home), #/area/<slug>, #/map (?spot=<search key>), #/about. Keeps the site a set of
 // static files that any host (Vercel) can serve without server routing.
 function useRoute(): string {
   const [route, setRoute] = useState(() => window.location.hash.slice(1) || "/");
@@ -45,10 +45,11 @@ export function App() {
   } else if (route.startsWith("/area/")) {
     const areaSlug = route.slice("/area/".length);
     screen = <Area key={areaSlug} forecast={forecast} areaSlug={areaSlug} />;
-  } else if (route === "/map") {
+  } else if (route === "/map" || route.startsWith("/map?")) {
+    const spot = new URLSearchParams(route.split("?")[1] ?? "").get("spot");
     screen = (
       <Suspense fallback={<main className="screen" aria-busy="true"><div className="skeleton" style={{ height: 420 }} /></main>}>
-        <MapScreen forecast={forecast} />
+        <MapScreen forecast={forecast} spotKey={spot} />
       </Suspense>
     );
   } else if (route === "/about") {
@@ -57,7 +58,7 @@ export function App() {
     screen = <Home forecast={forecast} />;
   }
 
-  const current = route === "/map" ? "map" : route === "/about" ? "about" : "forecast";
+  const current = route.startsWith("/map") ? "map" : route === "/about" ? "about" : "forecast";
   return (
     <div className="app">
       {screen}

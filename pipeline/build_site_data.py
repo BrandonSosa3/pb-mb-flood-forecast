@@ -87,6 +87,15 @@ def places_to_watch(twl: pd.DataFrame, profiles: pd.DataFrame, points: list[str]
     return out
 
 
+def stretch_worst(t: pd.DataFrame) -> dict[str, list]:
+    """Every beach stretch's closest call of the day: [ft below the boardwalk/ridge top
+    (negative = over), local time], for the search card's "waves near you" line."""
+    if t.empty:
+        return {}
+    worst = t.loc[t.groupby("point").margin_ft.idxmin()]
+    return {r.point: [round(float(r.margin_ft), 1), r.local.isoformat()] for r in worst.itertuples()}
+
+
 def forecast_json(snapshot: Path) -> dict:
     meta = json.loads((snapshot / "meta.json").read_text())
     curves = load_curves()
@@ -136,6 +145,7 @@ def forecast_json(snapshot: Path) -> dict:
                 "wave_height_ft": [round(float(tdp.wave_height_ft.min()), 1), round(float(tdp.wave_height_ft.max()), 1)] if len(tdp) else None,
                 "wave_period_s": [round(float(tdp.period_s.min())), round(float(tdp.period_s.max()))] if len(tdp) else None,
                 "places_to_watch": places_to_watch(td[td.local.dt.date == d], profiles, pts) if pts else [],
+                "stretches": stretch_worst(tdp),
             })
         areas_out.append({"name": name, "days": day_rows})
 

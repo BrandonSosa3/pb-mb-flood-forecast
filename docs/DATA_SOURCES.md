@@ -51,3 +51,10 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
 - Privacy: only building shape + type kept; addresses and all other building tags dropped.
 - Outputs: `data/processed/osm_buildings.geojson`, `osm_ways.geojson`, and (with danger heights)
   `buildings_danger.geojson`, `street_pieces_danger.geojson`.
+
+### OpenStreetMap addresses (search only)
+- Source: OpenStreetMap contributors (ODbL), Overpass API, all features with `addr:housenumber` +
+  `addr:street` in S 32.7585, W -117.2700, N 32.8120, E -117.2285.
+- Downloaded 2026-11-14 by `pipeline/search_index.py` (8,049 addresses inside the three areas).
+- Privacy: only house number + street + location kept; used for the search box, never drawn on the map.
+- Output: `web/public/data/search.json` (+ `data/processed/search_index.meta.json`).
