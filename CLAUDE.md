@@ -75,9 +75,7 @@ Never use Surfline data, cams, or footage.
 5. Polish: final website, 60-90 sec demo video, short write-up (method,
    accuracy, limits, and how it differs from USGS CoSMoS / NOAA maps, which
    mostly show long-term sea level rise).
-6. LAST, bonus: phone on a tripod at a fixed spot during king tides; computer
-   vision finds the water line in each frame and measures its height against
-   a fixed marker, to compare with the forecast.
+6. DROPPED (Brandon, 2026-11-14): phone-on-tripod computer vision. Not doing it.
 
 ## Design rules (non-negotiable)
 This must NOT feel like a government flood map. It should feel like a
@@ -106,8 +104,8 @@ available on demand.
 
 ## Priorities
 - No deadline. Quality over speed: don't cut corners or drop features to save
-  time. All phases are in scope, including the 3D view, 1997-98 comparison,
-  December king tide validation, and Phase 6 tripod.
+  time. All phases are in scope (3D view, 1997-98 comparison, December king tide
+  validation) except Phase 6 tripod, which was dropped 2026-11-14.
 - Start the automated forecast logger early (right after Phase 1) so it builds
   a long, honest track record that includes the December king tides.
 - Hosting: website on Vercel (Brandon has a Pro account). GitHub repo stays
@@ -160,8 +158,13 @@ available on demand.
 - Wave check live (verify_forecasts.py -> docs/evidence/wave_check.md, runs in the workflow):
   NOAA-driven ~85% of CDIP nowcast, ECMWF ~105%. Site now uses the HIGHER model per stretch/hour.
   Surf tile = Komar-Gaylord set size (model average) + NWS Surf Zone Forecast (logged as surf.json).
-- Pending: recalibrate "reaches" (2 ft band = water on boardwalk in practice) once more days are
-  scored; rain on site; Instagram/news evidence for Nov 14; 3D view;
+- Rain on site DONE (risk.py with_rain: >=0.25 in within 3 h of high tide + 10+ properties below
+  water -> +1 level, max Moderate; history check docs/evidence/rain_near_high_tide.md ~1x/yr).
+- ORDER AGREED 2026-11-14: (1) rain on site [done] (2) recalibrate "reaches" line (needs more
+  scored days, so do with 4) (3) 3D view (4) more backtest days (5) December king tide check
+  (6) rain flooding for greater PB + La Jolla (new phase: wider lidar, ponding/flow analysis,
+  Get It Done + NWS reports, rain thresholds) (7) Phase 5 write-up + demo video (8) repo public.
+  Also: Instagram/news evidence for Nov 14.
   verify_forecasts.py; more backtest days; fill Nov 14 prediction result.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed
