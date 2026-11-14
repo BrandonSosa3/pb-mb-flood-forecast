@@ -39,11 +39,15 @@ jobs:
       - name: Build website data from the new snapshot
         run: python pipeline/build_site_data.py
 
+      - name: Check past wave forecasts against what happened
+        continue-on-error: true # a CDIP hiccup must never block saving the snapshot
+        run: python pipeline/verify_forecasts.py
+
       - name: Commit snapshot and website data
         run: |
           git config user.name "forecast-logger[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add forecast_log web/public/data
+          git add forecast_log web/public/data docs/evidence/wave_check.md
           if git diff --cached --quiet; then
             echo "Nothing new to commit."
             exit 0

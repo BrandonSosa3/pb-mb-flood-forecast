@@ -17,3 +17,6 @@ data/processed/*.tif
 # Raw phone videos stay local (large; may show people). Stills/clips made from them are committed.
 docs/evidence/media/**/*.mov
 docs/evidence/media/**/*.MOV
+
+# Rebuilt by pipeline/verify_forecasts.py (grows every run; the summary docs/evidence/wave_check.md is kept)
+data/processed/wave_verification.csv
