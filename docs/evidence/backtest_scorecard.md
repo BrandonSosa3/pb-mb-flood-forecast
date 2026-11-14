@@ -62,6 +62,10 @@ holding, properties lower than the water count as storm-drain risk (≥ 25 → a
 
 Forecast for Sat Nov 14, 2026 (frozen snapshot 2026-11-13T2241Z): Mission Beach 🟡 Minor (NOAA-driven
 waves) / 🟠 Moderate (ECMWF-driven), Pacific Beach 🟡 Minor, Crown Point 🟢 Low.
+**Result: ocean side MISSED (under-predicted).** Water splashed over and pooled on the boardwalk at
+San Rafael / Santa Rita Pl 11:00-11:45 am (eyewitness); we said "close to the top, not over". Still
+water was right (6.31 vs 6.34 ft); the NOAA-driven waves ran low. Bay side right (berm held).
+Details: `prediction_2026-11-14.md`.
 
 Lessons:
 - Without a berm, every day above ~7.4 ft read Major for Mission Beach (3 over-warnings in Oct 2026).
@@ -72,4 +76,3 @@ Lessons:
 ## Still to add
 - Feb 2023 and other king-tide days (bay side), more near-miss days with no flooding.
 - NWS Local Storm Reports as an independent, location-specific source.
-- Result of the logged prediction for Sat Nov 14, 2026 (`docs/evidence/prediction_2026-11-14.md`).

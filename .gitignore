@@ -13,3 +13,7 @@ data/raw/*
 
 # Large rasters are rebuilt by pipeline/dem_prepare.py (their .meta.json files are kept)
 data/processed/*.tif
+
+# Raw phone videos stay local (large; may show people). Stills/clips made from them are committed.
+docs/evidence/media/**/*.mov
+docs/evidence/media/**/*.MOV

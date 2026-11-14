@@ -44,5 +44,23 @@ forecast snapshot. Not the focus of this prediction.
   **Miss** = water flowing onto the boardwalk/streets (under-prediction) or waves staying far down
   the beach (over-prediction).
 
-## Result
-_(to fill in after the event)_
+## Result (filled in Sat Nov 14, 2026, afternoon)
+**Ocean side: MISS (under-prediction), by the rule written above.**
+- Eyewitness (Brandon Sosa, in person, phone video): waves splashed over the boardwalk wall about
+  11:00-11:45 am; water pooled on the boardwalk around San Rafael Pl and Santa Rita Pl; nearby
+  streets had shallow water, not deep flooding.
+- That is "water flowing onto the boardwalk/streets", so a miss, although the place (D0394-D0396)
+  and time (11 am-noon) were right.
+- Still water was right: La Jolla measured **6.31 ft at 10:24 am** vs **6.34 ft at 10:42 am**
+  forecast (NOAA CO-OPS, preliminary). The error is in the waves.
+- Waves: the NOAA-driven model ran low (NDBC 46258 Mission Bay West, offshore, measured 2.3 m
+  = 7.5 ft at 15 s at 10:56 am). The ECMWF-driven run had margins of only 0.5-0.7 ft at
+  D0395/D0396, the exact spots that went over.
+- Same lesson as the backtest (Dec 2023): "reaches within 2 ft" has meant water on the boardwalk
+  in practice. Two errors stack: the low wave model and a 2 ft "reaches" band that is too
+  generous. To fix: verify both wave models against buoys (bias), and recalibrate the
+  over/reaches thresholds on all scored days (not just this one, to avoid overfitting).
+
+**Bay side: RIGHT.** No bay water on the streets; the Bayside Walk berm held (eyewitness).
+
+Not used as evidence: commercial surf-cam images (project rule: no Surfline data or footage).

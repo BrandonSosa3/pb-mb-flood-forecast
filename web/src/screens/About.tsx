@@ -9,7 +9,7 @@ type Result = "right" | "close" | "missed" | "false_alarm" | "pending";
 interface TrackDay {
   date: string; label: string; side: "bay" | "waves"; how: "backtest" | "live";
   title: string; happened: string; we_said: string; result: Result; note?: string;
-  sources: { name: string; url: string }[];
+  sources: { name: string; url?: string }[];
 }
 interface About {
   history: { station_name: string; downloaded: string; months: Month[]; record_before_2026: { month: string; anomaly_ft: number } };
@@ -217,7 +217,7 @@ function TrackRow({ d }: { d: TrackDay }) {
         {d.note && <p className="fine">{d.note}</p>}
         <p className="fine">{d.how === "live" ? "Forecast saved before the event." : "Tested afterwards with the real measured tide and waves."}
           {d.sources.length > 0 && <> Sources: {d.sources.map((s, i) => (
-            <span key={s.url}>{i > 0 && ", "}<a href={s.url} target="_blank" rel="noreferrer">{s.name}</a></span>
+            <span key={s.name}>{i > 0 && ", "}{s.url ? <a href={s.url} target="_blank" rel="noreferrer">{s.name}</a> : s.name}</span>
           ))}.</>}
         </p>
       </div>
