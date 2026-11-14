@@ -1,0 +1,79 @@
+{
+ "_about": "Hand-kept list of past days scored against reality, shown on the website's How it works page. Plain language only. Details and full source lists: backtest_scorecard.md, 2026-10_king_tides.md. result: right | close | missed | false_alarm | pending. how: backtest (model run afterwards on the real measured tide + waves) | live (forecast saved before the event).",
+ "updated": "2026-11-14",
+ "days": [
+  {
+   "date": "2026-11-14", "label": "Sat Nov 14, 2026", "side": "waves", "how": "live",
+   "title": "Big surf at a high tide",
+   "happened": "Waiting for photos and reports.",
+   "we_said": "Saved the evening before: waves come close to the top of the boardwalk at a few spots (around San Rafael Pl and Santa Rita Pl) but no water flows over it.",
+   "result": "pending", "sources": []
+  },
+  {
+   "date": "2026-10-28", "label": "Wed Oct 28, 2026", "side": "bay", "how": "backtest",
+   "title": "Briarfield Dr flooded",
+   "happened": "Bay water covered E Briarfield Dr in Pacific Beach (Sail Bay).",
+   "we_said": "The bay itself stays just short of this street (0.3 ft), but the ground nearby is lower than the water, so storm drains could back up. We flagged drain risk, not surface flooding.",
+   "result": "close",
+   "sources": [{"name": "FOX Weather", "url": "https://www.foxweather.com/weather-news/california-coast-record-breaking-tidal-flooding"}]
+  },
+  {
+   "date": "2026-10-27", "label": "Tue–Wed Oct 27–28, 2026", "side": "bay", "how": "backtest",
+   "title": "Rebuilt berm held",
+   "happened": "The City's rebuilt sand berm held. Mission Beach stayed mostly dry, with some standing water in low streets and bike paths.",
+   "we_said": "Minor: the berm holds the bay back, but storm drains may back up into low streets.",
+   "result": "right",
+   "sources": [
+    {"name": "NBC San Diego", "url": "https://www.nbcsandiego.com/news/local/floods-in-san-diego-coastal-neighborhoods-continue-with-surge-of-high-tides/4092893/"},
+    {"name": "NBC San Diego video", "url": "https://www.nbcsandiego.com/video/videos/mission-bay-sand-berm-holds-high-tides-at-bay-after-flooding/4093385/"}
+   ]
+  },
+  {
+   "date": "2026-10-26", "label": "Mon Oct 26, 2026", "side": "bay", "how": "backtest",
+   "title": "Berm broke, streets flooded",
+   "happened": "Mission Bay reached about 8.1 ft and the sand berm along Bayside Walk broke. Water flooded streets and homes from Belmont Park to the Catamaran, Mission Blvd at N Jetty Rd, and Pacific Beach Dr.",
+   "we_said": "Minor while the berm holds, Major if it fails, with water reaching about 1,100 properties. It failed, and the flooded streets in the news match the ones on our map.",
+   "result": "right",
+   "sources": [
+    {"name": "Times of San Diego", "url": "https://timesofsandiego.com/weather/2026/10/27/mission-bay-flooding-continues-raising-concerns-about-winter-storms-during-the-holidays/"},
+    {"name": "FOX 5", "url": "https://fox5sandiego.com/news/local-news/mission-bay-flooding-high-tide/"},
+    {"name": "KPBS", "url": "https://www.kpbs.org/news/environment/2026/10/27/port-issues-warning-of-street-flooding-as-high-tides-hit-san-diego"}
+   ]
+  },
+  {
+   "date": "2026-10-25", "label": "Oct 25–28, 2026", "side": "waves", "how": "backtest",
+   "title": "Record tides, small surf",
+   "happened": "Surf was small (about 2–3 ft). No water came over the ocean boardwalk; all the flooding was on the bay side.",
+   "we_said": "Ocean side: waves stay well below the top of the boardwalk.",
+   "result": "right", "sources": []
+  },
+  {
+   "date": "2024-01-04", "label": "Thu Jan 4, 2024", "side": "waves", "how": "backtest",
+   "title": "Huge swell at low tide",
+   "happened": "A second big swell hit, but near low tide. No boardwalk flooding was reported.",
+   "we_said": "Low: the big waves arrive when the tide is low, so they stop short of the boardwalk.",
+   "result": "right",
+   "sources": [{"name": "KPBS", "url": "https://www.kpbs.org/news/environment/2024/01/04/another-big-wave-event-slams-san-diego-coast"}]
+  },
+  {
+   "date": "2023-12-28", "label": "Dec 28–30, 2023", "side": "waves", "how": "backtest",
+   "title": "Boardwalk underwater",
+   "happened": "Big surf and high tides put the boardwalk underwater in Mission Beach and Pacific Beach, with water in nearby streets and yards.",
+   "we_said": "Mission Beach Moderate on Fri 29 and Major on Sat 30: waves wash over the boardwalk.",
+   "result": "right",
+   "note": "Reports don't say exactly which day was worst. If it was Thu 28, we were a day late.",
+   "sources": [
+    {"name": "NBC 7", "url": "https://www.nbcsandiego.com/news/local/cleanup-efforts-in-mission-beach-pacific-beach-after-high-surf/3397736/"},
+    {"name": "KPBS", "url": "https://www.kpbs.org/news/public-safety/2023/12/28/high-surf-flood-advisory-in-effect-at-san-diego-county-beaches"}
+   ]
+  },
+  {
+   "date": "2023-01-06", "label": "Fri Jan 6, 2023", "side": "waves", "how": "backtest",
+   "title": "Boardwalk covered in seawater",
+   "happened": "Waves at high tide covered the Mission Beach boardwalk in seawater.",
+   "we_said": "Mission Beach Major: waves wash over the boardwalk in a few places, 6–8 am.",
+   "result": "right",
+   "sources": [{"name": "NBC 7", "url": "https://www.nbcsandiego.com/news/local/cleanup-begins-in-mission-beach-after-boardwalk-hit-with-high-waves/3137277/"}]
+  }
+ ]
+}

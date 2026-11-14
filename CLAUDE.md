@@ -148,7 +148,10 @@ available on demand.
   of Mission Beach's bay shore + Bayside Walk raised to 9.0 ft MLLW, assumed).
   Status = berm-holds headline + "if the berm fails" rating; storm-drain risk
   (>= 25 properties below water) -> at least Minor.
-- Next: screen design (sketch first, get OK), then website build;
+- Website live: https://pb-mb-flood-forecast.vercel.app (Vercel, personal account, auto-deploys
+  on push). Screens: Home, Area, Map, How it works (#/about; track record from
+  docs/evidence/track_record.json, kept by hand -> about.json via build_site_data.py).
+- Next: street search, 3D view, desktop layout;
   verify_forecasts.py; more backtest days; fill Nov 14 prediction result.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed

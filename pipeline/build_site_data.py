@@ -9,6 +9,9 @@ forecast and the model outputs into ready-to-display files.
   areas.geojson        area outlines (copied)
   buildings.geojson    buildings water can reach at <= MAX_LEVEL_FT (shape + danger heights only)
   streets.geojson      25 m street pieces water can reach at <= MAX_LEVEL_FT
+  about.json           "How it works" page: monthly extra water since 1980 (San Diego gauge),
+                       the hand-kept track record (docs/evidence/track_record.json), and
+                       how many live forecasts the logger has saved
 
 Headline wave model: CDIP MOP driven by NOAA WaveWatch III ("forecast").
 "Could reach": the worse of that and the ECMWF-driven run.
@@ -152,6 +155,34 @@ def forecast_json(snapshot: Path) -> dict:
     }
 
 
+HISTORY_STATION = "9410170"  # San Diego: the longest record, and the gauge the news quotes
+TRACK_RECORD = PROJECT_ROOT / "docs" / "evidence" / "track_record.json"
+
+
+def about_json() -> dict:
+    m = pd.read_csv(PROCESSED_DIR / f"monthly_extra_water_{HISTORY_STATION}.csv", parse_dates=["month"])
+    m = m[m.month >= "1980-01-01"]
+    hist_meta = json.loads((PROCESSED_DIR / f"monthly_extra_water_{HISTORY_STATION}.meta.json").read_text())
+    months = [{"m": r.month.strftime("%Y-%m"),
+               "a": None if pd.isna(r.anomaly_ft) else round(float(r.anomaly_ft), 2),
+               "n": r.el_nino_winter if isinstance(r.el_nino_winter, str) else "",
+               "p": bool(r.partial)} for r in m.itertuples()]
+    full = m[~m.partial & m.anomaly_ft.notna()]
+    before = full[full.month < "2026-01-01"]
+    top = before.loc[before.anomaly_ft.idxmax()]
+    runs = sorted(p for p in LOG_DIR.glob("*/*/*Z") if (p / "meta.json").exists())
+    return {
+        "history": {
+            "station": HISTORY_STATION, "station_name": "San Diego (Broadway Pier)",
+            "downloaded": hist_meta.get("downloaded_at_utc", hist_meta.get("created_utc", ""))[:10],
+            "months": months,
+            "record_before_2026": {"month": top.month.strftime("%Y-%m"), "anomaly_ft": round(float(top.anomaly_ft), 2)},
+        },
+        "track_record": json.loads(TRACK_RECORD.read_text()),
+        "log": {"first": runs[0].name if runs else None, "count": len(runs)},
+    }
+
+
 def trimmed_assets() -> tuple[gpd.GeoDataFrame, gpd.GeoDataFrame]:
     b = gpd.read_file(PROCESSED_DIR / "buildings_danger.geojson")
     b = b[np.fmin(b.danger_bay_ft.fillna(99), b.danger_ocean_ft.fillna(99)) <= MAX_LEVEL_FT]
@@ -178,6 +209,7 @@ def main() -> None:
 
     fc = forecast_json(snapshot)
     (SITE_DATA / "forecast.json").write_text(json.dumps(fc, indent=1))
+    (SITE_DATA / "about.json").write_text(json.dumps(about_json(), separators=(",", ":")))
     for name in ("area_curves.json", "areas.geojson"):
         shutil.copy(PROCESSED_DIR / name, SITE_DATA / name)
     b, s = trimmed_assets()

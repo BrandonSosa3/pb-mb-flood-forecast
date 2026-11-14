@@ -1,5 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { type Forecast, loadForecast } from "./data";
+import { About } from "./screens/About";
 import { Area } from "./screens/Area";
 import { Home } from "./screens/Home";
 
@@ -50,6 +51,8 @@ export function App() {
         <MapScreen forecast={forecast} />
       </Suspense>
     );
+  } else if (route === "/about") {
+    screen = <About />;
   } else {
     screen = <Home forecast={forecast} />;
   }
