@@ -48,6 +48,7 @@ SIDE_OFFSET_M = 3.0
 def load_grids() -> dict:
     grids = {}
     for key, name in [("ground", "dem_pbmb_navd88_ft.tif"), ("bay", "danger_from_bay_navd88_ft.tif"),
+                      ("bay_berm", "danger_from_bay_berm_navd88_ft.tif"),
                       ("ocean", "danger_from_ocean_navd88_ft.tif"), ("mask", "water_mask_pbmb.tif")]:
         with rasterio.open(PROCESSED_DIR / name) as src:
             grids[key] = src.read(1)
@@ -60,7 +61,7 @@ def to_mllw(values: np.ndarray) -> np.ndarray:
 
 
 def building_danger(buildings: gpd.GeoDataFrame, g: dict) -> gpd.GeoDataFrame:
-    out = {"danger_bay_ft": [], "danger_ocean_ft": [], "ground_min_ft": []}
+    out = {"danger_bay_ft": [], "danger_bay_berm_ft": [], "danger_ocean_ft": [], "ground_min_ft": []}
     for geom in buildings.geometry.buffer(BUILDING_BUFFER_M):
         win = from_bounds(*geom.bounds, g["transform"]).round_offsets().round_lengths()
         r0, c0 = max(int(win.row_off), 0), max(int(win.col_off), 0)
@@ -73,7 +74,8 @@ def building_danger(buildings: gpd.GeoDataFrame, g: dict) -> gpd.GeoDataFrame:
         wt = rasterio.windows.transform(rasterio.windows.Window(c0, r0, c1 - c0, r1 - r0), g["transform"])
         inside = ~geometry_mask([geom], (r1 - r0, c1 - c0), wt, all_touched=True)
         land = inside & (g["mask"][r0:r1, c0:c1] == 0)
-        for key, grid in [("danger_bay_ft", "bay"), ("danger_ocean_ft", "ocean"), ("ground_min_ft", "ground")]:
+        for key, grid in [("danger_bay_ft", "bay"), ("danger_bay_berm_ft", "bay_berm"),
+                          ("danger_ocean_ft", "ocean"), ("ground_min_ft", "ground")]:
             vals = g[grid][r0:r1, c0:c1][land]
             vals = vals[np.isfinite(vals)]
             out[key].append(vals.min() if vals.size else np.nan)
@@ -114,7 +116,7 @@ def street_danger(ways: gpd.GeoDataFrame, g: dict) -> gpd.GeoDataFrame:
             center_n = len(pts[0])  # the first line is the centerline
             flat = [p for line_pts in pts for p in line_pts]
             xs, ys = np.array([p.x for p in flat]), np.array([p.y for p in flat])
-            vals = {k: sample(g[k], g, xs, ys) for k in ("bay", "ocean", "ground")}
+            vals = {k: sample(g[k], g, xs, ys) for k in ("bay", "bay_berm", "ocean", "ground")}
             if np.all(np.isnan(vals["ground"])):
                 continue  # bridge / over water
 
@@ -129,14 +131,17 @@ def street_danger(ways: gpd.GeoDataFrame, g: dict) -> gpd.GeoDataFrame:
                          "length_m": round(piece.length, 1),
                          # water reaches the edges / gutters / low spots of this stretch
                          "danger_bay_ft": lowest(vals["bay"]),
+                         "danger_bay_berm_ft": lowest(vals["bay_berm"]),
                          "danger_ocean_ft": lowest(vals["ocean"]),
                          # water covers the middle of the road along most of this stretch
                          "covered_bay_ft": middle(vals["bay"]),
+                         "covered_bay_berm_ft": middle(vals["bay_berm"]),
                          "covered_ocean_ft": middle(vals["ocean"]),
                          "ground_min_ft": lowest(vals["ground"]),
                          "geometry": piece})
     pieces = gpd.GeoDataFrame(rows, crs=UTM)
-    for k in ("danger_bay_ft", "danger_ocean_ft", "covered_bay_ft", "covered_ocean_ft", "ground_min_ft"):
+    for k in ("danger_bay_ft", "danger_bay_berm_ft", "danger_ocean_ft", "covered_bay_ft",
+              "covered_bay_berm_ft", "covered_ocean_ft", "ground_min_ft"):
         pieces[k] = to_mllw(pieces[k].to_numpy(dtype=float))
     return pieces
 
@@ -162,6 +167,7 @@ def main() -> None:
         "building_buffer_m": BUILDING_BUFFER_M, "piece_length_m": PIECE_LENGTH_M, "side_offset_m": SIDE_OFFSET_M,
         "columns": {
             "danger_bay_ft": "lowest still-water level at which water from Mission Bay reaches it",
+            "danger_bay_berm_ft": "same, if Mission Beach's bay-side sand berm holds (see flood_threshold.py)",
             "danger_ocean_ft": "same, from the open ocean (waves not included)",
             "covered_bay_ft / covered_ocean_ft": "streets only: level at which the middle of the road is under "
                                                  "water along at least half of the 25 m stretch",

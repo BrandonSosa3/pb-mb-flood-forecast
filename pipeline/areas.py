@@ -57,10 +57,11 @@ def main() -> None:
     profiles = pd.read_csv(PROCESSED_DIR / "shore_profiles.csv")
 
     # Assign each building / street piece to the area containing its center.
-    b_area = gpd.sjoin(gpd.GeoDataFrame(buildings[["danger_bay_ft", "ground_min_ft"]],
+    b_area = gpd.sjoin(gpd.GeoDataFrame(buildings[["danger_bay_ft", "danger_bay_berm_ft", "ground_min_ft"]],
                                         geometry=buildings.to_crs(26911).centroid.to_crs(4326)),
                        areas, predicate="within")
-    s_area = gpd.sjoin(gpd.GeoDataFrame(streets[["kind", "length_m", "danger_bay_ft", "covered_bay_ft"]],
+    s_area = gpd.sjoin(gpd.GeoDataFrame(streets[["kind", "length_m", "danger_bay_ft", "covered_bay_ft",
+                                                 "danger_bay_berm_ft", "covered_bay_berm_ft"]],
                                         geometry=streets.to_crs(26911).centroid.to_crs(4326)),
                        areas, predicate="within")
 
@@ -71,18 +72,22 @@ def main() -> None:
         b = b[~(b.danger_bay_ft <= ROUTINELY_WET_FT)]
         st = st[~(st.danger_bay_ft <= ROUTINELY_WET_FT)]
         streets_only, walks = st[st.kind == "street"], st[st.kind == "walkway"]
-        reached = lambda lv: int((b.danger_bay_ft <= lv).sum())
-        drain = lambda lv: int(((b.danger_bay_ft > lv) & (b.ground_min_ft < lv)).sum())
-        road = lambda lv: round(streets_only.loc[streets_only.covered_bay_ft <= lv, "length_m"].sum() / M_PER_MI, 3)
-        walk = lambda lv: round(walks.loc[walks.danger_bay_ft <= lv, "length_m"].sum() / M_PER_MI, 3)
+        def counts(sfx: str) -> dict:
+            """Counts per level; sfx '' = no berm (berm fails), '_berm' = berm holds."""
+            d, c = f"danger_bay{sfx}_ft", f"covered_bay{sfx}_ft"
+            return {
+                f"buildings{sfx}": [int((b[d] <= lv).sum()) for lv in LEVELS],
+                f"drain_buildings{sfx}": [int(((b[d] > lv) & (b.ground_min_ft < lv)).sum()) for lv in LEVELS],
+                f"road_mi{sfx}": [round(streets_only.loc[streets_only[c] <= lv, "length_m"].sum() / M_PER_MI, 3)
+                                  for lv in LEVELS],
+                f"walk_mi{sfx}": [round(walks.loc[walks[d] <= lv, "length_m"].sum() / M_PER_MI, 3) for lv in LEVELS],
+            }
         beach = profiles[(profiles.lat >= s) & (profiles.lat < n)
                          & profiles.barrier.isin(["ridge", "rising ground"])] if name in OCEAN_FRONT else profiles[:0]
         curves["areas"][name] = {
             "total_buildings": int(len(b)),
-            "buildings": [reached(lv) for lv in LEVELS],
-            "drain_buildings": [drain(lv) for lv in LEVELS],
-            "road_mi": [road(lv) for lv in LEVELS],
-            "walk_mi": [walk(lv) for lv in LEVELS],
+            **counts(""),
+            **counts("_berm"),
             "beach_points": beach.point.tolist(),
         }
 
@@ -101,8 +106,9 @@ def main() -> None:
         print(f"\n{name}: {c['total_buildings']:,} buildings in area, {len(c['beach_points'])} beach stretches "
               f"({c['beach_points'][0] if c['beach_points'] else '-'}..{c['beach_points'][-1] if c['beach_points'] else '-'})")
         for lv, i in zip(show, idx):
-            print(f"  {lv:5.2f} ft: {c['buildings'][i]:4d} buildings (+{c['drain_buildings'][i]} drain risk), "
-                  f"{c['road_mi'][i]:.2f} mi road covered, {c['walk_mi'][i]:.2f} mi walkway")
+            print(f"  {lv:5.2f} ft: berm fails {c['buildings'][i]:4d} bldg, {c['road_mi'][i]:.2f} mi road | "
+                  f"berm holds {c['buildings_berm'][i]:4d} bldg (+{c['drain_buildings_berm'][i]} drain risk), "
+                  f"{c['road_mi_berm'][i]:.2f} mi road, {c['walk_mi_berm'][i]:.2f} mi walk")
     print(f"\nSaved areas.geojson and area_curves.json in {PROCESSED_DIR.relative_to(PROJECT_ROOT)}")
 
 

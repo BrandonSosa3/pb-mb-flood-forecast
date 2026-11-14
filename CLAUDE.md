@@ -141,10 +141,15 @@ available on demand.
   boardwalk in practice. Logged prediction for Sat Nov 14 2026 (fill result).
 - Areas + risk (pipeline/areas.py, risk.py): Mission Beach / Pacific Beach /
   Crown Point; Low/Minor/Moderate/Major = worse of bay (properties, road) and
-  ocean (stretches reaching/over top). Scale is a PROPOSAL awaiting Brandon's OK.
+  ocean (stretches reaching/over top). Scale and names APPROVED by Brandon
+  2026-11-13.
   Logger now also logs Mission Bay (9410196 predictions + La Jolla extra).
-- Next: Brandon to approve risk scale; then berm option, then screen design
-  (sketch first), verify_forecasts.py, more backtest days.
+- Berm option done: flood_threshold.py "bay_berm" run (shoreline band along all
+  of Mission Beach's bay shore + Bayside Walk raised to 9.0 ft MLLW, assumed).
+  Status = berm-holds headline + "if the berm fails" rating; storm-drain risk
+  (>= 25 properties below water) -> at least Minor.
+- Next: screen design (sketch first, get OK), then website build;
+  verify_forecasts.py; more backtest days; fill Nov 14 prediction result.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed
   water levels for San Diego 9410170 for the past month and computes the

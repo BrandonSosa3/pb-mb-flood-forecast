@@ -43,6 +43,18 @@ BARRIER_FT = 1000.0  # "water can't pass" (used for survey gaps / the other wate
 FOUR_NEIGHBOURS = ndimage.generate_binary_structure(2, 1)
 OCEAN_SIDE_MIN_LAT = 32.7598  # just north of the Mission Bay north jetty
 
+# "Berm holds" scenario. Each winter the City builds a sand berm along Mission
+# Beach's bay shoreline (Bayside Walk). Exact alignment and height are not
+# published; reports give "six to seven feet" tall, and on Oct 27-28, 2026 the
+# rebuilt berm held with Mission Bay at ~8.1-8.2 ft. We model it as a band of
+# shoreline ground raised to an effective top of BERM_TOP_MLLW_FT, along the
+# bay-facing shore along Bayside Walk. (Assumption - documented.)
+BERM_TOP_MLLW_FT = 9.0
+BERM_BAND_M = 4
+BERM_WALK_DISTANCE_M = 60  # shoreline within this distance of Bayside Walk gets the berm
+MISSION_BEACH_LONLAT = (-117.2620, 32.7585, -117.2425, 32.7908)  # all of its bay shore (same box as areas.py)
+NAVD88_ABOVE_MLLW_FT = 0.19  # NOAA La Jolla datums
+
 
 def danger_heights(ground: np.ndarray, source: np.ndarray) -> np.ndarray:
     """Lowest water level at which water from `source` cells reaches each cell."""
@@ -51,6 +63,33 @@ def danger_heights(ground: np.ndarray, source: np.ndarray) -> np.ndarray:
     # Reconstruction by erosion: lowers the seed as far as it can while staying
     # above the ground, spreading only through connected cells.
     return reconstruction(seed, ground, method="erosion", footprint=FOUR_NEIGHBOURS)
+
+
+def berm_band(mask: np.ndarray, profile: dict) -> np.ndarray:
+    """Shoreline land cells (within BERM_BAND_M of Mission Bay water) that get the berm:
+    all of Mission Beach's bay shore, plus the shore along Bayside Walk.
+
+    The berm follows Bayside Walk (OpenStreetMap), which runs from Mission Beach
+    around Sail Bay to Crown Point, so its ends tie into higher ground instead of
+    letting water walk around them along the beach.
+    """
+    import geopandas as gpd
+    from rasterio.features import rasterize
+
+    ways = gpd.read_file(PROCESSED_DIR / "osm_ways.geojson")
+    walk = ways[ways.name == "Bayside Walk"].to_crs(profile["crs"])
+    near_walk = rasterize([(g, 1) for g in walk.geometry.buffer(BERM_WALK_DISTANCE_M)],
+                          out_shape=mask.shape, transform=profile["transform"]).astype(bool)
+    from rasterio.warp import transform_bounds
+    from rasterio.windows import from_bounds
+
+    win = from_bounds(*transform_bounds("EPSG:4326", profile["crs"], *MISSION_BEACH_LONLAT),
+                      profile["transform"]).round_offsets().round_lengths()
+    in_mission_beach = np.zeros(mask.shape, bool)
+    r0, c0 = max(int(win.row_off), 0), max(int(win.col_off), 0)
+    in_mission_beach[r0:r0 + int(win.height), c0:c0 + int(win.width)] = True
+    near_bay = ndimage.binary_dilation(mask == 1, structure=FOUR_NEIGHBOURS, iterations=BERM_BAND_M) & (mask == 0)
+    return near_bay & (near_walk | in_mission_beach)
 
 
 def main() -> None:
@@ -79,8 +118,17 @@ def main() -> None:
 
     OCEAN_SURFACE_FT = -3.0  # ocean cells have no height in the data; any value below land works
     outputs = {}
-    for name, source, blocked in [("bay", bay, ocean | gaps), ("ocean", beach_ocean, bay | gaps | channel_ocean)]:
+    berm = berm_band(mask, profile)
+    berm_top_navd = BERM_TOP_MLLW_FT - NAVD88_ABOVE_MLLW_FT
+    print(f"  berm band: {berm.sum():,} cells (~{berm.sum() / BERM_BAND_M / 1000:.1f} km of shoreline), "
+          f"top {BERM_TOP_MLLW_FT} ft MLLW")
+    runs = [("bay", bay, ocean | gaps, False),
+            ("bay_berm", bay, ocean | gaps, True),
+            ("ocean", beach_ocean, bay | gaps | channel_ocean, False)]
+    for name, source, blocked, with_berm in runs:
         ground = dem.copy()
+        if with_berm:
+            ground[berm] = np.maximum(ground[berm], berm_top_navd)
         ground[ocean] = OCEAN_SURFACE_FT
         ground[blocked] = BARRIER_FT  # the OTHER water body is treated as a wall
         start = time.time()
@@ -104,8 +152,13 @@ def main() -> None:
             "No storm drains: water arriving through pipes is not modeled.",
             "Survey gaps are treated as walls.",
             "Ocean run: water enters only across the PB/MB beach (north of the channel mouth).",
+            f"bay_berm run: bay shoreline along Bayside Walk ({BERM_BAND_M} m band) raised to "
+            f"{BERM_TOP_MLLW_FT} ft MLLW (assumed effective berm top).",
         ],
     }
+    (PROCESSED_DIR / "danger_heights.meta.json").write_text(json.dumps(meta, indent=2))
+    meta["berm"] = {"top_ft_mllw": BERM_TOP_MLLW_FT, "band_m": BERM_BAND_M,
+                    "along": f"Bayside Walk (OSM), shoreline within {BERM_WALK_DISTANCE_M} m"}
     (PROCESSED_DIR / "danger_heights.meta.json").write_text(json.dumps(meta, indent=2))
     print(f"Saved {', '.join(outputs.values())} in {PROCESSED_DIR.relative_to(PROJECT_ROOT)}")
 

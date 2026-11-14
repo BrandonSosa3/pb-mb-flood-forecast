@@ -42,10 +42,12 @@ Chart: `figures/runup_backtest.png`.
 
 Details: `docs/evidence/2026-10_king_tides.md`.
 
-## Area ratings (proposed scale, pipeline/risk.py)
+## Area ratings (approved scale, pipeline/risk.py)
 
 Levels Low / Minor / Moderate / Major; an area takes the worse of its bay side and ocean side.
-Peak day of each event:
+Bay side headline assumes the City's sand berms along Bayside Walk **hold** (modeled top 9.0 ft
+MLLW, an assumption); the second rating is **if the berm fails** (no-berm model). With the berm
+holding, properties lower than the water count as storm-drain risk (≥ 25 → at least Minor).
 
 | Day | Mission Beach | Pacific Beach | Crown Point | Reality |
 |---|---|---|---|---|
@@ -54,15 +56,18 @@ Peak day of each event:
 | Fri Dec 29, 2023 | 🟠 Moderate (waves) | 🟡 Minor | 🟢 Low | boardwalk flooding (day unconfirmed) |
 | Sat Dec 30, 2023 | 🔴 Major (waves) | 🟡 Minor | 🟢 Low | boardwalk flooding (day unconfirmed) |
 | Thu Jan 4, 2024 | 🟢 Low | 🟢 Low | 🟢 Low | no flooding found ✅ |
-| Sun Oct 25, 2026 | 🔴 Major (bay) | 🟠 Moderate | 🟡 Minor | berm likely held → ❌ over-warning (model has no berm) |
-| Mon Oct 26, 2026 | 🔴 Major (bay) | 🟠 Moderate | 🟡 Minor | berm broke, major bay-side flooding ✅ |
-| Tue–Wed Oct 27–28, 2026 | 🔴 Major (bay) | 🟠 Moderate | 🟡 Minor | rebuilt berm held in MB ❌ (no berm); PB streets flooded ✅ |
+| Sun Oct 25, 2026 | 🟡 Minor · Major if berm fails | 🟡 Minor · Moderate if berm fails | 🟢 Low | berm held ✅ |
+| Mon Oct 26, 2026 | 🟡 Minor · **Major if berm fails** | 🟡 Minor · Moderate if berm fails | 🟢 Low | berm broke → major flooding ✅ (flagged in the berm-fails rating) |
+| Tue–Wed Oct 27–28, 2026 | 🟡 Minor · Major if berm fails | 🟡 Minor · Moderate if berm fails | 🟢 Low | rebuilt berm held; some street water (MB, PB) ✅ |
 
 Forecast for Sat Nov 14, 2026 (frozen snapshot 2026-11-13T2241Z): Mission Beach 🟡 Minor (NOAA-driven
 waves) / 🟠 Moderate (ECMWF-driven), Pacific Beach 🟡 Minor, Crown Point 🟢 Low.
 
-Lesson: the bay side needs a **berm option** (Mission Beach's winter sand berm along Bayside Walk);
-without it, every day above ~7.4 ft reads Major for Mission Beach even when the berm holds.
+Lessons:
+- Without a berm, every day above ~7.4 ft read Major for Mission Beach (3 over-warnings in Oct 2026).
+  The berm-holds headline + berm-fails second rating fixes that while still flagging Oct 26.
+- Whether a sand berm breaches can't be forecast from water levels alone; that's why it's shown as
+  a scenario, not hidden.
 
 ## Still to add
 - Feb 2023 and other king-tide days (bay side), more near-miss days with no flooding.

@@ -11,6 +11,7 @@
   "side_offset_m": 3.0,
   "columns": {
     "danger_bay_ft": "lowest still-water level at which water from Mission Bay reaches it",
+    "danger_bay_berm_ft": "same, if Mission Beach's bay-side sand berm holds (see flood_threshold.py)",
     "danger_ocean_ft": "same, from the open ocean (waves not included)",
     "covered_bay_ft / covered_ocean_ft": "streets only: level at which the middle of the road is under water along at least half of the 25 m stretch",
     "ground_min_ft": "lowest ground nearby (below the water but above danger height = storm-drain risk)"
