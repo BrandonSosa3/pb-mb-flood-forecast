@@ -42,6 +42,23 @@
       ]
     },
     {
+      "date": "2026-11-08",
+      "label": "Sat–Sun Nov 7–8, 2026",
+      "side": "bay",
+      "how": "backtest",
+      "title": "High tides after the berm was rebuilt",
+      "happened": "No new flooding reported; the City had made the berm bigger.",
+      "we_said": "Minor: the berm holds, but storm drains may back up into a few low streets.",
+      "result": "right",
+      "note": "Weak check: based on no reports of flooding.",
+      "sources": [
+        {
+          "name": "10News, Nov 8",
+          "url": "https://www.10news.com/news/local-news/mission-beach-residents-brace-for-high-tides-again-with-another-coastal-flood-advisory-in-effect-in-san-diego"
+        }
+      ]
+    },
+    {
       "date": "2026-10-28",
       "label": "Wed Oct 28, 2026",
       "side": "bay",
@@ -113,6 +130,95 @@
       "sources": []
     },
     {
+      "date": "2026-10-25",
+      "label": "Sun Oct 25, 2026",
+      "side": "bay",
+      "how": "backtest",
+      "title": "Very high tide, berm leaked",
+      "happened": "Bay water pushed through the sand berm into Mission Beach yards and homes around 8:30 am; Dawes St in Pacific Beach flooded to Pacific Beach Dr.",
+      "we_said": "Minor if the berm holds; Major if it fails.",
+      "result": "missed",
+      "note": "The main rating trusted the berm. The 'if the berm fails' rating was right.",
+      "sources": [
+        {
+          "name": "10News, Oct 26",
+          "url": "https://www.10news.com/news/local-news/coastal-flood-warning-hits-san-diego-as-high-tides-send-bay-water-into-mission-beach-yards"
+        },
+        {
+          "name": "NWS storm report (Iowa State archive)",
+          "url": "https://mesonet.agron.iastate.edu/lsr/"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "label": "Sun Oct 11, 2026",
+      "side": "bay",
+      "how": "backtest",
+      "title": "Coastal flood warning",
+      "happened": "A Pacific Beach neighborhood by the bay near Pacific Beach Dr flooded after the morning high tide.",
+      "we_said": "Pacific Beach Minor: storm drains may back up into low streets.",
+      "result": "close",
+      "note": "Right place, but more water than 'Minor' suggests.",
+      "sources": [
+        {
+          "name": "NWS storm report (Iowa State archive)",
+          "url": "https://mesonet.agron.iastate.edu/lsr/"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-11",
+      "label": "Tue Aug 11, 2026 (night)",
+      "side": "bay",
+      "how": "backtest",
+      "title": "Summer king tide",
+      "happened": "Homes and cars around Mission Bay surrounded by water.",
+      "we_said": "Minor if the berm holds; Major if it fails.",
+      "result": "missed",
+      "note": "There is no berm in summer, so the 'if the berm fails' rating (Major) was the right one.",
+      "sources": [
+        {
+          "name": "Times of San Diego, Aug 13",
+          "url": "https://timesofsandiego.com/newsletter/flooding-from-king-tides/"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-14",
+      "label": "Tue Jul 14, 2026 (night)",
+      "side": "bay",
+      "how": "backtest",
+      "title": "Summer king tide",
+      "happened": "Water came over both Mission Beach walkways, into alleys and underground garages. The City doesn't build sand berms in summer.",
+      "we_said": "Minor if the berm holds; Major if it fails.",
+      "result": "missed",
+      "note": "Same lesson: no summer berm, so 'if the berm fails' (Major) was right.",
+      "sources": [
+        {
+          "name": "10News, Jul 15",
+          "url": "https://www.10news.com/news/local-news/mission-beach-flooding-king-tides-flood-alleyway-and-underground-parking"
+        }
+      ]
+    },
+    {
+      "date": "2024-12-22",
+      "label": "Sun Dec 22, 2024",
+      "side": "waves",
+      "how": "backtest",
+      "title": "Huge surf at a low tide",
+      "happened": "Video of water washing onto the Mission Beach boardwalk; lifeguards reported 8–12 ft surf.",
+      "we_said": "Low: the waves were huge but the tide was low, so they stop about 3 ft below the top.",
+      "result": "missed",
+      "note": "Waves ran higher up the beach than our formula says, like on Nov 14, 2026.",
+      "sources": [
+        {
+          "name": "NWS storm report (Iowa State archive)",
+          "url": "https://mesonet.agron.iastate.edu/lsr/"
+        }
+      ]
+    },
+    {
       "date": "2024-01-04",
       "label": "Thu Jan 4, 2024",
       "side": "waves",
@@ -150,6 +256,23 @@
       ]
     },
     {
+      "date": "2023-01-21",
+      "label": "Sat Jan 21, 2023",
+      "side": "bay",
+      "how": "backtest",
+      "title": "King tide, about 7 ft",
+      "happened": "The marsh at Kendall-Frost was underwater; no street flooding was named.",
+      "we_said": "Minor: storm drains may back up into a few low streets.",
+      "result": "right",
+      "note": "Weak check: based on no reports of street flooding.",
+      "sources": [
+        {
+          "name": "10News, Jan 21",
+          "url": "https://www.10news.com/news/local-news/king-tides-engulf-mission-bay-marsh-flood-parts-of-san-diego"
+        }
+      ]
+    },
+    {
       "date": "2023-01-06",
       "label": "Fri Jan 6, 2023",
       "side": "waves",
@@ -162,6 +285,40 @@
         {
           "name": "NBC 7",
           "url": "https://www.nbcsandiego.com/news/local/cleanup-begins-in-mission-beach-after-boardwalk-hit-with-high-waves/3137277/"
+        }
+      ]
+    },
+    {
+      "date": "2020-04-09",
+      "label": "Thu–Fri Apr 9–10, 2020",
+      "side": "bay",
+      "how": "backtest",
+      "title": "Heavy rain at a night high tide",
+      "happened": "Flash flooding near Mission Beach the next morning, with water above car tires (1.8 in of rain).",
+      "we_said": "Mission Beach Moderate on Apr 9: rain during the high tide, low streets may pond.",
+      "result": "close",
+      "note": "Flagged the night before the report.",
+      "sources": [
+        {
+          "name": "NWS storm report (Iowa State archive)",
+          "url": "https://mesonet.agron.iastate.edu/lsr/"
+        }
+      ]
+    },
+    {
+      "date": "2018-11-29",
+      "label": "Thu Nov 29, 2018",
+      "side": "bay",
+      "how": "backtest",
+      "title": "Evening rain at a low tide",
+      "happened": "Minor street flooding near Mission Bay.",
+      "we_said": "Low.",
+      "result": "missed",
+      "note": "Rain that floods streets without a high tide isn't modeled yet (planned: rain flooding for all of PB and La Jolla).",
+      "sources": [
+        {
+          "name": "NWS storm report (Iowa State archive)",
+          "url": "https://mesonet.agron.iastate.edu/lsr/"
         }
       ]
     }

@@ -1,0 +1,42 @@
+# Past days for pipeline/backtest_days.py. Chosen 2026-11-14 from (a) every NWS San Diego Coastal Flood
+# Advisory/Warning for zone CAZ043 since 2021 (IEM VTEC archive), (b) NWS Local Storm Reports near
+# PB/MB (IEM LSR archive; reports citing Surfline excluded), (c) rain-near-high-tide days from
+# rain_near_high_tide.md with a report, (d) controls: the highest La Jolla tides of 2021-2025 with no
+# NWS coastal alert within a day. Days already scored before (Jan 6 2023, Dec 28-30 2023, Jan 4 2024,
+# Oct 25-28 2026, Nov 14 2026) are kept in backtest_scorecard.md and not repeated here except Oct 25.
+date,why
+2019-01-18,LSR high surf: 15 ft sets at Mission Beach; OB pier damaged
+2021-01-11,NWS Coastal Flood Advisory
+2021-01-12,NWS Coastal Flood Advisory
+2023-01-14,NWS Coastal Flood Advisory
+2023-01-20,LSR king tide: water at La Jolla Shores Marine Room (6.7-6.9 ft)
+2023-01-21,King tides (day after LSR)
+2024-01-11,NWS Coastal Flood Advisory
+2024-01-12,NWS Coastal Flood Advisory
+2024-01-21,NWS Coastal Flood Advisory
+2024-01-22,Rain rule day: record rain (2.35 in near high tide)
+2024-02-20,LSR high surf: Mission Beach lifeguards max 12 ft
+2024-12-22,LSR high surf: video of water washing onto Mission Beach boardwalk (Dec 22-23)
+2024-12-23,LSR high surf: video of water washing onto Mission Beach boardwalk (Dec 22-23)
+2024-12-24,High Surf Advisory continues
+2026-02-02,NWS Coastal Flood Advisory
+2026-07-31,NWS Coastal Flood Advisory
+2026-08-12,NWS Coastal Flood Advisory
+2026-09-07,NWS Coastal Flood Advisory
+2026-09-29,NWS Coastal Flood Advisory
+2026-10-08,NWS Coastal Flood Advisory
+2026-10-09,NWS Coastal Flood Warning
+2026-10-10,NWS Coastal Flood Warning
+2026-10-11,LSR coastal flood: PB bayside near Pacific Beach Dr flooded after morning high tide
+2026-10-25,LSR coastal flood: Dawes St flooded to Pacific Beach Dr (morning)
+2026-11-07,NWS Coastal Flood Advisory
+2026-11-08,NWS Coastal Flood Advisory
+2018-11-29,Rain: LSR minor street flooding near Mission Bay (evening)
+2020-04-09,Rain rule day (1.04 in near late-night high tide)
+2020-04-10,LSR flash flood 1 ESE Mission Beach: water above tires (1.8 in rain)
+2022-08-11,Control: high tide 7.15 ft at La Jolla with no NWS coastal alert
+2023-07-31,Control: high tide 7.51 ft at La Jolla with no NWS coastal alert
+2023-08-01,Control: high tide 7.48 ft at La Jolla with no NWS coastal alert
+2025-12-05,Control: high tide 7.41 ft at La Jolla with no NWS coastal alert
+2026-07-14,News: king tide night; water over both Mission Beach walkways and into garages (no summer berm)
+2026-08-11,News: night of Aug 11 homes and cars around Mission Bay surrounded by water
