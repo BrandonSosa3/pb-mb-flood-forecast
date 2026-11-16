@@ -47,6 +47,9 @@ DRAIN_MINOR = 25
 RAIN_NEAR_TIDE_IN = 0.25   # inches within RAIN_WINDOW_H hours of the day's highest tide
 RAIN_WINDOW_H = 3
 RAIN_MIN_PROPERTIES = 10   # properties on ground below the water (storm-drain count)
+# Rain on its own (greater PB + La Jolla): heaviest 6 hours of rain -> level (lower bounds, inches).
+# From storms 2018-2026 vs City flood reports (docs/evidence/rain/rain_thresholds.md, 2026-11-16).
+RAIN_6H_LEVELS_IN = {"Minor": 0.25, "Moderate": 0.75, "Major": 1.5}
 BERM_TOP_MLLW_FT = 9.0  # must match flood_threshold.py
 BERM_LEAK_FT = 7.8      # leaked Oct 25 (7.9 ft), broke Oct 26 (8.1), held Oct 27-28 (8.1-8.2) after rebuilding
 BERM_SEASON_MONTHS = {10, 11, 12, 1, 2, 3, 4}  # berm usually up; outside these months, no berm
@@ -128,6 +131,15 @@ def with_rain(level: str, rain_near_tide_in: float | None, drain_properties: int
         return level, False
     i = LEVELS.index(level)
     return LEVELS[max(i, min(i + 1, LEVELS.index("Moderate")))], True
+
+
+def rain_level(max_6h_in: float | None) -> str:
+    """Neighborhood rain rating from the heaviest 6 hours of rain (forecast or measured)."""
+    level = "Low"
+    for name, lower in RAIN_6H_LEVELS_IN.items():
+        if max_6h_in is not None and max_6h_in >= lower:
+            level = name
+    return level
 
 
 def mission_bay_still_water(start: date, end: date) -> pd.Series:

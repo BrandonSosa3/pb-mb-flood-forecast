@@ -178,8 +178,11 @@ available on demand.
   2027, fallback = cap no-berm summer at Moderate. Track record keeps tuned days as "missed" + note.
 - Step 6 (rain, greater PB + La Jolla) STARTED 2026-11-16. Piece 1 done: dem_prepare.py --area rain
   (8.5 x 14.2 km, gaps filled from USGS 2014 lidar). East-PB 2024 gap also filled in the pbmb grid and
-  Phase 2 re-run: no rating/count changes. Next: piece 2 ponding spots + flow paths, then reports,
-  rain thresholds, forecast/backtest; screens sketched (Home rain section, Map Tide|Rain switch).
+  Phase 2 re-run: no rating/count changes. Pieces 2-4 DONE 2026-11-16 (docs/evidence/rain/README.md):
+  ponding spots (rain_terrain/rain_ponds), fair test vs Get It Done (PB 3.6x chance, La Jolla fails ->
+  hybrid spots: ground PB+MB + repeat-report spots, rain_spots.py), rain scale = heaviest 6 h
+  (risk.rain_level: 0.25/0.75/1.5 in). Next: piece 5 site (Home rain section, Map Tide|Rain switch,
+  sketch approved), using NWS 6-h QPF from the log; then log/score rain forecasts.
 - LPC lidar: 14/33 tiles; USGS rockyweb rate-limits (429). Re-run building_heights.py when complete.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed

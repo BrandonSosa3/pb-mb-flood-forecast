@@ -48,3 +48,19 @@ A runoff test didn't help either: La Jolla's rain-day reports sit on high-runoff
 **Limits:**
 - Report locations are where people chose to report (often a house address), not exactly where the water stood.
 - Some rain-day reports are coincidences: a water main can break on a rainy day.
+
+## Map spots (hybrid, 2026-11-16, `rain_spots.py`)
+- **Ground spots:** Pacific Beach and Mission Beach only, the neighborhoods where they passed the test.
+- **Repeat-report spots:** all three neighborhoods. A spot needs flood reports on 2+ rainy days within 75 m. Reports that mention a water main, leak or sprinkler are dropped.
+- **Counts:**
+  - Pacific Beach: 90 ground, 4 reports, 3 both
+  - Mission Beach: 34 ground, 4 reports, 8 both
+  - La Jolla: 10 reports
+- **Privacy:** spots show street names only.
+
+## Piece 4: rain rating scale (2026-11-16, `rain_thresholds.py`, `risk.rain_level`)
+- **Measure:** the heaviest 6 hours of rain at the airport, which the NWS forecast can supply.
+- **Scale:** Low < 0.25 in, Minor 0.25–0.75, Moderate 0.75–1.5, Major ≥ 1.5.
+- **Result:** the share of storms with flood reports rises steadily with this measure in all three neighborhoods. Details are in `rain_thresholds.md`.
+- **How often:** Moderate about 2 storms a year; Major about 1 every 3 years (Dec 2018, Jan 22 2024, Dec 31 2025).
+
