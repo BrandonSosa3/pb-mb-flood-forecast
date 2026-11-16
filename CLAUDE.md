@@ -181,8 +181,10 @@ available on demand.
   Phase 2 re-run: no rating/count changes. Pieces 2-4 DONE 2026-11-16 (docs/evidence/rain/README.md):
   ponding spots (rain_terrain/rain_ponds), fair test vs Get It Done (PB 3.6x chance, La Jolla fails ->
   hybrid spots: ground PB+MB + repeat-report spots, rain_spots.py), rain scale = heaviest 6 h
-  (risk.rain_level: 0.25/0.75/1.5 in). Next: piece 5 site (Home rain section, Map Tide|Rain switch,
-  sketch approved), using NWS 6-h QPF from the log; then log/score rain forecasts.
+  (risk.rain_level: 0.25/0.75/1.5 in). Piece 5 DONE 2026-11-16: logger saves rain_areas.csv.gz (NWS grid
+  per neighborhood); forecast.json "rain"; Home "Rain flooding" section; Map Tide|Rain switch (#/map?view=rain,
+  rain_spots + rain_neighborhoods geojson, spot cards); About terms. Next: score live rain forecasts
+  (first test: rain ~Thu Nov 19 2026, Minor), then step 7 write-up + demo, step 8 public repo.
 - LPC lidar: 14/33 tiles; USGS rockyweb rate-limits (429). Re-run building_heights.py when complete.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed

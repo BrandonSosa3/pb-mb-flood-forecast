@@ -1,8 +1,8 @@
 import { SearchBox } from "../components/SearchBox";
 import { StatusDot, StatusPill } from "../components/StatusPill";
 import {
-  type Forecast, type Risk, NWS_URL, dayLabel, headlineDay, riskIndex, slug,
-  summary, timeLabel, upcoming, updatedLabel, worse,
+  type Forecast, type Risk, NWS_URL, dayLabel, headlineDay, rainHeadline, rainSummary, rainUpcoming, rainWindow, riskIndex,
+  slug, summary, timeLabel, upcoming, updatedLabel, worse,
 } from "../data";
 
 export function Home({ forecast }: { forecast: Forecast }) {
@@ -46,6 +46,8 @@ export function Home({ forecast }: { forecast: Forecast }) {
       })}
       </div>
 
+      <RainSection forecast={forecast} />
+
       <div className="home-foot">
       <div className="stack-8">
       <div className="section-label">Next {dates.length} days, all areas</div>
@@ -74,3 +76,44 @@ export function Home({ forecast }: { forecast: Forecast }) {
     </main>
   );
 }
+
+function RainSection({ forecast }: { forecast: Forecast }) {
+  const rain = forecast.rain;
+  if (!rain || rain.areas.length === 0) return null;
+  const heads = rain.areas.map((a) => ({ area: a, day: rainHeadline(a.days) }));
+  const risky = heads.filter((h) => h.day && h.day.level !== "Low");
+  const days = rainUpcoming(rain.areas[0].days);
+  const wettest = days.reduce((b, d) => (!b || d.total_in > b.total_in ? d : b), days[0]);
+  return (
+    <section className="stack-8 rain-section" aria-label="Rain flooding">
+      <div className="section-label">Rain flooding · La Jolla, Pacific Beach, Mission Beach</div>
+      {risky.length === 0 ? (
+        <a className="card card-calm" href="#/map?view=rain">
+          <span className="card-body">
+            {!wettest || wettest.total_in < 0.05
+              ? "No rain in the forecast."
+              : `Light rain ${dayLabel(wettest.date)}, about ${wettest.total_in.toFixed(1)} in. Not enough to flood streets.`}
+          </span>
+          <span className="card-foot"><span>See where rain water collects →</span></span>
+        </a>
+      ) : (
+        <div className="area-grid">
+          {heads.map(({ area, day }) => day && (
+            <a key={area.name} className="card" href="#/map?view=rain">
+              <div className="card-head">
+                <span className="card-title">{area.name}</span>
+                <StatusPill risk={day.level} />
+              </div>
+              <div className="card-body">{rainSummary(day.level)}</div>
+              <div className="card-foot">
+                <span>Heaviest {rainWindow(day)}: about {day.max_6h_in.toFixed(2)} in</span>
+                <span>Chance of rain {day.chance_pct}%</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+

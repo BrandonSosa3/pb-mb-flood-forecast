@@ -1,7 +1,7 @@
 {
  "issued_at": "2026-11-16T00:44:00-08:00",
  "snapshot": "2026-11-16T0844Z",
- "built_at": "2026-11-16T18:57:12+00:00",
+ "built_at": "2026-11-16T20:22:26+00:00",
  "extra_water_ft": 1.227,
  "nws_alerts": [
   {
@@ -2786,6 +2786,127 @@
    ]
   }
  ],
+ "rain": {
+  "source": "one point (Mission Beach) for all",
+  "levels_6h_in": {
+   "Minor": 0.25,
+   "Moderate": 0.75,
+   "Major": 1.5
+  },
+  "areas": [
+   {
+    "name": "La Jolla",
+    "days": [
+     {
+      "date": "2026-11-16",
+      "level": "Low",
+      "max_6h_in": 0.13,
+      "heaviest_from": "2026-11-16T10:00:00-08:00",
+      "total_in": 0.28,
+      "chance_pct": 85
+     },
+     {
+      "date": "2026-11-17",
+      "level": "Low",
+      "max_6h_in": 0.06,
+      "heaviest_from": "2026-11-17T00:00:00-08:00",
+      "total_in": 0.08,
+      "chance_pct": 66
+     },
+     {
+      "date": "2026-11-18",
+      "level": "Low",
+      "max_6h_in": 0.0,
+      "heaviest_from": "2026-11-18T23:00:00-08:00",
+      "total_in": 0.0,
+      "chance_pct": 8
+     },
+     {
+      "date": "2026-11-19",
+      "level": "Minor",
+      "max_6h_in": 0.32,
+      "heaviest_from": "2026-11-19T10:00:00-08:00",
+      "total_in": 0.47,
+      "chance_pct": 91
+     }
+    ]
+   },
+   {
+    "name": "Pacific Beach",
+    "days": [
+     {
+      "date": "2026-11-16",
+      "level": "Low",
+      "max_6h_in": 0.13,
+      "heaviest_from": "2026-11-16T10:00:00-08:00",
+      "total_in": 0.28,
+      "chance_pct": 85
+     },
+     {
+      "date": "2026-11-17",
+      "level": "Low",
+      "max_6h_in": 0.06,
+      "heaviest_from": "2026-11-17T00:00:00-08:00",
+      "total_in": 0.08,
+      "chance_pct": 66
+     },
+     {
+      "date": "2026-11-18",
+      "level": "Low",
+      "max_6h_in": 0.0,
+      "heaviest_from": "2026-11-18T23:00:00-08:00",
+      "total_in": 0.0,
+      "chance_pct": 8
+     },
+     {
+      "date": "2026-11-19",
+      "level": "Minor",
+      "max_6h_in": 0.32,
+      "heaviest_from": "2026-11-19T10:00:00-08:00",
+      "total_in": 0.47,
+      "chance_pct": 91
+     }
+    ]
+   },
+   {
+    "name": "Mission Beach",
+    "days": [
+     {
+      "date": "2026-11-16",
+      "level": "Low",
+      "max_6h_in": 0.13,
+      "heaviest_from": "2026-11-16T10:00:00-08:00",
+      "total_in": 0.28,
+      "chance_pct": 85
+     },
+     {
+      "date": "2026-11-17",
+      "level": "Low",
+      "max_6h_in": 0.06,
+      "heaviest_from": "2026-11-17T00:00:00-08:00",
+      "total_in": 0.08,
+      "chance_pct": 66
+     },
+     {
+      "date": "2026-11-18",
+      "level": "Low",
+      "max_6h_in": 0.0,
+      "heaviest_from": "2026-11-18T23:00:00-08:00",
+      "total_in": 0.0,
+      "chance_pct": 8
+     },
+     {
+      "date": "2026-11-19",
+      "level": "Minor",
+      "max_6h_in": 0.32,
+      "heaviest_from": "2026-11-19T10:00:00-08:00",
+      "total_in": 0.47,
+      "chance_pct": 91
+     }
+    ]
+   }
+  ]
+ },
  "notes": {
   "heights": "feet above MLLW (an ordinary low tide), NOAA La Jolla datums",
   "berm": "when the bay-side berm is up (docs/evidence/berm_status.csv, else Oct-Apr) the headline assumes it holds (assumed top 9.0 ft); at 7.8 ft or more it may leak (at least Moderate)"

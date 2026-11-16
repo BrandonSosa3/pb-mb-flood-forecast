@@ -1,7 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import maplibregl, { type ExpressionSpecification, type MapGeoJSONFeature } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { BERM_TOP_FT, type Curves, type Forecast, countsAt, loadCurves, upcoming } from "../data";
+import {
+  BERM_TOP_FT, type Curves, type Forecast, type Risk as RainDayLevel, countsAt, loadCurves, rainHeadline, rainSummary,
+  rainWindow, riskIndex, upcoming,
+} from "../data";
+import { StatusPill } from "../components/StatusPill";
 import { type Spot, loadSearch, spotFromKey } from "../search";
 import { SpotCard } from "../components/SpotCard";
 
@@ -14,6 +18,14 @@ const WATER = "#8EC1F0"; // lighter than the reached-building blue so the two re
 // 3D camera: tilted, looking from the ocean toward the bay (east-northeast).
 const VIEW_3D = { pitch: 55, bearing: 72 };
 const PLAY_MS = 10000; // a whole event plays in about 10 seconds
+// Rain view: all three neighborhoods (La Jolla Shores to the Mission Beach jetty).
+const RAIN_BOUNDS: [[number, number], [number, number]] = [[-117.285, 32.755], [-117.205, 32.886]];
+const SPOT_GROUND = "#2A78D6", SPOT_REPORTS = "#7A4FB8", SPOT_BOTH = "#0D3A73";
+
+interface RainSpot {
+  source: "ground" | "reports" | "both"; neighborhood: string; street: string | null;
+  depth_in?: number; drains_acres?: number; report_days?: number; first?: string; last?: string;
+}
 
 interface PlayEvent {
   key: string; label: string; berm: "holds" | "fails"; note: string; peak_ft: number; peak_time: string; frames: [string, number][];
@@ -23,7 +35,8 @@ type Selected =
   | { kind: "street"; name: string; d: number; c: number; db: number; cb: number; g: number }
   | { kind: "building"; d: number; db: number; g: number };
 
-export function MapScreen({ forecast, spotKey, start3d = false }: { forecast: Forecast; spotKey: string | null; start3d?: boolean }) {
+export function MapScreen({ forecast, spotKey, start3d = false, startRain = false }:
+  { forecast: Forecast; spotKey: string | null; start3d?: boolean; startRain?: boolean }) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const [ready, setReady] = useState(false);
@@ -39,7 +52,9 @@ export function MapScreen({ forecast, spotKey, start3d = false }: { forecast: Fo
   const [bermHolds, setBermHolds] = useState(bermUpNow);
   const [selected, setSelected] = useState<Selected | null>(null);
 
-  const [view3d, setView3d] = useState(start3d);
+  const [mode, setMode] = useState<"tide" | "rain">(startRain ? "rain" : "tide");
+  const [rainSpot, setRainSpot] = useState<RainSpot | null>(null);
+  const [view3d, setView3d] = useState(start3d && !startRain);
   const [loading3d, setLoading3d] = useState(false);
   const [events, setEvents] = useState<PlayEvent[]>([]);
   const [playing, setPlaying] = useState<{ ev: PlayEvent; i: number } | null>(null);
@@ -85,8 +100,8 @@ export function MapScreen({ forecast, spotKey, start3d = false }: { forecast: Fo
     try {
       m = new maplibregl.Map({
         container: container.current, style: BASEMAP, center: CENTER, zoom: 14.9,
-        minZoom: 12.5, maxZoom: 18.5, attributionControl: { compact: true },
-        maxBounds: [[-117.32, 32.72], [-117.18, 32.84]],
+        minZoom: 11.5, maxZoom: 18.5, attributionControl: { compact: true },
+        maxBounds: [[-117.33, 32.72], [-117.17, 32.90]],
       });
     } catch {
       setNoMap(true); // keep the controls and counts working without the map
@@ -111,6 +126,24 @@ export function MapScreen({ forecast, spotKey, start3d = false }: { forecast: Fo
         m.on("mouseenter", layer, () => (m.getCanvas().style.cursor = "pointer"));
         m.on("mouseleave", layer, () => (m.getCanvas().style.cursor = ""));
       }
+      // Rain view layers (hidden until the Rain switch is on).
+      m.addSource("rain-hoods", { type: "geojson", data: "/data/rain_neighborhoods.geojson" });
+      m.addSource("rain-spots", { type: "geojson", data: "/data/rain_spots.geojson" });
+      m.addLayer({ id: "rain-hoods", type: "line", source: "rain-hoods", layout: { visibility: "none" },
+        paint: { "line-color": "#5b6b7a", "line-width": 1.2, "line-dasharray": [3, 2], "line-opacity": 0.7 } });
+      m.addLayer({ id: "rain-hood-names", type: "symbol", source: "rain-hoods",
+        layout: { visibility: "none", "text-field": ["get", "name"], "text-size": 13, "text-font": ["Noto Sans Bold"] },
+        paint: { "text-color": "#3d4b58", "text-halo-color": "#ffffff", "text-halo-width": 1.5 } });
+      m.addLayer({ id: "rain-spots", type: "circle", source: "rain-spots", layout: { visibility: "none" },
+        paint: {
+          "circle-color": ["match", ["get", "source"], "reports", SPOT_REPORTS, "both", SPOT_BOTH, SPOT_GROUND],
+          "circle-radius": ["interpolate", ["linear"], ["zoom"], 12.5, ["match", ["get", "source"], "ground", 3, 5],
+            17, ["match", ["get", "source"], "ground", 8, 11]],
+          "circle-stroke-color": "#ffffff", "circle-stroke-width": 1.5, "circle-opacity": 0.9,
+        } });
+      m.on("click", "rain-spots", (e) => e.features?.[0] && setRainSpot(e.features[0].properties as unknown as RainSpot));
+      m.on("mouseenter", "rain-spots", () => (m.getCanvas().style.cursor = "pointer"));
+      m.on("mouseleave", "rain-spots", () => (m.getCanvas().style.cursor = ""));
       setReady(true);
     });
     map.current = m;
@@ -130,6 +163,25 @@ export function MapScreen({ forecast, spotKey, start3d = false }: { forecast: Fo
     m.setPaintProperty("streets", "line-color", ["case", reach(useBerm ? "cb" : "c"), DEEP, LIGHT]);
     m.setPaintProperty("streets", "line-opacity", ["case", reach(useBerm ? "db" : "d"), 0.95, 0]);
   }, [level, bermHolds, ready]);
+
+  // Tide <-> Rain: swap which layers show, and frame all three neighborhoods for rain.
+  useEffect(() => {
+    const m = map.current;
+    if (!m || !ready) return;
+    const rain = mode === "rain";
+    for (const id of ["rain-hoods", "rain-hood-names", "rain-spots"]) m.setLayoutProperty(id, "visibility", rain ? "visible" : "none");
+    for (const id of ["buildings", "streets"]) m.setLayoutProperty(id, "visibility", rain ? "none" : "visible");
+    if (rain) {
+      setSelected(null);
+      const wide = window.matchMedia("(min-width: 960px)").matches;
+      // On phones the map sits above the sheet, so only a small margin is needed.
+      m.fitBounds(RAIN_BOUNDS, { padding: wide ? { top: 60, bottom: 110, left: 30, right: 30 } : { top: 56, bottom: 12, left: 8, right: 8 },
+        duration: 900 });
+    } else {
+      setRainSpot(null);
+      m.easeTo({ center: CENTER, zoom: 14.9, duration: 900 });
+    }
+  }, [mode, ready]);
 
   // 3D: load the extra data the first time, then add tall buildings and the water surface.
   useEffect(() => {
@@ -224,11 +276,17 @@ export function MapScreen({ forecast, spotKey, start3d = false }: { forecast: Fo
       <div ref={container} className="map" role="region" aria-label="Flood map of Pacific Beach and Mission Beach">
         {!noMap && (
           <div className="map-tools">
-            <div className="segmented segmented-sm" role="group" aria-label="Map view">
-              <button type="button" aria-pressed={!view3d} onClick={() => setView3d(false)}>2D</button>
-              <button type="button" aria-pressed={view3d} onClick={() => setView3d(true)}>3D</button>
+            <div className="segmented segmented-sm" role="group" aria-label="What the map shows">
+              <button type="button" aria-pressed={mode === "tide"} onClick={() => setMode("tide")}>Tide</button>
+              <button type="button" aria-pressed={mode === "rain"} onClick={() => { stop(); setView3d(false); setMode("rain"); }}>Rain</button>
             </div>
-            {view3d && <button type="button" className="chip chip-map" onClick={resetView}>Reset view</button>}
+            {mode === "tide" && (
+              <div className="segmented segmented-sm" role="group" aria-label="Map view">
+                <button type="button" aria-pressed={!view3d} onClick={() => setView3d(false)}>2D</button>
+                <button type="button" aria-pressed={view3d} onClick={() => setView3d(true)}>3D</button>
+              </div>
+            )}
+            {view3d && mode === "tide" && <button type="button" className="chip chip-map" onClick={resetView}>Reset view</button>}
             {loading3d && <span className="chip chip-map" role="status">Loading 3D…</span>}
           </div>
         )}
@@ -240,6 +298,12 @@ export function MapScreen({ forecast, spotKey, start3d = false }: { forecast: Fo
           </div>
         )}
       </div>
+      {mode === "rain" ? (
+        <>
+          {rainSpot && <RainSpotCard spot={rainSpot} onClose={() => setRainSpot(null)} />}
+          <RainSheet forecast={forecast} />
+        </>
+      ) : <>
       {selected
         ? <DetailSheet sel={selected} level={level} bermHolds={bermHolds} onClose={() => setSelected(null)} />
         : spot && <SpotCard spot={spot} forecast={forecast} onClose={closeSpot}
@@ -287,6 +351,7 @@ export function MapScreen({ forecast, spotKey, start3d = false }: { forecast: Fo
           {view3d && <span><i style={{ background: WATER }} /> Bay water surface</span>}
         </div>
       </section>
+      </>}
     </main>
   );
 }
@@ -323,3 +388,70 @@ function DetailSheet({ sel, level, bermHolds, onClose }: { sel: Selected; level:
     </aside>
   );
 }
+
+function RainSheet({ forecast }: { forecast: Forecast }) {
+  const areas = forecast.rain?.areas ?? [];
+  const heads = areas.map((a) => ({ name: a.name, day: rainHeadline(a.days) }));
+  const worst = heads.reduce<RainDayLevel>((w, h) => (h.day && riskIndex(h.day.level) > riskIndex(w) ? h.day.level : w), "Low");
+  return (
+    <section className="sheet" aria-label="Rain flooding">
+      <div className="sheet-top">
+        <div className="stack-2">
+          <span className="sheet-label">Rain flooding · next days</span>
+          <span className="rain-sheet-title">{rainSummary(worst)}</span>
+        </div>
+      </div>
+      {areas.length === 0 && <p className="fine">No rain forecast in this update.</p>}
+      <div className="rain-rows">
+        {heads.map(({ name, day }) => day && (
+          <div className="rain-row" key={name}>
+            <span className="rain-row-name">
+              <strong>{name}</strong>
+              <span className="fine">{day.max_6h_in < 0.05 ? "Dry" : `Heaviest ${rainWindow(day)} · ${day.max_6h_in.toFixed(2)} in`}</span>
+            </span>
+            <StatusPill risk={day.level} />
+          </div>
+        ))}
+      </div>
+      <div className="legend">
+        <span><i style={{ background: SPOT_GROUND }} /> Low spot in the street</span>
+        <span><i style={{ background: SPOT_REPORTS }} /> Flooding reported on 2+ rainy days</span>
+        <span><i style={{ background: SPOT_BOTH }} /> Both</span>
+      </div>
+      <p className="fine">Rated by the heaviest 6 hours of NWS forecast rain. La Jolla shows only places with repeat flood
+        reports (its rain trouble is scattered: runoff, mud, clogged drains).</p>
+    </section>
+  );
+}
+
+function RainSpotCard({ spot, onClose }: { spot: RainSpot; onClose: () => void }) {
+  const year = (d?: string) => (d ? d.slice(0, 4) : "");
+  const years = spot.first && spot.last ? (year(spot.first) === year(spot.last) ? year(spot.first) : `${year(spot.first)}–${year(spot.last)}`) : "";
+  return (
+    <aside className="detail" aria-label="Rain spot details">
+      <div className="detail-head">
+        <span className="stack-2">
+          <strong>{spot.street ?? "Street or alley"}</strong>
+          <span className="fine">{spot.neighborhood}</span>
+        </span>
+        <button type="button" className="icon-btn" aria-label="Close details" onClick={onClose}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </button>
+      </div>
+      <span className="detail-state">
+        {spot.source === "reports" ? "Flooding reported here in past storms" : "Rain water collects here when drains can't keep up"}
+      </span>
+      <dl className="detail-list">
+        {spot.depth_in != null && <div><dt>Deepest water on the street, if it fills</dt><dd>about {Math.round(spot.depth_in)} in</dd></div>}
+        {spot.drains_acres != null && <div><dt>Land draining straight into it</dt><dd>about {Math.max(1, Math.round(spot.drains_acres))} acres</dd></div>}
+        {spot.report_days != null && <div><dt>Flood reports to the City</dt><dd>{spot.report_days} rainy days{years ? `, ${years}` : ""}</dd></div>}
+      </dl>
+      <span className="fine">
+        {spot.source !== "reports" ? "From the 2024 USGS ground map. " : ""}
+        {spot.source !== "ground" ? "Reports: City of San Diego Get It Done. " : ""}
+        Storm drains usually keep up in light rain.
+      </span>
+    </aside>
+  );
+}
+

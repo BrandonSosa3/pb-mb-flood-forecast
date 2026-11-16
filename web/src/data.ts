@@ -64,11 +64,24 @@ export interface NwsAlert {
   expires: string | null;
 }
 
+/** Rain flooding (greater PB + La Jolla): rated by the heaviest 6 hours of forecast rain. */
+export interface RainDay {
+  date: string;
+  level: Risk;
+  max_6h_in: number;
+  heaviest_from: string; // local ISO, start of the heaviest 6 hours
+  total_in: number;
+  chance_pct: number;
+}
+export interface RainArea { name: string; days: RainDay[] }
+export interface RainForecast { source: string; levels_6h_in: Record<string, number>; areas: RainArea[] }
+
 export interface Forecast {
   issued_at: string;
   extra_water_ft: number | null;
   nws_alerts: NwsAlert[];
   areas: AreaForecast[];
+  rain?: RainForecast | null;
 }
 
 export async function loadForecast(): Promise<Forecast> {
@@ -147,6 +160,36 @@ export function summary(day: ForecastDay): string {
 /** Rain amount as people say it. */
 export function rainText(inches: number): string {
   return inches < 0.01 ? "Dry" : inches < 0.1 ? `${inches.toFixed(2)} in` : `${inches.toFixed(1)} in`;
+}
+
+// ---------- rain flooding ----------
+
+export function rainUpcoming<T extends { date: string }>(days: T[], now = new Date()): T[] {
+  const today = now.toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
+  return days.filter((d) => d.date >= today);
+}
+
+/** The day to headline: the wettest (heaviest 6 hours) in the coming days. */
+export function rainHeadline(days: RainDay[]): RainDay | undefined {
+  return rainUpcoming(days).reduce<RainDay | undefined>((b, d) => (!b || d.max_6h_in > b.max_6h_in ? d : b), undefined);
+}
+
+export function rainSummary(level: Risk): string {
+  switch (level) {
+    case "Major": return "Very heavy rain. Widespread street flooding likely, like Jan 22, 2024.";
+    case "Moderate": return "Heavy rain. Expect water in low streets and at known trouble spots.";
+    case "Minor": return "Heavy showers. Low streets may pond and drains may clog.";
+    default: return "Not enough rain to flood streets.";
+  }
+}
+
+/** "Thu 10am–4pm" for the heaviest 6 hours. */
+export function rainWindow(d: RainDay): string {
+  const start = new Date(d.heaviest_from);
+  const end = new Date(start.getTime() + 6 * 3600 * 1000);
+  const h = (t: Date) => t.toLocaleTimeString("en-US", { hour: "numeric", timeZone: "America/Los_Angeles" })
+    .replace(" AM", "am").replace(" PM", "pm");
+  return `${dayLabel(d.date)} ${h(start)}–${h(end)}`;
 }
 
 export const NWS_URL = "https://www.weather.gov/sgx/";

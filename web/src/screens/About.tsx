@@ -308,8 +308,17 @@ function Technical({ updated }: { updated?: string }) {
           are underwater, so rain can't drain and ponds in low streets. Rule: at least 0.25 in of rain (NWS hourly forecast)
           within 3 hours of the day's highest tide, where 10+ properties sit on ground below the water, raises the rating
           one level (at most to Moderate). Since 2000 that happened about once a year at the San Diego airport gauge,
-          including the record storm of Jan 22, 2024. Rain flooding away from the coast (hillsides, canyons) isn't
-          modeled yet.</Term>
+          including the record storm of Jan 22, 2024. That rule is for the coast cards; rain flooding across all of
+          La Jolla, Pacific Beach and Mission Beach is rated separately (next).</Term>
+        <Term t="Rain flooding (La Jolla, PB, Mission Beach)">Rated by the heaviest 6 hours of rain in the NWS forecast for
+          each neighborhood (the forecast comes in 6-hour blocks): Low under 0.25 in, Minor 0.25–0.75, Moderate 0.75–1.5,
+          Major 1.5 or more. The scale comes from 141 storms since 2018 at the San Diego airport gauge compared with City
+          "Get It Done" street-flooding reports: the share of storms with reports rises from about 1 in 5 (Low) to about
+          2 in 3 (Moderate). Map spots: <em>low spots in the street</em> are dips in the 2024 USGS ground map where water
+          has no way out but a storm drain (Pacific Beach and Mission Beach, where City flood reports land at them about
+          3.6 times more often than chance); <em>repeat-report spots</em> are places with flood reports on 2 or more rainy
+          days (all three, including La Jolla, where hillside runoff, mud and clogged drains make the ground map a poor
+          guide). Storm drain sizes aren't public, so the app can't say exactly when a drain overflows.</Term>
         <Term t="3D view">Building heights come from the same 2024 USGS lidar survey: the height of laser hits on each
           roof minus the ground under it. The blue water surface is the bay flood model cut into 0.1 ft steps. "Play"
           replays a real high tide every 20 minutes (Mission Bay prediction + extra water measured at La Jolla). The exact
@@ -319,8 +328,10 @@ function Technical({ updated }: { updated?: string }) {
           (decades). This forecasts the next few days, with this winter's real tide, extra water and waves.</Term>
         <Term t="Data">NOAA CO-OPS (tide gauges 9410230 La Jolla, 9410170 San Diego, 9410196 Mission Bay predictions);
           Scripps CDIP MOP forecasts (WaveWatch III and ECMWF), hindcast and nowcast; USGS 3DEP 1 m lidar
-          CA_SanDiegoCo_D24 (flown Nov 2024); OpenStreetMap buildings and streets (addresses removed); NWS alerts, Surf Zone
-          Forecast and hourly weather forecast.
+          CA_SanDiegoCo_D24 (flown Nov 2024; small gaps filled from the 2014 USGS survey); OpenStreetMap buildings and
+          streets (addresses removed); NWS alerts, Surf Zone Forecast and hourly weather forecast; San Diego airport
+          hourly rain (Iowa Environmental Mesonet); City of San Diego Get It Done reports and community planning areas
+          (data.sandiego.gov); NWS storm reports.
           {updated && <> Tide history downloaded {updated}.</>} Forecast inputs refresh twice a day.</Term>
       </div>
     </details>

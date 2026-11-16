@@ -37,7 +37,8 @@ from shapely.geometry import Point
 from forecast_logger import LOG_DIR
 from noaa_tides import PROCESSED_DIR, PROJECT_ROOT, fetch_noaa, to_frame
 from areas import ROUTINELY_WET_FT
-from risk import LEVELS, MISSION_BAY, RAIN_WINDOW_H, area_status, berm_status, load_curves, with_rain
+from risk import (LEVELS, MISSION_BAY, RAIN_6H_LEVELS_IN, RAIN_WINDOW_H, area_status, berm_status, load_curves,
+                  rain_level, with_rain)
 from runup import from_snapshot, total_water_level
 
 SITE_DATA = PROJECT_ROOT / "web" / "public" / "data"
@@ -95,6 +96,47 @@ def rain_forecast(snapshot: Path) -> pd.DataFrame | None:
     w = pd.read_csv(f, parse_dates=["time_utc"]).set_index("time_utc")
     w.index = w.index.tz_convert(LOCAL_TZ)
     return w[["rain_in", "rain_chance_pct"]].fillna(0)
+
+
+RAIN_NEIGHBORHOODS = ["La Jolla", "Pacific Beach", "Mission Beach"]
+
+
+def rain_areas_json(snapshot: Path, issued: pd.Timestamp) -> dict | None:
+    """Rain-flooding rating per neighborhood and day: heaviest 6 hours of forecast rain (rain_thresholds.py).
+    Uses rain_areas.csv.gz (per neighborhood, since 2026-11-16); older snapshots: the one Mission Beach point."""
+    f = snapshot / "rain_areas.csv.gz"
+    if f.exists():
+        r = pd.read_csv(f, parse_dates=["time_utc"])
+        source = "per neighborhood"
+    else:
+        w = rain_forecast(snapshot)
+        if w is None:
+            return None
+        w = w.reset_index().rename(columns={"index": "time_utc"})
+        r = pd.concat([w.assign(area=a) for a in RAIN_NEIGHBORHOODS])
+        source = "one point (Mission Beach) for all"
+    out = []
+    for area in RAIN_NEIGHBORHOODS:
+        a = r[r.area == area].set_index("time_utc").sort_index()
+        a.index = pd.DatetimeIndex(a.index).tz_convert(LOCAL_TZ)
+        a = a.asfreq("h", fill_value=0)
+        six = a.rain_in.iloc[::-1].rolling(6, min_periods=1).sum().iloc[::-1]  # 6 hours starting each hour
+        days = []
+        for d in sorted(set(a.index.date)):
+            if d < issued.date():
+                continue
+            day = a[a.index.date == d]
+            if len(day) < 6:
+                continue
+            s6 = six[six.index.date == d]
+            start = s6.idxmax()
+            days.append({"date": str(d), "level": rain_level(float(s6.max())),
+                         "max_6h_in": round(float(s6.max()), 2),
+                         "heaviest_from": start.isoformat(),
+                         "total_in": round(float(day.rain_in.sum()), 2),
+                         "chance_pct": int(day.rain_chance_pct.max())})
+        out.append({"name": area, "days": days[:4]})
+    return {"source": source, "levels_6h_in": RAIN_6H_LEVELS_IN, "areas": out}
 
 
 def rain_for_day(rain: pd.DataFrame | None, d, tide_time: pd.Timestamp) -> dict:
@@ -231,12 +273,25 @@ def forecast_json(snapshot: Path) -> dict:
         "wave_models": MODELS,
         "wave_rule": "higher of the two models, per stretch and hour (since 2026-11-14)",
         "areas": areas_out,
+        "rain": rain_areas_json(snapshot, issued),
         "notes": {
             "heights": "feet above MLLW (an ordinary low tide), NOAA La Jolla datums",
             "berm": "when the bay-side berm is up (docs/evidence/berm_status.csv, else Oct-Apr) the headline "
                     "assumes it holds (assumed top 9.0 ft); at 7.8 ft or more it may leak (at least Moderate)",
         },
     }
+
+
+def rain_site_files() -> None:
+    """Rain spots (rain_spots.py) and simplified neighborhood outlines for the map's Rain view."""
+    shutil.copy(PROCESSED_DIR / "rain_spots.geojson", SITE_DATA / "rain_spots.geojson")
+    from rain_ponds import PLAN_FILE
+    plan = gpd.read_file(PLAN_FILE)
+    plan = plan[plan.cpname.isin(RAIN_NEIGHBORHOODS)].to_crs(26911)
+    plan["geometry"] = plan.geometry.simplify(15)
+    plan = plan[["cpname", "geometry"]].rename(columns={"cpname": "name"}).to_crs(4326)
+    plan["geometry"] = plan.geometry.set_precision(1e-5)
+    (SITE_DATA / "rain_neighborhoods.geojson").write_text(plan.to_json(drop_id=True))
 
 
 HISTORY_STATION = "9410170"  # San Diego: the longest record, and the gauge the news quotes
@@ -296,6 +351,7 @@ def main() -> None:
     (SITE_DATA / "about.json").write_text(json.dumps(about_json(), separators=(",", ":")))
     for name in ("area_curves.json", "areas.geojson"):
         shutil.copy(PROCESSED_DIR / name, SITE_DATA / name)
+    rain_site_files()
     b, s = trimmed_assets()
     b.to_file(SITE_DATA / "buildings.geojson", driver="GeoJSON")
     s.to_file(SITE_DATA / "streets.geojson", driver="GeoJSON")

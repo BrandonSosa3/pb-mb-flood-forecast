@@ -129,4 +129,9 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
 ### NWS Local Storm Reports (rain flooding)
 - Iowa Environmental Mesonet LSR archive, WFO SGX, 2003-2026, FLOOD / FLASH FLOOD in the rain area
   -> `data/processed/nws_rain_flood_reports.csv` (`pipeline/check_ponds.py`). Coordinates ~0.01 deg.
+### NWS hourly rain forecast per neighborhood (logged since 2026-11-16)
+- api.weather.gov/gridpoints/SGX/54,17 (Mission Beach), 54,18 (Pacific Beach), 54,19 + 54,20 + 54,21
+  (La Jolla: Bird Rock, Village/Mt Soledad, Shores; wettest square each hour). Grid squares looked up via
+  api.weather.gov/points on 2026-11-16. `forecast_logger.py` -> `forecast_log/.../rain_areas.csv.gz`.
+  Site: heaviest 6 h per day -> risk.rain_level (build_site_data.py `rain`).
 
