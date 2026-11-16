@@ -1,0 +1,78 @@
+{
+  "source": "USGS 3DEP standard 1 m bare-earth DEM",
+  "project": "CA_SanDiegoCo_D24",
+  "area": "rain",
+  "tiles": [
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SanDiegoCo_D24/TIFF/USGS_1M_11_x47y363_CA_SanDiegoCo_D24.tif",
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SanDiegoCo_D24/TIFF/USGS_1M_11_x47y364_CA_SanDiegoCo_D24.tif",
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SanDiegoCo_D24/TIFF/USGS_1M_11_x48y363_CA_SanDiegoCo_D24.tif",
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SanDiegoCo_D24/TIFF/USGS_1M_11_x48y364_CA_SanDiegoCo_D24.tif"
+  ],
+  "lidar_collected": "2024-11-08 to 2024-12-01",
+  "published": "2026-09-14",
+  "downloaded_at_utc": "2026-11-16T18:50:03+00:00",
+  "crs": "EPSG:26911",
+  "vertical_datum": "NAVD88",
+  "units": "feet",
+  "cell_size_m": 1.0,
+  "study_bbox_lonlat": [
+    -117.29,
+    32.752,
+    -117.2,
+    32.88
+  ],
+  "shape_rows_cols": [
+    14209,
+    8458
+  ],
+  "water_mask": {
+    "file": "water_mask_rain.tif",
+    "hydro_flattened_bay_height_ft_navd88": 2.198,
+    "bay_water_fraction": 0.0713,
+    "ocean_or_nodata_fraction": 0.2946
+  },
+  "land_elevation_ft_min_median_max": [
+    -21.57,
+    221.77,
+    824.0
+  ],
+  "nodata_fraction": 0.2898,
+  "gap_fill": {
+    "project": "San_Diego_CA_2014_LiDAR",
+    "tiles": [
+      "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/San_Diego_CA_2014_LiDAR/TIFF/USGS_1M_11_x47y363_San_Diego_CA_2014_LiDAR.tif",
+      "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/San_Diego_CA_2014_LiDAR/TIFF/USGS_1M_11_x47y364_San_Diego_CA_2014_LiDAR.tif",
+      "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/San_Diego_CA_2014_LiDAR/TIFF/USGS_1M_11_x48y364_San_Diego_CA_2014_LiDAR.tif"
+    ],
+    "method": "older heights + median (2024 - 2014) on land within 150 m of each gap",
+    "gaps": [
+      {
+        "area_m2": 145318,
+        "filled_m2": 145318,
+        "offset_ft": 0.33,
+        "row_col_center": [
+          344,
+          8155
+        ]
+      },
+      {
+        "area_m2": 88036,
+        "filled_m2": 88036,
+        "offset_ft": 0.32,
+        "row_col_center": [
+          559,
+          5479
+        ]
+      },
+      {
+        "area_m2": 643118,
+        "filled_m2": 643118,
+        "offset_ft": 0.22,
+        "row_col_center": [
+          8234,
+          5994
+        ]
+      }
+    ]
+  }
+}

@@ -1,13 +1,14 @@
 {
   "source": "USGS 3DEP standard 1 m bare-earth DEM",
   "project": "CA_SanDiegoCo_D24",
+  "area": "pbmb",
   "tiles": [
     "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SanDiegoCo_D24/TIFF/USGS_1M_11_x47y363_CA_SanDiegoCo_D24.tif",
     "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SanDiegoCo_D24/TIFF/USGS_1M_11_x47y364_CA_SanDiegoCo_D24.tif"
   ],
   "lidar_collected": "2024-11-08 to 2024-12-01",
   "published": "2026-09-14",
-  "downloaded_at_utc": "2026-11-13T23:30:41+00:00",
+  "downloaded_at_utc": "2026-11-16T18:51:45+00:00",
   "crs": "EPSG:26911",
   "vertical_datum": "NAVD88",
   "units": "feet",
@@ -26,12 +27,31 @@
     "file": "water_mask_pbmb.tif",
     "hydro_flattened_bay_height_ft_navd88": 2.198,
     "bay_water_fraction": 0.2164,
-    "ocean_or_nodata_fraction": 0.2974
+    "ocean_or_nodata_fraction": 0.2783
   },
   "land_elevation_ft_min_median_max": [
     -0.71,
-    23.1,
+    25.17,
     327.06
   ],
-  "nodata_fraction": 0.2806
+  "nodata_fraction": 0.2615,
+  "gap_fill": {
+    "project": "San_Diego_CA_2014_LiDAR",
+    "tiles": [
+      "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/San_Diego_CA_2014_LiDAR/TIFF/USGS_1M_11_x47y363_San_Diego_CA_2014_LiDAR.tif",
+      "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/San_Diego_CA_2014_LiDAR/TIFF/USGS_1M_11_x47y364_San_Diego_CA_2014_LiDAR.tif"
+    ],
+    "method": "older heights + median (2024 - 2014) on land within 150 m of each gap",
+    "gaps": [
+      {
+        "area_m2": 573225,
+        "filled_m2": 573225,
+        "offset_ft": 0.25,
+        "row_col_center": [
+          721,
+          4060
+        ]
+      }
+    ]
+  }
 }

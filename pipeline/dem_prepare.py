@@ -54,7 +54,8 @@ MIN_GAP_M2 = 100   # smaller gaps are left as they are
 AREAS = {
     # Mission Beach jetty to Tourmaline (N-S), ocean to the east edge of Crown Point / Sail Bay
     # (west edge a little offshore of Tourmaline so the whole PB beach is included).
-    "pbmb": {"bbox": (-117.270, 32.752, -117.222, 32.812), "tiles": ["x47y363", "x47y364"]},
+    "pbmb": {"bbox": (-117.270, 32.752, -117.222, 32.812), "tiles": ["x47y363", "x47y364"],
+             "fill": {"project": FILL_PROJECT, "tiles": ["x47y363", "x47y364"]}},  # east-PB gap (2026-11-16)
     # Mission Beach jetty to La Jolla Shores / Scripps (N-S), ocean to I-5 (W-E): all of Mt Soledad,
     # so rain falling on it is inside the grid. Rose Creek's watershed reaches far inland (outside).
     "rain": {"bbox": (-117.290, 32.752, -117.200, 32.880),

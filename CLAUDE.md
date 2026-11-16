@@ -176,6 +176,10 @@ available on demand.
   Moderate ("berm may leak"); wave "reaches" line unchanged until December. Caveat: summer controls
   (Aug 2022, Jul 31/Aug 1 2023) now read Major with no reports = possible false alarms; check summer
   2027, fallback = cap no-berm summer at Moderate. Track record keeps tuned days as "missed" + note.
+- Step 6 (rain, greater PB + La Jolla) STARTED 2026-11-16. Piece 1 done: dem_prepare.py --area rain
+  (8.5 x 14.2 km, gaps filled from USGS 2014 lidar). East-PB 2024 gap also filled in the pbmb grid and
+  Phase 2 re-run: no rating/count changes. Next: piece 2 ponding spots + flow paths, then reports,
+  rain thresholds, forecast/backtest; screens sketched (Home rain section, Map Tide|Rain switch).
 - LPC lidar: 14/33 tiles; USGS rockyweb rate-limits (429). Re-run building_heights.py when complete.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed

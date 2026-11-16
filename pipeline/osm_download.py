@@ -24,6 +24,7 @@ Usage:
 from __future__ import annotations
 
 import json
+import time
 from datetime import datetime, timezone
 
 import geopandas as gpd
@@ -33,6 +34,7 @@ from shapely.geometry import LineString, Polygon
 from noaa_tides import PROCESSED_DIR, PROJECT_ROOT
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+OVERPASS_MIRROR = "https://overpass.private.coffee/api/interpreter"  # same OSM data, used if the main one is down
 HEADERS = {"User-Agent": "coastal-flood-forecast-research"}
 # Same study box as the elevation grid: south, west, north, east
 BBOX = (32.752, -117.262, 32.810, -117.222)
@@ -45,9 +47,18 @@ WALKWAY_TYPES = {"pedestrian", "footway", "cycleway", "path"}
 
 
 def overpass(query: str) -> dict:
-    response = requests.post(OVERPASS_URL, data={"data": query}, headers=HEADERS, timeout=180)
-    response.raise_for_status()
-    return response.json()
+    """Run an Overpass query; on a server error or timeout, retry, then try the mirror."""
+    last = None
+    for url in (OVERPASS_URL, OVERPASS_URL, OVERPASS_MIRROR):
+        try:
+            response = requests.post(url, data={"data": query}, headers=HEADERS, timeout=180)
+            response.raise_for_status()
+            return response.json()
+        except (requests.HTTPError, requests.ConnectionError, requests.Timeout) as err:
+            print(f"  Overpass {url} failed ({err}); trying again")
+            last = err
+            time.sleep(15)
+    raise last
 
 
 def main() -> None:

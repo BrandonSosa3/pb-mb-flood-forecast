@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-11-14T22:09:48+00:00",
+  "created_utc": "2026-11-16T18:57:11+00:00",
   "source": "USGS 3DEP Lidar Point Cloud CA_SanDiegoCo_D24 (collected Nov 2024), via rockyweb.usgs.gov",
   "tiles": [
     "USGS_LPC_CA_SanDiegoCo_D24_11SMS475628.laz",
@@ -25,9 +25,9 @@
     2.5,
     40.0
   ],
-  "default_m": 6.0,
+  "default_m": 4.5,
   "buildings": 12762,
   "estimated_default_height": 6473,
-  "height_m_median": 6.0,
+  "height_m_median": 4.5,
   "purpose": "3D display only"
 }

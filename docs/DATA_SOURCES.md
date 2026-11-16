@@ -40,8 +40,9 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
 - Mission Bay is hydro-flattened at 2.198 ft NAVD88; the ocean is no-data.
 - Known gap: the 2024 tiles have no data for 64 ha of east Pacific Beach (about Ingraham St to
   Mission Bay Dr, Grand Ave to Felspar St, incl. part of the Rose Creek channel) and two smaller
-  patches near UTC / La Jolla Village Dr. The pbmb grid (Phase 2) still has the east-PB gap; the
-  flood model treats it as a wall (found 2026-11-16).
+  patches near UTC / La Jolla Village Dr. Found 2026-11-16; both grids are now gap-filled from
+  2014 (below). Phase 2 re-run the same day: the 543 buildings in the gap all sit at 14.7 ft+
+  (bay danger), so area totals, ratings and the 3D water were unchanged.
 - Rain area (added 2026-11-16, `dem_prepare.py --area rain`): Mission Beach jetty to La Jolla
   Shores, ocean to I-5 (-117.290..-117.200, 32.752..32.880), tiles x47y363, x47y364, x48y363,
   x48y364, cut on the tiles' own 1 m grid. Outputs (not in git): `dem_rain_navd88_ft.tif`,
@@ -51,7 +52,7 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
 - Source: https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/San_Diego_CA_2014_LiDAR/
   (tiles x47y363, x47y364, x48y364). Metadata: https://www.sciencebase.gov/catalog/item/662c86edd34ea70bd5f126b3
 - Lidar flown 2014; same grid and datum as the 2024 tiles. Downloaded 2026-11-16.
-- Used only inside the 2024 gaps (59 ha filled in the rain grid), raised by the median
+- Used only inside the 2024 gaps (59 ha filled in the rain grid, 57 ha in the pbmb grid; +0.25 ft), raised by the median
   2024 - 2014 difference on land within 150 m of each gap (+0.22, +0.32, +0.33 ft).
 
 ### NOAA tidal datums (for NAVD88 <-> MLLW conversion)
