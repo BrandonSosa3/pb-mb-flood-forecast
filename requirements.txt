@@ -9,3 +9,4 @@ scikit-image  # fast 'how high must water rise to reach here' calculation (morph
 geopandas     # tables of map shapes (buildings, streets) with geometry
 shapely       # geometry math: lengths, buffers, splitting lines
 laspy[lazrs]  # read lidar point clouds (.laz) for building heights (3D view)
+numba         # fast loops for terrain hydrology on 100M+ cells (rain_terrain.py)

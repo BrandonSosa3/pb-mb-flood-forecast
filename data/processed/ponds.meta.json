@@ -1,0 +1,17 @@
+{
+  "created_utc": "2026-11-16T19:31:30+00:00",
+  "inputs": [
+    "dem_rain_navd88_ft.tif",
+    "water_mask_rain.tif"
+  ],
+  "method": "priority-flood fill (Barnes et al. 2014), D8 on filled surface, flood direction in flats",
+  "min_depth_ft": 0.1,
+  "pond_filter": {
+    "min_max_depth_ft": 0.25,
+    "min_area_m2": 20
+  },
+  "ponds": 10837,
+  "dips_before_filter": 95866,
+  "drainage_m2": "own drainage area (not through another spot); drainage_total_m2 = all uphill",
+  "fill_rain_in": "volume / own drainage area: rain that fills the dip with 100% runoff and no drains"
+}

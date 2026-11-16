@@ -106,3 +106,19 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
   (6.0-9.5 ft MLLW), berm holds / fails, from the existing connected-flood rasters.
 - `pipeline/events_3d.py` -> web/public/data/events.json: Mission Bay level every 20 min for the
   Oct 26 and Oct 27, 2026 high tides (NOAA 9410196 prediction + La Jolla measured extra water).
+
+## Rain phase (greater PB + La Jolla), added 2026-11-16
+### OpenStreetMap streets + waterways for the rain area
+- Overpass API (overpass-api.de; mirror overpass.private.coffee if down), bbox -117.290..-117.200,
+  32.752..32.880. `pipeline/rain_osm.py` -> `data/raw/osm/rain_ways.geojson` (+ .meta.json, download
+  time). ODbL. Streets for "is this spot on a street" (public streets + alleys; not driveways, parking
+  aisles, bridges, tunnels); waterways/culverts (only 16 culverts mapped: too few to fix digital dams).
+### City of San Diego community planning areas
+- https://seshat.datasd.org/gis_community_planning_districts/cmty_plan_datasd.geojson (data.sandiego.gov),
+  downloaded 2026-11-16 to `data/raw/city/`. Neighborhood of each spot: La Jolla, Pacific Beach,
+  Mission Beach.
+### Derived: rain ponding spots
+- `rain_terrain.py` (priority-flood fill, D8, drainage areas) -> `rain_depth_ft.tif`,
+  `rain_drainage_m2.tif` (not in git), `ponds.csv`; `rain_ponds.py` -> street/check/off-street +
+  neighborhood, `ponds.geojson`; `plot_ponds.py` -> `docs/evidence/rain/`.
+
