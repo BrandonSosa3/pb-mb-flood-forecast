@@ -1,0 +1,36 @@
+{
+  "source": "City of San Diego Get It Done, data.sandiego.gov",
+  "base_url": "https://seshat.datasd.org/get_it_done_reports/",
+  "files": [
+    "get_it_done_requests_closed_2016_datasd.csv",
+    "get_it_done_requests_closed_2017_datasd.csv",
+    "get_it_done_requests_closed_2018_datasd.csv",
+    "get_it_done_requests_closed_2019_datasd.csv",
+    "get_it_done_requests_closed_2020_datasd.csv",
+    "get_it_done_requests_closed_2021_datasd.csv",
+    "get_it_done_requests_closed_2022_datasd.csv",
+    "get_it_done_requests_closed_2023_datasd.csv",
+    "get_it_done_requests_closed_2024_datasd.csv",
+    "get_it_done_requests_closed_2025_datasd.csv",
+    "get_it_done_requests_closed_2026_datasd.csv",
+    "get_it_done_requests_open_datasd.csv"
+  ],
+  "downloaded_utc": "2026-11-16T19:49:57+00:00",
+  "neighborhoods": [
+    "La Jolla",
+    "Pacific Beach",
+    "Mission Beach"
+  ],
+  "rain_day_in": 0.1,
+  "tide_ft_mllw": 7.0,
+  "rows": 3143,
+  "by_type_cause": {
+    "drain/other": 1486,
+    "drain/rain": 374,
+    "drain/tide": 49,
+    "flooded/other": 895,
+    "flooded/rain": 271,
+    "flooded/tide": 68
+  },
+  "note": "public descriptions are as written by the public/City; no names. Not shown on the site."
+}

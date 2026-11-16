@@ -121,4 +121,12 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
 - `rain_terrain.py` (priority-flood fill, D8, drainage areas) -> `rain_depth_ft.tif`,
   `rain_drainage_m2.tif` (not in git), `ponds.csv`; `rain_ponds.py` -> street/check/off-street +
   neighborhood, `ponds.geojson`; `plot_ponds.py` -> `docs/evidence/rain/`.
+### City of San Diego Get It Done reports (flood + storm drain)
+- https://seshat.datasd.org/get_it_done_reports/get_it_done_requests_closed_<year>_datasd.csv (2016-2026)
+  + get_it_done_requests_open_datasd.csv, downloaded 2026-11-16 by `pipeline/flood_reports.py`; only
+  La Jolla / PB / MB "Street Flooded" and storm-drain rows kept -> `data/processed/flood_reports.csv`
+  (not in git: free-text descriptions with addresses; rebuilt by the script). Write-ups show blocks only.
+### NWS Local Storm Reports (rain flooding)
+- Iowa Environmental Mesonet LSR archive, WFO SGX, 2003-2026, FLOOD / FLASH FLOOD in the rain area
+  -> `data/processed/nws_rain_flood_reports.csv` (`pipeline/check_ponds.py`). Coordinates ~0.01 deg.
 
