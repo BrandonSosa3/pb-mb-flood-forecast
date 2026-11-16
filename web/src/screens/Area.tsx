@@ -137,7 +137,7 @@ function causeWord(d: ForecastDay) {
   if (d.risk === "Low") return "—";
   if (d.cause === "ocean") return d.rain_ponding ? "waves + rain" : "waves";
   if (d.cause === "both") return d.rain_ponding ? "waves, bay + rain" : "waves + bay";
-  const base = d.cause === "none" ? "" : d.properties_reached > 0 ? "bay" : "drains";
+  const base = d.cause === "none" ? "" : d.properties_reached > 0 ? "bay" : d.berm_may_leak ? "berm" : "drains";
   return d.rain_ponding ? (base ? `${base} + rain` : "rain") : base;
 }
 
@@ -156,26 +156,35 @@ function BermCard({ day }: { day: ForecastDay }) {
   return (
     <section className="panel stack-8 berm-card">
       <h2 className="h2-sm">Bay side: the sand berm</h2>
-      {day.berm_overtopped ? (
+      {day.berm_up === false ? (
+        <p className="body-15">There's no sand berm along Bayside Walk right now. The City builds it for winter, so
+          bay water can flow straight into low streets. Mission Bay peaks at about {day.bay_peak_ft.toFixed(1)} ft.</p>
+      ) : day.berm_overtopped ? (
         <p className="body-15">Mission Bay is forecast to reach {day.bay_peak_ft.toFixed(1)} ft, above the top of the
           City's sand berm along Bayside Walk (about {BERM_TOP_FT.toFixed(0)} ft). Expect bay water in low streets.</p>
       ) : (
         <p className="body-15">The City's sand berm along Bayside Walk holds back Mission Bay. The bay peak is about{" "}
           {day.bay_peak_ft.toFixed(1)} ft, below the berm top (about {BERM_TOP_FT.toFixed(0)} ft).
+          {day.berm_may_leak &&
+            <> But at this height the berm leaked or broke on Oct 25 and 26, 2026, so we rate this day as if some
+            water gets through.</>}
           {day.properties_below_water >= 25 &&
             <> About {roundTo10(day.properties_below_water).toLocaleString()} properties sit on ground lower than that,
             so storm drains may back up into low streets.</>}
         </p>
       )}
-      {!day.berm_overtopped && (
+      {!day.berm_overtopped && day.berm_up !== false && (
         <div className="kv">
           <span>If the berm fails at this tide</span>
           <strong>{fails === day.risk ? `Still ${fails}` : fails}
             {day.properties_if_berm_fails > 0 && ` · ${roundTo10(day.properties_if_berm_fails).toLocaleString()} properties`}</strong>
         </div>
       )}
-      <p className="fine">On Oct 26, 2026 the berm broke with Mission Bay at about 8.1 ft and water reached about
-        1,100 properties in Mission Beach.</p>
+      {day.berm_up === false
+        ? <p className="fine">On Jul 14, 2026, with no berm and the bay at about 7.8 ft, water came over Bayside Walk
+            into alleys and underground garages.</p>
+        : <p className="fine">On Oct 26, 2026 the berm broke with Mission Bay at about 8.1 ft and water reached about
+        1,100 properties in Mission Beach.</p>}
     </section>
   );
 }

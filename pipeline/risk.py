@@ -2,9 +2,13 @@
 
 Levels: Low, Minor, Moderate, Major. An area's level is the worse of:
 
-  Bay side (Mission Bay still water, from area_curves.json). Headline assumes
-  the City's bay-side sand berms hold (unless the water is above their assumed
-  top); "risk_if_berm_fails" uses the no-berm model.
+  Bay side (Mission Bay still water, from area_curves.json). When the City's
+  sand berm along Bayside Walk is up (docs/evidence/berm_status.csv; default
+  Oct-Apr), the headline assumes it holds unless the water is above its assumed
+  top. With no berm (default May-Sep) the headline uses the no-berm model.
+  At BERM_LEAK_FT or more the berm may leak (it leaked/broke on 2 of the 4 days
+  that high in Oct 2026), so the headline is at least Moderate when the no-berm
+  model says so. "risk_if_berm_fails" always uses the no-berm model.
     Minor     water on Bayside Walk / paths (>= 0.1 mi), 3-24 properties, or
               >= 25 properties below the water level (storm drains may back up)
     Moderate  25-199 properties, or >= 0.25 mi of road covered
@@ -13,7 +17,8 @@ Levels: Low, Minor, Moderate, Major. An area's level is the worse of:
     Minor     waves reach the boardwalk/ridge top (within 2 ft) at 1-4 stretches
     Moderate  reach the top at >= 5 stretches, or over the top at 1-2
     Major     over the top at >= 3 stretches
-(Thresholds proposed 2026-11-13 and checked against the backtest days.)
+(Thresholds proposed 2026-11-13 and checked against the backtest days; berm season and
+leak rule added 2026-11-16 after backtest batch 2, docs/evidence/backtest_scorecard.md.)
 
 Mission Bay still water = NOAA Mission Bay (9410196) tide prediction + extra
 water measured at La Jolla (9410230). Mission Bay has no live gauge.
@@ -31,7 +36,7 @@ from datetime import date, timedelta
 import numpy as np
 import pandas as pd
 
-from noaa_tides import PROCESSED_DIR, fetch_noaa, to_frame
+from noaa_tides import PROCESSED_DIR, PROJECT_ROOT, fetch_noaa, to_frame
 
 LEVELS = ["Low", "Minor", "Moderate", "Major"]
 # Properties lower than the water but walled off (berm / high ground): water can
@@ -43,11 +48,25 @@ RAIN_NEAR_TIDE_IN = 0.25   # inches within RAIN_WINDOW_H hours of the day's high
 RAIN_WINDOW_H = 3
 RAIN_MIN_PROPERTIES = 10   # properties on ground below the water (storm-drain count)
 BERM_TOP_MLLW_FT = 9.0  # must match flood_threshold.py
+BERM_LEAK_FT = 7.8      # leaked Oct 25 (7.9 ft), broke Oct 26 (8.1), held Oct 27-28 (8.1-8.2) after rebuilding
+BERM_SEASON_MONTHS = {10, 11, 12, 1, 2, 3, 4}  # berm usually up; outside these months, no berm
+BERM_FILE = PROJECT_ROOT / "docs" / "evidence" / "berm_status.csv"
 MISSION_BAY, LA_JOLLA = "9410196", "9410230"
 
 
 def load_curves() -> dict:
     return json.loads((PROCESSED_DIR / "area_curves.json").read_text())
+
+
+def berm_status(day: date) -> tuple[bool, str]:
+    """Is the bay-side berm up on this local date? (up, where the answer comes from)."""
+    up, source = day.month in BERM_SEASON_MONTHS, "season rule (berm up Oct-Apr, none May-Sep)"
+    if BERM_FILE.exists():
+        rows = pd.read_csv(BERM_FILE, comment="#").rename(columns={"from": "start", "to": "end"})
+        for r in rows.itertuples():
+            if date.fromisoformat(r.start) <= day <= date.fromisoformat(r.end):
+                up, source = r.status == "up", r.source
+    return up, source
 
 
 def bay_risk(curve: dict, levels: list[float], level: float, sfx: str = "") -> tuple[int, dict]:
@@ -79,12 +98,16 @@ def ocean_risk(margins: pd.Series) -> tuple[int, dict]:
     return 0, facts
 
 
-def area_status(name: str, curves: dict, bay_level: float, ocean_margins: pd.Series | None) -> dict:
+def area_status(name: str, curves: dict, bay_level: float, ocean_margins: pd.Series | None,
+                berm_up: bool = True) -> dict:
     curve = curves["areas"][name]
-    # Headline assumes the bay-side sand berms hold, unless the water is above their top.
-    berm_holds = bay_level < BERM_TOP_MLLW_FT
+    # Headline assumes the bay-side sand berm holds, if it is up and the water is below its top.
+    berm_holds = berm_up and bay_level < BERM_TOP_MLLW_FT
+    may_leak = berm_holds and bay_level >= BERM_LEAK_FT
     b, bf = bay_risk(curve, curves["levels_ft_mllw"], bay_level, "_berm" if berm_holds else "")
     b_fail, bf_fail = bay_risk(curve, curves["levels_ft_mllw"], bay_level, "")
+    if may_leak:  # at least Moderate, if water would reach that far without the berm
+        b = max(b, min(b_fail, LEVELS.index("Moderate")))
     o, of = (0, {})
     if curve["beach_points"] and ocean_margins is not None:
         o, of = ocean_risk(ocean_margins.reindex(curve["beach_points"]).dropna())
@@ -92,7 +115,8 @@ def area_status(name: str, curves: dict, bay_level: float, ocean_margins: pd.Ser
     cause = "both" if b == o and b > 0 else ("bay" if b > o else ("ocean" if o > 0 else "none"))
     level_fail = max(b_fail, o)
     return {"area": name, "risk": LEVELS[level], "cause": cause, "bay_risk": LEVELS[b], "ocean_risk": LEVELS[o],
-            "risk_if_berm_fails": LEVELS[level_fail], "berm_overtopped": not berm_holds,
+            "risk_if_berm_fails": LEVELS[level_fail], "berm_up": berm_up, "berm_may_leak": may_leak,
+            "berm_overtopped": berm_up and bay_level >= BERM_TOP_MLLW_FT,
             "bay_level_ft": round(bay_level, 2), **bf, **of,
             "buildings_if_berm_fails": bf_fail["buildings"], "road_mi_if_berm_fails": bf_fail["road_mi"]}
 
@@ -138,9 +162,10 @@ def main() -> None:
         if not (args.start <= day <= args.end):
             continue
         for name in curves["areas"]:
-            rows.append({"day": day, **area_status(name, curves, float(level), margins_daily.get(day))})
+            rows.append({"day": day, **area_status(name, curves, float(level), margins_daily.get(day),
+                                                   berm_status(day)[0])})
     df = pd.DataFrame(rows)
-    cols = ["day", "area", "risk", "risk_if_berm_fails", "cause", "bay_level_ft", "buildings", "drain_buildings",
+    cols = ["day", "area", "risk", "risk_if_berm_fails", "berm_up", "berm_may_leak", "cause", "bay_level_ft", "buildings", "drain_buildings",
             "buildings_if_berm_fails", "stretches_over", "stretches_reach_top"]
     print(df[[c for c in cols if c in df]].to_string(index=False))
 

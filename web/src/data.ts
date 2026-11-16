@@ -23,6 +23,10 @@ export interface ForecastDay {
   bay_peak_ft: number;
   bay_peak_time: string;
   berm_overtopped: boolean;
+  /** Is the City's bay-side sand berm up that day? (berm_status.csv, else up Oct–Apr). Missing in old files = up. */
+  berm_up?: boolean;
+  /** Berm up but the bay is high enough (7.8 ft+) that it has leaked before: rated at least Moderate. */
+  berm_may_leak?: boolean;
   properties_below_water: number;
   properties_reached: number;
   properties_if_berm_fails: number;
@@ -132,6 +136,7 @@ export function summary(day: ForecastDay): string {
   }
   if (bay) {
     if (day.properties_reached >= 25) parts.push("Bay water likely in streets near the bay.");
+    else if (day.berm_may_leak) parts.push("Very high bay tide: the sand berm may leak into streets near the bay.");
     else if (day.properties_below_water >= 25) parts.push("High bay tide: storm drains may back up into low streets.");
     else parts.push("Bay water may cover parts of the bayside paths.");
   }

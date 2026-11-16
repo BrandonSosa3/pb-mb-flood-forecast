@@ -110,7 +110,37 @@ water "comes over both walkways" on every king tide above ~7.2). Searched: NWS s
 2. **Ocean side under-predicts again** (Dec 22 2024 at 3.0 ft below the top; Nov 14 2026). Same
    lesson as batch 1.
 3. **Rain rule:** one close call (Apr 2020); rain away from high tide is outside the model (Nov 2018).
-4. **Calibration still to do (step 2):** fixes proposed to Brandon; not applied yet.
+4. **Calibration (step 2):** applied 2026-11-16, see below.
+
+## Calibration after batch 2 (step 2, applied 2026-11-16, approved by Brandon)
+1. **Berm season.** The headline uses the berm only when it is up: `berm_status.csv` (kept by hand
+   from news), else the season rule (up Oct 1-Apr 30, none May 1-Sep 30).
+2. **Berm may leak.** With the berm up and Mission Bay at ≥ 7.8 ft, the bay rating is at least
+   Moderate (if the no-berm model reaches that far). Basis: leaked at 7.9 (Oct 25), broke at 8.1
+   (Oct 26), held at 8.1-8.2 (Oct 27-28) only after the City enlarged it: 2 of 4 days.
+3. **Waves: unchanged.** Moving "reaches" to 3 ft would catch Dec 22 2024 but add false alarms on
+   calm days; already switched to the higher wave model on Nov 14. Revisit after the December king
+   tides.
+
+Re-run of all 35 days (`backtest_days_model.csv`), Mission Beach headline before → after:
+
+| Day | Before | After | Evidence |
+|---|---|---|---|
+| Jul 14, 2026 | Minor | **Major** | flooded (news) → now caught |
+| Aug 11, 2026 | Minor | **Major** | flooded (news) → now caught |
+| Oct 25, 2026 | Minor | **Moderate** | berm leaked into yards/homes → now caught (PB also Minor → Moderate) |
+| Aug 12, Sep 29, 2026 | Minor | Major | NWS advisory, no report found |
+| Aug 11, 2022; Jul 31 & Aug 1, 2023 (controls) | Minor | **Major** | no NWS alert, no report found: **possible false alarms** |
+
+Honest caveats:
+- The three caught days are the days the rules were tuned on, so they are not independent proof.
+  The track record keeps them as "missed" (what the model said before the fix) with a note.
+- The summer controls now read Major with no reports of flooding. Either flooding went unreported
+  (a Mission Beach contractor told 10News water comes over both walkways on every king tide above
+  ~7.2 ft), the City had some summer protection in 2022-23, or the static no-berm model
+  over-states how far water gets in a short tide. Summer 2027 king tides are the real test; a
+  middle option if they stay dry is to cap the no-berm summer headline at Moderate.
+- Winter days below 7.8 ft are unchanged (e.g. Nov 7-8, Jan 2023, Jan 2024).
 
 ## Rain rule (added 2026-11-14)
 Rule: ≥ 0.25 in of rain within 3 h of the day's highest tide, with 10+ properties below the water →

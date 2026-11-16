@@ -1,6 +1,6 @@
 {
   "_about": "Hand-kept list of past days scored against reality, shown on the website's How it works page. Plain language only. Details and full source lists: backtest_scorecard.md, 2026-10_king_tides.md. result: right | close | missed | false_alarm | pending. how: backtest (model run afterwards on the real measured tide + waves) | live (forecast saved before the event).",
-  "updated": "2026-11-14",
+  "updated": "2026-11-16",
   "days": [
     {
       "date": "2026-11-14",
@@ -138,7 +138,7 @@
       "happened": "Bay water pushed through the sand berm into Mission Beach yards and homes around 8:30 am; Dawes St in Pacific Beach flooded to Pacific Beach Dr.",
       "we_said": "Minor if the berm holds; Major if it fails.",
       "result": "missed",
-      "note": "The main rating trusted the berm. The 'if the berm fails' rating was right.",
+      "note": "The main rating trusted the berm. The 'if the berm fails' rating was right. Since Nov 16, at 7.8 ft or more the main rating is at least Moderate ('the berm may leak'), which gives Moderate here (tuned on this day).",
       "sources": [
         {
           "name": "10News, Oct 26",
@@ -176,7 +176,7 @@
       "happened": "Homes and cars around Mission Bay surrounded by water.",
       "we_said": "Minor if the berm holds; Major if it fails.",
       "result": "missed",
-      "note": "There is no berm in summer, so the 'if the berm fails' rating (Major) was the right one.",
+      "note": "There is no berm in summer, so the 'if the berm fails' rating (Major) was the right one. Since Nov 16 the main rating assumes no berm May–Sep, which gives Major here (tuned on this day).",
       "sources": [
         {
           "name": "Times of San Diego, Aug 13",
@@ -193,7 +193,7 @@
       "happened": "Water came over both Mission Beach walkways, into alleys and underground garages. The City doesn't build sand berms in summer.",
       "we_said": "Minor if the berm holds; Major if it fails.",
       "result": "missed",
-      "note": "Same lesson: no summer berm, so 'if the berm fails' (Major) was right.",
+      "note": "Same lesson: no summer berm, so 'if the berm fails' (Major) was right. Since Nov 16 the main rating assumes no berm May–Sep, which gives Major here (tuned on this day, so not independent proof).",
       "sources": [
         {
           "name": "10News, Jul 15",

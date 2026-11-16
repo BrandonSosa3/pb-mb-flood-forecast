@@ -5,7 +5,8 @@ For each day (local date):
   ocean side wave run-up per beach stretch from measured La Jolla water level + CDIP MOP
              hindcast/nowcast waves (what the waves really were)
   rain       San Diego airport hourly rain within 3 h of the day's highest bay tide
-  -> area ratings with risk.area_status + risk.with_rain (berm-holds headline and berm-fails)
+  berm       is the bay-side berm up that day? (risk.berm_status: berm_status.csv, else season)
+  -> area ratings with risk.area_status + risk.with_rain (headline and berm-fails)
 
 This is a "perfect forecast" test: it uses what the water and waves actually did, so it checks
 the flood model and thresholds, not the weather/wave forecasts (the live log checks those).
@@ -27,7 +28,7 @@ import xarray as xr
 
 from forecast_logger import MOP_URL
 from noaa_tides import PROCESSED_DIR, PROJECT_ROOT
-from risk import RAIN_WINDOW_H, area_status, load_curves, mission_bay_still_water, with_rain
+from risk import RAIN_WINDOW_H, area_status, berm_status, load_curves, mission_bay_still_water, with_rain
 from runup import HINDCAST_END, still_water_measured, total_water_level
 
 DAYS = PROJECT_ROOT / "docs" / "evidence" / "backtest_days.csv"
@@ -82,13 +83,15 @@ def main() -> None:
         worst = twl.loc[twl.margin_ft.idxmin()]
         near = rain[(rain.index >= bay_time - pd.Timedelta(hours=RAIN_WINDOW_H)) &
                     (rain.index <= bay_time + pd.Timedelta(hours=RAIN_WINDOW_H))].sum()
+        berm_up = berm_status(d.date())[0]
         for name in curves["areas"]:
-            s = area_status(name, curves, bay_peak, margins)
+            s = area_status(name, curves, bay_peak, margins, berm_up)
             risk, ponding = with_rain(s["risk"], float(near), s["drain_buildings"])
             fail, _ = with_rain(s["risk_if_berm_fails"], float(near), s["drain_buildings"])
             rows.append({
                 "date": str(d.date()), "why": why, "area": name, "risk": risk, "risk_if_berm_fails": fail,
-                "cause": s["cause"] + ("+rain" if ponding else ""), "bay_peak_ft": round(bay_peak, 2),
+                "cause": s["cause"] + ("+rain" if ponding else ""), "berm_up": berm_up,
+                "berm_may_leak": s["berm_may_leak"], "bay_peak_ft": round(bay_peak, 2),
                 "bay_peak_time": bay_time.strftime("%-I:%M %p"), "rain_near_tide_in": round(float(near), 2),
                 "props_reached": s["buildings"], "props_below_water": s["drain_buildings"],
                 "props_if_berm_fails": s["buildings_if_berm_fails"],

@@ -34,7 +34,9 @@ export function MapScreen({ forecast, spotKey, start3d = false }: { forecast: Fo
     return days.length ? Math.max(...days.map((d) => d.bay_peak_ft)) : 6.5;
   }, [forecast]);
   const [level, setLevel] = useState(() => Math.round(satPeak * 10) / 10);
-  const [bermHolds, setBermHolds] = useState(true);
+  // Start with the berm as it is this week (no berm in summer).
+  const bermUpNow = forecast.areas[0]?.days.find((d) => d.berm_up !== undefined)?.berm_up ?? true;
+  const [bermHolds, setBermHolds] = useState(bermUpNow);
   const [selected, setSelected] = useState<Selected | null>(null);
 
   const [view3d, setView3d] = useState(start3d);
@@ -254,7 +256,7 @@ export function MapScreen({ forecast, spotKey, start3d = false }: { forecast: Fo
         <input id="level" type="range" min={6} max={9.5} step={0.1} value={Math.max(6, Math.min(9.5, level))}
           onChange={(e) => { stop(); setLevel(Number(e.target.value)); }} className="slider" />
         <div className="chips">
-          <button type="button" className="chip" onClick={() => { stop(); setLevel(Math.round(satPeak * 10) / 10); setBermHolds(true); }}>
+          <button type="button" className="chip" onClick={() => { stop(); setLevel(Math.round(satPeak * 10) / 10); setBermHolds(bermUpNow); }}>
             Forecast peak · {satPeak.toFixed(1)} ft
           </button>
           <button type="button" className="chip" onClick={() => { stop(); setLevel(OCT26); setBermHolds(false); }}>

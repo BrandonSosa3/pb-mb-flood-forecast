@@ -37,7 +37,7 @@ from shapely.geometry import Point
 from forecast_logger import LOG_DIR
 from noaa_tides import PROCESSED_DIR, PROJECT_ROOT, fetch_noaa, to_frame
 from areas import ROUTINELY_WET_FT
-from risk import LEVELS, MISSION_BAY, RAIN_WINDOW_H, area_status, load_curves, with_rain
+from risk import LEVELS, MISSION_BAY, RAIN_WINDOW_H, area_status, berm_status, load_curves, with_rain
 from runup import from_snapshot, total_water_level
 
 SITE_DATA = PROJECT_ROOT / "web" / "public" / "data"
@@ -182,11 +182,12 @@ def forecast_json(snapshot: Path) -> dict:
         for d in days:
             b = bay[bay.index.date == d]
             bay_peak, bay_time = float(b.max()), b.idxmax()
+            berm_up = berm_status(d)[0]
             per_model = {}
             for model, t in twl.items():  # includes "higher" (the headline)
                 td = t[t.local.dt.date == d]
                 margins = td.groupby("point").margin_ft.min() if len(td) else None
-                per_model[model] = (area_status(name, curves, bay_peak, margins), td)
+                per_model[model] = (area_status(name, curves, bay_peak, margins, berm_up), td)
             head, td = per_model["higher"]
             upper = max((LEVELS.index(s["risk"]) for s, _ in per_model.values()))  # = headline now
             pts = curves["areas"][name]["beach_points"]
@@ -202,6 +203,7 @@ def forecast_json(snapshot: Path) -> dict:
                 "risk_if_berm_fails": risk_fail, "cause": cause, "rain_ponding": ponding, **r,
                 "worst_time": worst.isoformat() if worst is not None else None,
                 "bay_peak_ft": round(bay_peak, 2), "bay_peak_time": bay_time.isoformat(),
+                "berm_up": berm_up, "berm_may_leak": head["berm_may_leak"],
                 "berm_overtopped": head["berm_overtopped"],
                 "properties_below_water": head["drain_buildings"],
                 "properties_reached": head["buildings"],
@@ -231,7 +233,8 @@ def forecast_json(snapshot: Path) -> dict:
         "areas": areas_out,
         "notes": {
             "heights": "feet above MLLW (an ordinary low tide), NOAA La Jolla datums",
-            "berm": "headline assumes the bay-side sand berms hold (assumed top 9.0 ft)",
+            "berm": "when the bay-side berm is up (docs/evidence/berm_status.csv, else Oct-Apr) the headline "
+                    "assumes it holds (assumed top 9.0 ft); at 7.8 ft or more it may leak (at least Moderate)",
         },
     }
 

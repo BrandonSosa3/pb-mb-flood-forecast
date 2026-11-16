@@ -158,7 +158,7 @@ export function About() {
           <li><strong>It doesn't know floor heights.</strong> "Water reaches this property" means the ground next to it, not
             that water gets inside.</li>
           <li><strong>It can't predict a sand berm breaking.</strong> That's why the app shows "if the berm fails" as a
-            second rating.</li>
+            second rating, and from 7.8 ft up it rates the day as if the berm may leak.</li>
           <li><strong>It doesn't model storm drains.</strong> It flags streets lower than the water, where drains may back
             up, but can't say whether they will.</li>
           <li><strong>Bay water spreads instantly in the model.</strong> For a short high tide, real water may not get as
@@ -297,7 +297,10 @@ function Technical({ updated }: { updated?: string }) {
           there without going over higher ground (a "connected" flood fill, using morphological reconstruction). Each
           building gets the lowest value within 2 m of it; streets are split into 25 m pieces.</Term>
         <Term t="The berm">The City piles a temporary sand berm along Bayside Walk in winter. Its height isn't published;
-          we assume a top of 9.0 ft. The headline assumes it holds; the second rating removes it.</Term>
+          we assume a top of 9.0 ft. When it's up (Oct–Apr, or as reported in the news) the main rating assumes it holds,
+          except from 7.8 ft up, where it leaked or broke on 2 of 4 days in Oct 2026: then the rating is at least
+          Moderate. In summer the City doesn't build it, so the main rating assumes no berm (Jul 14 and Aug 11, 2026
+          flooded that way). The second rating always removes it.</Term>
         <Term t="Risk levels">Each area takes the worse of its bay and ocean sides. Bay: Minor from 3 properties reached, 0.1 mile of bayside path
           or 25 below the water (storm drains); Moderate from 25 reached or ¼ mile of road; Major from 200 reached or 1 mile.
           Ocean: Minor if waves reach the top at 1 spot; Moderate at 5, or water over at 1; Major if over at 3.</Term>

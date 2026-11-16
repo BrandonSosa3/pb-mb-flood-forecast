@@ -1,0 +1,10 @@
+# Is the City's temporary sand berm along Bayside Walk (Mission Beach, bay side) up?
+# Kept by hand from news reports and City notices. Read by pipeline/risk.py (berm_status).
+# Days not listed here use the season rule: berm up Oct 1 - Apr 30, no berm May 1 - Sep 30.
+# A row covers from..to inclusive (local dates). Later rows win over earlier ones.
+# status: up | none
+from,to,status,source
+2026-07-14,2026-07-14,none,"10News Jul 15 2026: bay water over Bayside Walk into alleys and underground parking; no berm mentioned"
+2026-08-11,2026-08-11,none,"Times of San Diego Aug 13 2026: king tide flooding in Mission Beach; no berm in place"
+2026-10-25,2026-10-31,up,"10News Oct 26 2026: berm leaked Oct 25, broke Oct 26, rebuilt larger; held Oct 27-28"
+2026-11-08,2026-11-14,up,"10News Nov 8 2026 + Brandon's own check Nov 14 2026: berm in place and holding"

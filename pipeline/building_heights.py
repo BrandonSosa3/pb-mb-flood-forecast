@@ -6,7 +6,8 @@ building outline:
   roof   = 75th percentile height of class-1 first returns inside the outline, shrunk by 0.5 m
            (so overhanging trees and the neighbor's wall count less)
   ground = median bare-earth height under the outline (our 1 m DEM)
-  height = roof - ground, kept between MIN_M and MAX_M; buildings with too few hits get DEFAULT_M.
+  height = roof - ground, kept between MIN_M and MAX_M; buildings with too few hits get the
+           median measured height.
 
 For display only (3D blocks). Flood answers never use building height: "water reaches this
 property" is about the ground next to it.
@@ -37,7 +38,7 @@ LPC_DIR = PROJECT_ROOT / "data" / "raw" / "lpc"
 SHRINK_M = 0.5
 ROOF_PERCENTILE = 75
 MIN_POINTS = 8
-MIN_M, MAX_M, DEFAULT_M = 2.5, 40.0, 6.0
+MIN_M, MAX_M = 2.5, 40.0  # buildings with too few hits get the median measured height
 FT_TO_M = 0.3048
 OUT_CSV = PROCESSED_DIR / "building_heights.csv"
 OUT_3D = PROJECT_ROOT / "web" / "public" / "data" / "buildings3d.geojson"
@@ -80,7 +81,8 @@ def main() -> None:
     out = bld[["osm_id", "bid"]].set_index("bid").join(roof).join((ground_ft * FT_TO_M).rename("ground_m"))
     out["height_m"] = (out.roof_m - out.ground_m).clip(MIN_M, MAX_M)
     out["estimated"] = out.n.fillna(0) < MIN_POINTS
-    out.loc[out.estimated, "height_m"] = DEFAULT_M
+    default_m = round(float(out.loc[~out.estimated, "height_m"].median()), 1)
+    out.loc[out.estimated, "height_m"] = default_m
     out = out.round(2)
     out.to_csv(OUT_CSV)
 
@@ -97,12 +99,12 @@ def main() -> None:
             "source": "USGS 3DEP Lidar Point Cloud CA_SanDiegoCo_D24 (collected Nov 2024), via rockyweb.usgs.gov",
             "tiles": [p.name for p in tiles], "points": "class 1 (unclassified) first returns",
             "roof_percentile": ROOF_PERCENTILE, "shrink_m": SHRINK_M, "min_points": MIN_POINTS,
-            "clip_m": [MIN_M, MAX_M], "default_m": DEFAULT_M, "buildings": int(len(out)),
+            "clip_m": [MIN_M, MAX_M], "default_m": default_m, "buildings": int(len(out)),
             "estimated_default_height": int(out.estimated.sum()),
             "height_m_median": float(out.height_m.median()), "purpose": "3D display only"}
     (PROCESSED_DIR / "building_heights.meta.json").write_text(json.dumps(meta, indent=2))
     print(f"{len(out):,} buildings; median height {out.height_m.median():.1f} m; "
-          f"{int(out.estimated.sum()):,} without enough lidar hits (set to {DEFAULT_M} m) "
+          f"{int(out.estimated.sum()):,} without enough lidar hits (set to {default_m} m) "
           f"-> {OUT_3D.relative_to(PROJECT_ROOT)} ({OUT_3D.stat().st_size / 1e6:.1f} MB)")
 
 

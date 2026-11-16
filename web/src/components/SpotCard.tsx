@@ -25,12 +25,19 @@ export function SpotCard({ spot, forecast, onShowLevel, onClose }: {
   let bayHead = "", bayNote = "", tone: "bad" | "watch" | "ok" = "ok";
   if (peakDay && spot.kind !== "landmark") {
     const peak = peakDay.bay_peak_ft, at = when(peakDay, peakDay.bay_peak_time);
-    const now = peak >= BERM_TOP_FT ? spot.d : spot.db; // above the berm top the berm no longer matters
+    // No berm (summer), or water above its top: the berm doesn't matter.
+    const now = peak >= BERM_TOP_FT || peakDay.berm_up === false ? spot.d : spot.db;
     if (reaches(now) && now <= peak) {
       bayHead = `Bay water likely reaches ${here}`; bayNote = `${at}.`; tone = "bad";
     } else if (reaches(spot.d) && spot.d <= peak) {
-      bayHead = "Dry unless the bay-side berm fails";
-      bayNote = `If the sand berm along Bayside Walk breaks, bay water reaches ${here} ${at}.`; tone = "watch";
+      if (peakDay.berm_may_leak) {
+        bayHead = "Bay water possible if the berm leaks";
+        bayNote = `The bay gets high enough that the sand berm along Bayside Walk has leaked before. If it does, water reaches ${here} ${at}.`;
+      } else {
+        bayHead = "Dry unless the bay-side berm fails";
+        bayNote = `If the sand berm along Bayside Walk breaks, bay water reaches ${here} ${at}.`;
+      }
+      tone = "watch";
     } else if (spot.g !== null && spot.g < peak) {
       bayHead = "No bay water on the surface this week";
       bayNote = `The ground here is lower than the high tide (${at}), so storm drains may back up.`; tone = "watch";
@@ -56,7 +63,7 @@ export function SpotCard({ spot, forecast, onShowLevel, onClose }: {
   }
 
   // The map slider runs 6–9.5 ft; offer a jump to the level where water first reaches this spot.
-  const showAt = reaches(spot.db) && spot.db < BERM_TOP_FT ? { level: Math.max(spot.db, 6), holds: true }
+  const showAt = peakDay?.berm_up !== false && reaches(spot.db) && spot.db < BERM_TOP_FT ? { level: Math.max(spot.db, 6), holds: true }
     : reaches(spot.d) && spot.d <= 9.5 ? { level: Math.max(spot.d, 6), holds: false } : null;
 
   return (

@@ -170,6 +170,13 @@ available on demand.
   water_bands.geojson + buildings3d.geojson (lidar roof heights, building_heights.py), Play Oct 26 /
   Oct 27 (events.json). Re-run building_heights.py once all 33 LPC tiles are in data/raw/lpc.
   verify_forecasts.py; more backtest days; fill Nov 14 prediction result.
+- Step 4 batch 2 done (35 days, backtest_days.py): track record 9 right, 3 close, 6 missed.
+- Step 2 calibration APPLIED 2026-11-16 (Brandon OK'd): berm only when up (docs/evidence/berm_status.csv,
+  kept by hand; else season Oct-Apr up, May-Sep none); berm up + Mission Bay >= 7.8 ft -> at least
+  Moderate ("berm may leak"); wave "reaches" line unchanged until December. Caveat: summer controls
+  (Aug 2022, Jul 31/Aug 1 2023) now read Major with no reports = possible false alarms; check summer
+  2027, fallback = cap no-berm summer at Moderate. Track record keeps tuned days as "missed" + note.
+- LPC lidar: 14/33 tiles; USGS rockyweb rate-limits (429). Re-run building_heights.py when complete.
 - Next step: set up this project folder (git, Python environment, folder
   structure), then write a script that downloads NOAA predicted + observed
   water levels for San Diego 9410170 for the past month and computes the
