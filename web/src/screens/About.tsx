@@ -54,6 +54,8 @@ export function About() {
           Mission Beach, street by street, for the next few days.</p>
         <div className="notice">This is not an official warning. For official alerts,{" "}
           <a href={NWS_URL}>check the National Weather Service</a>.</div>
+        <p className="fine">Built by Brandon Sosa. Code, data sources and the full track record are on{" "}
+          <a href="https://github.com/BrandonSosa3/pb-mb-flood-forecast">GitHub</a> (MIT license).</p>
       </div>
 
       {/* 1 · The idea */}

@@ -80,4 +80,4 @@ Service (forecasts, alerts, storm reports via Iowa Environmental Mesonet) · Cit
 community planning areas) · © OpenStreetMap contributors (ODbL) · OpenFreeMap basemap.
 
 ---
-Built by Brandon Sosa (SDSU Computer Science) · [github.com/BrandonSosa3](https://github.com/BrandonSosa3)
+Built by Brandon Sosa (SDSU Computer Science) · [github.com/BrandonSosa3](https://github.com/BrandonSosa3) · Code: MIT license ([LICENSE](LICENSE)); data keeps its sources' terms.

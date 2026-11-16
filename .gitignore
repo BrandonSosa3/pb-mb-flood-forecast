@@ -22,3 +22,6 @@ docs/evidence/media/**/*.MOV
 data/processed/wave_verification.csv
 data/processed/*.npy
 data/processed/flood_reports.csv
+
+# Personal working notes for the coding assistant (kept local)
+CLAUDE.md
