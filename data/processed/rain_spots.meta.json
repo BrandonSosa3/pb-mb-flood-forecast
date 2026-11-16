@@ -1,0 +1,20 @@
+{
+  "created_utc": "2026-11-16T20:15:40+00:00",
+  "ground_neighborhoods": [
+    "Pacific Beach",
+    "Mission Beach"
+  ],
+  "cluster_m": 75,
+  "min_rain_days": 2,
+  "match_m": 50,
+  "excluded_text": "water ?main|main break|leak|sprinkl|irrigat|broken pipe|pipe burst|hydrant|pool",
+  "counts": {
+    "La Jolla/reports": 10,
+    "Mission Beach/both": 8,
+    "Mission Beach/ground": 34,
+    "Mission Beach/reports": 4,
+    "Pacific Beach/both": 3,
+    "Pacific Beach/ground": 90,
+    "Pacific Beach/reports": 4
+  }
+}
