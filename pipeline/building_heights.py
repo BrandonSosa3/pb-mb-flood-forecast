@@ -1,7 +1,9 @@
 """Building heights from the 2024 USGS lidar point cloud, for the 3D view.
 
 The lidar plane records every laser hit. Hits on rooftops are "first returns" that the survey left
-unclassified (class 1; this survey has no separate building class). For each OpenStreetMap
+unclassified (class 1; the 2024 survey has no separate building class) or marked as building (class 6,
+used by the 2014 survey). Tiles of the 2024 survey we couldn't download yet are filled from the 2014
+survey (lpc_fill_2014.py); a 2014 tile is used only while its 2024 tile is missing. For each OpenStreetMap
 building outline:
   roof   = 75th percentile height of class-1 first returns inside the outline, shrunk by 0.5 m
            (so overhanging trees and the neighbor's wall count less)
@@ -60,11 +62,15 @@ def main() -> None:
     ground_ft = pd.Series(dem[full > 0]).groupby(full[full > 0]).median()
 
     ids, zs = [], []
-    tiles = sorted(p for p in LPC_DIR.glob("USGS_LPC_*.laz"))
+    tiles_2024 = sorted(LPC_DIR.glob("USGS_LPC_CA_SanDiegoCo_D24_*.laz"))
+    have = {p.stem.rsplit("_", 1)[1] for p in tiles_2024}
+    tiles_2014 = [p for p in sorted(LPC_DIR.glob("USGS_LPC_2014fill_*.laz")) if p.stem.rsplit("_", 1)[1] not in have]
+    tiles = tiles_2024 + tiles_2014
+    year_of = np.zeros(len(bld) + 1, dtype=np.int16)
     inv = ~transform
     for i, path in enumerate(tiles, 1):
         las = laspy.read(path)
-        keep = (np.asarray(las.classification) == 1) & (np.asarray(las.return_number) == 1)
+        keep = np.isin(np.asarray(las.classification), (1, 6)) & (np.asarray(las.return_number) == 1)
         x, y, z = np.asarray(las.x)[keep], np.asarray(las.y)[keep], np.asarray(las.z)[keep]
         col, row = inv * (x, y)
         row, col = np.floor(row).astype(np.int64), np.floor(col).astype(np.int64)
@@ -72,6 +78,7 @@ def main() -> None:
         b = np.zeros(len(z), dtype=np.int32)
         b[ok] = inner[row[ok], col[ok]]
         ids.append(b[b > 0])
+        year_of[np.unique(b[b > 0])] = 2014 if "2014fill" in path.name else 2024
         zs.append(z[b > 0].astype(np.float32))
         print(f"  {i}/{len(tiles)} {path.name}: {int((b > 0).sum()):,} roof hits")
     pts = pd.DataFrame({"bid": np.concatenate(ids), "z": np.concatenate(zs)})
@@ -81,6 +88,7 @@ def main() -> None:
     out = bld[["osm_id", "bid"]].set_index("bid").join(roof).join((ground_ft * FT_TO_M).rename("ground_m"))
     out["height_m"] = (out.roof_m - out.ground_m).clip(MIN_M, MAX_M)
     out["estimated"] = out.n.fillna(0) < MIN_POINTS
+    out["lidar_year"] = np.where(out.estimated, 0, year_of[out.index.to_numpy()])
     default_m = round(float(out.loc[~out.estimated, "height_m"].median()), 1)
     out.loc[out.estimated, "height_m"] = default_m
     out = out.round(2)
@@ -97,7 +105,10 @@ def main() -> None:
 
     meta = {"created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "source": "USGS 3DEP Lidar Point Cloud CA_SanDiegoCo_D24 (collected Nov 2024), via rockyweb.usgs.gov",
-            "tiles": [p.name for p in tiles], "points": "class 1 (unclassified) first returns",
+            "tiles": [p.name for p in tiles], "tiles_2024": len(tiles_2024), "tiles_2014_fill": len(tiles_2014),
+            "fill_source": "USGS CA_SanDiegoQL2_2014 (AWS usgs-lidar-public, EPT) where the 2024 tile is missing",
+            "buildings_by_lidar_year": {str(k): int(v) for k, v in out.lidar_year.value_counts().items()},
+            "points": "first returns, class 1 (unclassified) or 6 (building)",
             "roof_percentile": ROOF_PERCENTILE, "shrink_m": SHRINK_M, "min_points": MIN_POINTS,
             "clip_m": [MIN_M, MAX_M], "default_m": default_m, "buildings": int(len(out)),
             "estimated_default_height": int(out.estimated.sum()),

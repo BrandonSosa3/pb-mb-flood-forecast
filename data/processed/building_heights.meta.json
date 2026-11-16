@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-11-16T18:57:11+00:00",
+  "created_utc": "2026-11-16T20:52:59+00:00",
   "source": "USGS 3DEP Lidar Point Cloud CA_SanDiegoCo_D24 (collected Nov 2024), via rockyweb.usgs.gov",
   "tiles": [
     "USGS_LPC_CA_SanDiegoCo_D24_11SMS475628.laz",
@@ -15,9 +15,36 @@
     "USGS_LPC_CA_SanDiegoCo_D24_11SMS477625.laz",
     "USGS_LPC_CA_SanDiegoCo_D24_11SMS477627.laz",
     "USGS_LPC_CA_SanDiegoCo_D24_11SMS478625.laz",
-    "USGS_LPC_CA_SanDiegoCo_D24_11SMS478626.laz"
+    "USGS_LPC_CA_SanDiegoCo_D24_11SMS478626.laz",
+    "USGS_LPC_2014fill_11SMS476623.laz",
+    "USGS_LPC_2014fill_11SMS476627.laz",
+    "USGS_LPC_2014fill_11SMS477623.laz",
+    "USGS_LPC_2014fill_11SMS477626.laz",
+    "USGS_LPC_2014fill_11SMS477628.laz",
+    "USGS_LPC_2014fill_11SMS477629.laz",
+    "USGS_LPC_2014fill_11SMS477630.laz",
+    "USGS_LPC_2014fill_11SMS478623.laz",
+    "USGS_LPC_2014fill_11SMS478624.laz",
+    "USGS_LPC_2014fill_11SMS478627.laz",
+    "USGS_LPC_2014fill_11SMS478628.laz",
+    "USGS_LPC_2014fill_11SMS478629.laz",
+    "USGS_LPC_2014fill_11SMS478630.laz",
+    "USGS_LPC_2014fill_11SMS479623.laz",
+    "USGS_LPC_2014fill_11SMS479624.laz",
+    "USGS_LPC_2014fill_11SMS479625.laz",
+    "USGS_LPC_2014fill_11SMS479628.laz",
+    "USGS_LPC_2014fill_11SMS479629.laz",
+    "USGS_LPC_2014fill_11SMS479630.laz"
   ],
-  "points": "class 1 (unclassified) first returns",
+  "tiles_2024": 14,
+  "tiles_2014_fill": 19,
+  "fill_source": "USGS CA_SanDiegoQL2_2014 (AWS usgs-lidar-public, EPT) where the 2024 tile is missing",
+  "buildings_by_lidar_year": {
+    "2014": 6559,
+    "2024": 6169,
+    "0": 34
+  },
+  "points": "first returns, class 1 (unclassified) or 6 (building)",
   "roof_percentile": 75,
   "shrink_m": 0.5,
   "min_points": 8,
@@ -25,9 +52,9 @@
     2.5,
     40.0
   ],
-  "default_m": 4.5,
+  "default_m": 4.3,
   "buildings": 12762,
-  "estimated_default_height": 6473,
-  "height_m_median": 4.5,
+  "estimated_default_height": 34,
+  "height_m_median": 4.3,
   "purpose": "3D display only"
 }

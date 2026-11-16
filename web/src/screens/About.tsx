@@ -321,8 +321,9 @@ function Technical({ updated }: { updated?: string }) {
           3.6 times more often than chance); <em>repeat-report spots</em> are places with flood reports on 2 or more rainy
           days (all three, including La Jolla, where hillside runoff, mud and clogged drains make the ground map a poor
           guide). Storm drain sizes aren't public, so the app can't say exactly when a drain overflows.</Term>
-        <Term t="3D view">Building heights come from the same 2024 USGS lidar survey: the height of laser hits on each
-          roof minus the ground under it. The blue water surface is the bay flood model cut into 0.1 ft steps. "Play"
+        <Term t="3D view">Building heights come from USGS lidar: the height of laser hits on each roof minus the ground
+          under it. About half use the 2024 survey; where its files couldn't be downloaded yet, the 2014 survey fills in
+          (a building built since then may look shorter). The blue water surface is the bay flood model cut into 0.1 ft steps. "Play"
           replays a real high tide every 20 minutes (Mission Bay prediction + extra water measured at La Jolla). The exact
           time the berm broke on Oct 26 wasn't reported, so that replay shows the berm gone for the whole tide. Building
           height is for the picture only; floor heights are unknown.</Term>

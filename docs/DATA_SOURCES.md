@@ -96,10 +96,17 @@ and may be revised slightly once NOAA verifies it; re-download before final resu
 ## USGS lidar point cloud, 2024 (building heights for the 3D view)
 - USGS 3DEP Lidar Point Cloud, project CA_SanDiegoCo_D24 (flown Nov 8 - Dec 1, 2024; published
   Sep 2026), LAZ tiles from https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_SanDiegoCo_D24/
-  (tile list from the TNM Access API, saved in data/raw/lpc/urls.txt). Downloaded 2026-11-14.
-  Public domain. Raw tiles (~1.7 GB) stay in data/raw (not committed).
-- `pipeline/building_heights.py`: roof = 75th percentile of unclassified first returns inside each
-  OSM outline (shrunk 0.5 m); ground = median bare-earth DEM under it. Display only.
+  (tile list from the TNM Access API, saved in data/raw/lpc/urls.txt). 14 of 33 tiles downloaded
+  2026-11-14 before rockyweb started rate-limiting (HTTP 429); `pipeline/lpc_download.py` fetches the rest
+  politely (HEAD checks, one file at a time, 3-12 h back-off). Public domain. Raw tiles stay in data/raw.
+- Gap fill (2026-11-16): `pipeline/lpc_fill_2014.py` reads USGS CA_SanDiegoQL2_2014 from the AWS open-data
+  bucket (https://s3-us-west-2.amazonaws.com/usgs-lidar-public/CA_SanDiegoQL2_2014/, Entwine Point Tiles,
+  EPSG:3857 -> 26911) for the 19 missing tiles: first returns, classes 1/2/6, ~2 pts/m2. Check: 2014 ground
+  points are 0.18-0.33 ft below the 2024 DEM (median per tile), same NAVD88 datum. (CA_SanDiego_2015_C17_1
+  on AWS doesn't cover the coast.)
+- `pipeline/building_heights.py`: roof = 75th percentile of first returns (class 1, or 6 = building)
+  inside each OSM outline (shrunk 0.5 m); ground = median bare-earth DEM under it. 2024 tiles win; 2014 only
+  where 2024 is missing. Result: 6,169 buildings from 2024, 6,559 from 2014, 34 estimated. Display only.
 
 ## Derived files for the 3D view (no new downloads)
 - `pipeline/water_bands.py` -> web/public/data/water_bands.geojson: bay flood shapes in 0.1 ft bands
