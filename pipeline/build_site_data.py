@@ -286,6 +286,8 @@ def rain_site_files() -> None:
     """Rain spots (rain_spots.py) and simplified neighborhood outlines for the map's Rain view."""
     shutil.copy(PROCESSED_DIR / "rain_spots.geojson", SITE_DATA / "rain_spots.geojson")
     from rain_ponds import PLAN_FILE
+    if not PLAN_FILE.exists():  # raw City file is local-only (not in git); the published outlines don't change
+        return
     plan = gpd.read_file(PLAN_FILE)
     plan = plan[plan.cpname.isin(RAIN_NEIGHBORHOODS)].to_crs(26911)
     plan["geometry"] = plan.geometry.simplify(15)
