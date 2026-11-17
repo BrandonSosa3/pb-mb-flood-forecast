@@ -1,8 +1,8 @@
 {
- "issued_at": "2026-11-16T18:01:00-08:00",
- "snapshot": "2026-11-17T0201Z",
- "built_at": "2026-11-17T02:02:17+00:00",
- "extra_water_ft": 1.241,
+ "issued_at": "2026-11-16T18:36:00-08:00",
+ "snapshot": "2026-11-17T0236Z",
+ "built_at": "2026-11-17T02:37:57+00:00",
+ "extra_water_ft": 1.244,
  "nws_alerts": [
   {
    "event": "High Surf Advisory",
@@ -32,7 +32,7 @@
      "cause": "none",
      "rain_ponding": false,
      "rain_day_in": 0.05,
-     "rain_near_tide_in": 0.04,
+     "rain_near_tide_in": 0.02,
      "rain_chance_pct": 73,
      "rain_hourly": [
       [
@@ -66,9 +66,9 @@
        31
       ]
      ],
-     "worst_time": "2026-11-16T18:06:00-08:00",
+     "worst_time": "2026-11-16T23:54:00-08:00",
      "bay_peak_ft": 3.08,
-     "bay_peak_time": "2026-11-16T18:06:00-08:00",
+     "bay_peak_time": "2026-11-16T23:54:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
      "berm_overtopped": false,
@@ -214,7 +214,7 @@
        "2026-11-16T23:00:00-08:00"
       ],
       "D0395": [
-       5.0,
+       4.9,
        "2026-11-16T23:00:00-08:00"
       ],
       "D0396": [
@@ -376,7 +376,7 @@
       ]
      ],
      "worst_time": "2026-11-17T05:00:00-08:00",
-     "bay_peak_ft": 5.18,
+     "bay_peak_ft": 5.19,
      "bay_peak_time": "2026-11-17T04:48:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
@@ -388,7 +388,7 @@
      "stretches_over": 0,
      "stretches_reach_top_upper": 1,
      "wave_height_ft": [
-      4.1,
+      4.0,
       8.7
      ],
      "wave_period_s": [
@@ -440,7 +440,7 @@
        "2026-11-17T05:00:00-08:00"
       ],
       "D0372": [
-       2.7,
+       2.6,
        "2026-11-17T05:00:00-08:00"
       ],
       "D0373": [
@@ -485,7 +485,7 @@
       ],
       "D0383": [
        4.9,
-       "2026-11-17T04:00:00-08:00"
+       "2026-11-17T05:00:00-08:00"
       ],
       "D0384": [
        4.6,
@@ -552,7 +552,7 @@
        "2026-11-17T05:00:00-08:00"
       ],
       "D0400": [
-       5.1,
+       5.0,
        "2026-11-17T05:00:00-08:00"
       ],
       "D0401": [
@@ -1003,7 +1003,7 @@
       ]
      ],
      "worst_time": "2026-11-19T05:18:00-08:00",
-     "bay_peak_ft": 6.06,
+     "bay_peak_ft": 6.07,
      "bay_peak_time": "2026-11-19T05:18:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
@@ -1019,12 +1019,12 @@
       6.2
      ],
      "wave_period_s": [
-      8,
+      9,
       18
      ],
      "surf_ft": [
       7,
-      7
+      8
      ],
      "nws_surf": null,
      "places_to_watch": [],
@@ -1192,7 +1192,7 @@
      "cause": "none",
      "rain_ponding": false,
      "rain_day_in": 0.05,
-     "rain_near_tide_in": 0.04,
+     "rain_near_tide_in": 0.02,
      "rain_chance_pct": 73,
      "rain_hourly": [
       [
@@ -1226,9 +1226,9 @@
        31
       ]
      ],
-     "worst_time": "2026-11-16T18:06:00-08:00",
+     "worst_time": "2026-11-16T23:54:00-08:00",
      "bay_peak_ft": 3.08,
-     "bay_peak_time": "2026-11-16T18:06:00-08:00",
+     "bay_peak_time": "2026-11-16T23:54:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
      "berm_overtopped": false,
@@ -1452,7 +1452,7 @@
       ]
      ],
      "worst_time": "2026-11-17T04:48:00-08:00",
-     "bay_peak_ft": 5.18,
+     "bay_peak_ft": 5.19,
      "bay_peak_time": "2026-11-17T04:48:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
@@ -1472,7 +1472,7 @@
       17
      ],
      "surf_ft": [
-      11,
+      10,
       11
      ],
      "nws_surf": null,
@@ -1503,7 +1503,7 @@
        "2026-11-17T05:00:00-08:00"
       ],
       "D0408": [
-       32.7,
+       32.6,
        "2026-11-17T05:00:00-08:00"
       ],
       "D0409": [
@@ -1523,12 +1523,12 @@
        "2026-11-17T04:00:00-08:00"
       ],
       "D0413": [
-       42.5,
-       "2026-11-17T14:00:00-08:00"
+       42.3,
+       "2026-11-17T04:00:00-08:00"
       ],
       "D0414": [
-       51.1,
-       "2026-11-17T14:00:00-08:00"
+       50.8,
+       "2026-11-17T04:00:00-08:00"
       ],
       "D0415": [
        62.0,
@@ -1902,7 +1902,7 @@
       ]
      ],
      "worst_time": "2026-11-19T05:18:00-08:00",
-     "bay_peak_ft": 6.06,
+     "bay_peak_ft": 6.07,
      "bay_peak_time": "2026-11-19T05:18:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
@@ -1933,7 +1933,7 @@
        "2026-11-19T05:00:00-08:00"
       ],
       "D0403": [
-       10.8,
+       10.7,
        "2026-11-19T05:00:00-08:00"
       ],
       "D0404": [
@@ -1949,7 +1949,7 @@
        "2026-11-19T05:00:00-08:00"
       ],
       "D0407": [
-       30.8,
+       30.7,
        "2026-11-19T05:00:00-08:00"
       ],
       "D0408": [
@@ -2007,7 +2007,7 @@
      "cause": "none",
      "rain_ponding": false,
      "rain_day_in": 0.05,
-     "rain_near_tide_in": 0.04,
+     "rain_near_tide_in": 0.02,
      "rain_chance_pct": 73,
      "rain_hourly": [
       [
@@ -2041,9 +2041,9 @@
        31
       ]
      ],
-     "worst_time": "2026-11-16T18:06:00-08:00",
+     "worst_time": "2026-11-16T23:54:00-08:00",
      "bay_peak_ft": 3.08,
-     "bay_peak_time": "2026-11-16T18:06:00-08:00",
+     "bay_peak_time": "2026-11-16T23:54:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
      "berm_overtopped": false,
@@ -2193,7 +2193,7 @@
       ]
      ],
      "worst_time": "2026-11-17T04:48:00-08:00",
-     "bay_peak_ft": 5.18,
+     "bay_peak_ft": 5.19,
      "bay_peak_time": "2026-11-17T04:48:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
@@ -2495,7 +2495,7 @@
       ]
      ],
      "worst_time": "2026-11-19T05:18:00-08:00",
-     "bay_peak_ft": 6.06,
+     "bay_peak_ft": 6.07,
      "bay_peak_time": "2026-11-19T05:18:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
