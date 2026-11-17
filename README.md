@@ -34,7 +34,9 @@ Mission Beach. Long-term sea-level-rise maps don't answer the question people ac
 
 A **Python pipeline** (`pipeline/`) does the heavy computation and writes static files. The **website** (`web/`, React +
 MapLibre GL, with 3D buildings and a rising water surface) only displays them, so it stays fast. A **GitHub Actions bot**
-saves every forecast twice a day *before* the event (`forecast_log/`) so each one can be scored afterward, with no hindsight.
+saves every forecast twice a day *before* the event (`forecast_log/`), and **scores past forecasts automatically every day**
+(`pipeline/auto_verify.py`): measured rain and water level, City "Get It Done" flood reports, NWS storm reports and local
+news headlines, against the forecast the site published before the day began. Results: [`docs/evidence/auto/scorecard.md`](docs/evidence/auto/scorecard.md).
 
 ## How good is it?
 **Track record (scored against news, NWS storm reports and eyewitness photos, 18 days):** 9 right, 3 close, 6 missed.

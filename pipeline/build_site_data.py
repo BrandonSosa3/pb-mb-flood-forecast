@@ -300,6 +300,19 @@ HISTORY_STATION = "9410170"  # San Diego: the longest record, and the gauge the 
 TRACK_RECORD = PROJECT_ROOT / "docs" / "evidence" / "track_record.json"
 
 
+AUTO_SCORES = PROJECT_ROOT / "docs" / "evidence" / "auto" / "scores.json"
+
+
+def auto_scores() -> dict:
+    """Forecasts scored automatically (auto_verify.py): scored days for the list, plus how many weren't."""
+    if not AUTO_SCORES.exists():
+        return {"days": [], "unverified": 0}
+    s = json.loads(AUTO_SCORES.read_text())
+    return {"days": [d for d in s if d["result"] != "unverified"],
+            "unverified": sum(d["result"] == "unverified" for d in s),
+            "updated": max((d["scored_utc"] for d in s), default=None)}
+
+
 def about_json() -> dict:
     m = pd.read_csv(PROCESSED_DIR / f"monthly_extra_water_{HISTORY_STATION}.csv", parse_dates=["month"])
     m = m[m.month >= "1980-01-01"]
@@ -320,6 +333,7 @@ def about_json() -> dict:
             "record_before_2026": {"month": top.month.strftime("%Y-%m"), "anomaly_ft": round(float(top.anomaly_ft), 2)},
         },
         "track_record": json.loads(TRACK_RECORD.read_text()),
+        "auto": auto_scores(),
         "log": {"first": runs[0].name if runs else None, "count": len(runs)},
     }
 
@@ -350,6 +364,10 @@ def main() -> None:
 
     fc = forecast_json(snapshot)
     (SITE_DATA / "forecast.json").write_text(json.dumps(fc, indent=1))
+    # Keep what was published with its snapshot, so auto_verify.py scores exactly what people saw (first version wins).
+    published = snapshot / "site_forecast.json"
+    if not published.exists():
+        published.write_text(json.dumps({**fc, "published_at": fc["built_at"]}, separators=(",", ":")))
     (SITE_DATA / "about.json").write_text(json.dumps(about_json(), separators=(",", ":")))
     for name in ("area_curves.json", "areas.geojson"):
         shutil.copy(PROCESSED_DIR / name, SITE_DATA / name)

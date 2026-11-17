@@ -53,6 +53,11 @@ building, and a public record of every forecast checked against what happened.
 - **Website:** React + MapLibre GL, with 3D building extrusions and a water surface that rises with a slider.
   It is hosted on Vercel.
 - **Forecast log:** GitHub Actions saves every forecast twice a day *before* the event, to `forecast_log/`.
+- **Automatic scoring (since Nov 17, 2026):** every day, `auto_verify.py` compares each published forecast with
+  evidence collected without a human: airport rain, Mission Bay level, City Get It Done flood reports, NWS storm
+  reports and local news RSS. Fixed rules turn that evidence into an observed level (e.g. 1 City report in a
+  neighborhood → Minor, 3 → Moderate, 6 → Major). Scores stay preliminary for 3 days. Coast days with no reports
+  either way are left unscored, because water on the boardwalk is rarely reported.
 
 ## 3. Accuracy
 **Backtest and live forecasts: 18 scored days.** Evidence: news, NWS storm reports, eyewitness photos.

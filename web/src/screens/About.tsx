@@ -7,13 +7,14 @@ import { ExtraWaterChart, type Month } from "../components/ExtraWaterChart";
 
 type Result = "right" | "close" | "missed" | "false_alarm" | "pending";
 interface TrackDay {
-  date: string; label: string; side: "bay" | "waves"; how: "backtest" | "live";
-  title: string; happened: string; we_said: string; result: Result; note?: string;
+  date: string; label: string; side: "bay" | "waves" | "rain"; how: "backtest" | "live" | "auto";
+  title: string; happened: string; we_said: string; result: Result; note?: string; final?: boolean;
   sources: { name: string; url?: string }[];
 }
 interface About {
   history: { station_name: string; downloaded: string; months: Month[]; record_before_2026: { month: string; anomaly_ft: number } };
   track_record: { updated: string; days: TrackDay[] };
+  auto?: { days: TrackDay[]; unverified: number; updated?: string | null };
   log: { first: string | null; count: number };
 }
 
@@ -38,7 +39,8 @@ export function About() {
       .catch(() => setError(true));
   }, []);
 
-  const days = about?.track_record.days ?? [];
+  const days = [...(about?.auto?.days ?? []), ...(about?.track_record.days ?? [])];
+  const unverified = about?.auto?.unverified ?? 0;
   const n = (r: Result) => days.filter((d) => d.result === r).length;
   const wrong = n("missed") + n("false_alarm");
   const months = about?.history.months ?? [];
@@ -134,8 +136,13 @@ export function About() {
               <Score n={wrong} word="wrong" cls="res-wrong" />
               {n("pending") > 0 && <Score n={n("pending")} word="waiting" cls="res-pending" />}
             </div>
-            <p className="fine">"Right" means the risk we gave matches what news reports and photos show. Most of these are
-              tests run afterwards, feeding the model the tide and waves that were really measured that day.</p>
+            <p className="fine">"Right" means the risk we gave matches what happened. Since Nov 17, 2026 every saved
+              forecast is scored automatically each day: the rating the site showed before the day began, against
+              measured rain and water level, City flood reports, NWS storm reports and local news (preliminary for 3 days
+              while late reports come in). Earlier entries were checked by hand, most of them tests run afterwards with the
+              tide and waves that were really measured.
+              {unverified > 0 && <> {unverified} recent coast {unverified === 1 ? "day isn't" : "days aren't"} scored
+              because nothing was reported either way, and water on the boardwalk is rarely reported.</>}</p>
             <div className="list">
               {days.map((d) => <TrackRow key={d.date + d.title} d={d} />)}
             </div>
@@ -206,7 +213,8 @@ function TrackRow({ d }: { d: TrackDay }) {
     <details className="disclosure">
       <summary>
         <span className="stack-2">
-          <span className="row-sub">{d.label} · {d.side === "bay" ? "Bay side" : "Ocean waves"}</span>
+          <span className="row-sub">{d.label} · {d.side === "bay" ? "Bay side" : d.side === "rain" ? "Rain" : "Ocean waves"}
+            {d.how === "auto" && <> · automatic{d.final === false ? ", preliminary" : ""}</>}</span>
           <span className="row-title">{d.title}</span>
         </span>
         <span className="row-end">
@@ -218,7 +226,8 @@ function TrackRow({ d }: { d: TrackDay }) {
         <div><div className="kv-label">What happened</div><p className="body-14">{d.happened}</p></div>
         <div><div className="kv-label">What the model said</div><p className="body-14">{d.we_said}</p></div>
         {d.note && <p className="fine">{d.note}</p>}
-        <p className="fine">{d.how === "live" ? "Forecast saved before the event." : "Tested afterwards with the real measured tide and waves."}
+        <p className="fine">{d.how === "auto" ? "Scored automatically against the forecast published before the day."
+          : d.how === "live" ? "Forecast saved before the event." : "Tested afterwards with the real measured tide and waves."}
           {d.sources.length > 0 && <> Sources: {d.sources.map((s, i) => (
             <span key={s.name}>{i > 0 && ", "}{s.url ? <a href={s.url} target="_blank" rel="noreferrer">{s.name}</a> : s.name}</span>
           ))}.</>}

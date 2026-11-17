@@ -36,6 +36,10 @@ jobs:
       - name: Save forecast snapshot
         run: python pipeline/forecast_logger.py
 
+      - name: Score past forecasts automatically (rain, water level, City reports, NWS reports, news)
+        continue-on-error: true # an outside data source being down must never block saving the snapshot
+        run: python pipeline/auto_verify.py
+
       - name: Build website data from the new snapshot
         id: build
         continue-on-error: true # a website bug must never cost us a forecast snapshot
@@ -49,7 +53,7 @@ jobs:
         run: |
           git config user.name "forecast-logger[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add forecast_log web/public/data docs/evidence/wave_check.md
+          git add forecast_log web/public/data docs/evidence/wave_check.md docs/evidence/auto
           if git diff --cached --quiet; then
             echo "Nothing new to commit."
             exit 0
