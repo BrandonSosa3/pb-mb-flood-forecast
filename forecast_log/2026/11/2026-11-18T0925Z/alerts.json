@@ -1,0 +1,12 @@
+[
+  {
+    "event": "High Surf Advisory",
+    "severity": "Minor",
+    "headline": "High Surf Advisory issued November 17 at 6:51PM PST until November 18 at 4:00AM PST by NWS San Diego CA",
+    "onset": "2026-11-17T18:51:00-08:00",
+    "ends": "2026-11-18T04:00:00-08:00",
+    "expires": "2026-11-18T04:00:00-08:00",
+    "sent": "2026-11-17T18:51:00-08:00",
+    "description": "* WHAT...Large breaking waves of of 5 to 8 feet along west-\nfacing beaches and very strong rip currents.\n\n* WHERE...San Diego County Coastal Areas and Orange County\nCoastal Areas.\n\n* WHEN...Until 4 AM PST Wednesday.\n\n* IMPACTS...Dangerous swimming and surfing conditions and\nlocalized beach erosion.\n\n* ADDITIONAL DETAILS...Minor coastal flooding during high tides."
+  }
+]
