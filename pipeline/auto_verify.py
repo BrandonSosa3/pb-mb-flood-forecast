@@ -55,6 +55,7 @@ SITE_DATA = PROJECT_ROOT / "web" / "public" / "data"
 HEADERS = {"User-Agent": "coastal-flood-forecast-research"}
 LOOKBACK_DAYS = 14
 FINAL_AFTER_DAYS = 3
+RAIN_LEAD_H = 2            # a rain forecast must be published at least this long before the rain began
 RAIN_DAY_IN = 0.10
 TIDE_DAY_FT = 7.0          # Mission Bay level above which "street flooded" reports count as tide-caused
 GID_BASE = "https://seshat.datasd.org/get_it_done_reports/"
@@ -71,11 +72,11 @@ FEEDS = {
     "KPBS (environment)": "https://www.kpbs.org/news/environment.rss",
     "FOX 5 San Diego": "https://fox5sandiego.com/feed/",
 }
-PLACES = {"Mission Beach": r"mission beach|mission bay|bayside walk|belmont park",
-          "Pacific Beach": r"pacific beach|\bPB\b|crystal pier|crown point|sail bay",
-          "La Jolla": r"la jolla|bird rock|windansea"}
-HAZARD = re.compile(r"flood|king tide|high tide|high surf|storm surge|boardwalk|berm|ponding|swamped|"
-                    r"under water|underwater|downpour|heavy rain|rain", re.I)
+PLACES = {"Mission Beach": r"\b(?:mission beach|mission bay|bayside walk|belmont park)\b",
+          "Pacific Beach": r"\b(?:pacific beach|crystal pier|crown point|sail bay)\b",
+          "La Jolla": r"\b(?:la jolla|bird rock|windansea)\b"}
+HAZARD = re.compile(r"\b(?:flood\w*|king tides?|high tides?|high surf|storm surge|boardwalk|berm|ponding|swamped|"
+                    r"under ?water|downpours?|heavy rain|rain\w*|storms?)\b", re.I)
 NOT_RAIN = re.compile(r"water ?main|main break|leak|sprinkl|irrigat|broken pipe|pipe burst|hydrant", re.I)
 COMM_PLANS = {"LA JOLLA": "La Jolla", "PACIFIC BEACH": "Pacific Beach", "MISSION BEACH": "Mission Beach"}
 LSR_TYPES = {"FLOOD", "FLASH FLOOD", "HEAVY RAIN", "COASTAL FLOOD", "HIGH SURF", "HIGH ASTR TIDES", "DEBRIS FLOW"}
@@ -118,6 +119,7 @@ def update_news() -> pd.DataFrame:
             rows.append({"published": pub.isoformat(timespec="minutes"), "outlet": outlet, "title": title,
                          "url": (it.findtext("link") or "").strip(), "areas": "|".join(areas)})
     news = pd.concat([old, pd.DataFrame(rows)]).drop_duplicates("url").sort_values("published")
+    news = news[news.title.fillna("").str.contains(HAZARD)]  # re-check the whole log with the current rule
     news.to_csv(path, index=False)
     print(f"  news: {len(rows)} matching items in feeds now, {len(news)} in the log")
     return news
@@ -128,20 +130,25 @@ def city_reports(start: date, polys: gpd.GeoDataFrame) -> pd.DataFrame:
     frames = []
     years = {start.year, date.today().year}
     for name in ["get_it_done_requests_open_datasd.csv"] + [f"get_it_done_requests_closed_{y}_datasd.csv" for y in years]:
-        try:
-            r = requests.get(GID_BASE + name, headers=HEADERS, timeout=300)
-            r.raise_for_status()
-        except Exception as err:
-            print(f"  city: {name} skipped ({err.__class__.__name__})")
+        content = None
+        for attempt in range(3):  # big files; the City server sometimes drops the connection
+            try:
+                with requests.get(GID_BASE + name, headers=HEADERS, timeout=300, stream=True) as r:
+                    r.raise_for_status()
+                    content = b"".join(r.iter_content(1 << 20))
+                break
+            except Exception as err:
+                print(f"  city: {name} attempt {attempt + 1} failed ({err.__class__.__name__})")
+        if content is None:
             continue
-        d = pd.read_csv(io.BytesIO(r.content), dtype=str, low_memory=False)
+        d = pd.read_csv(io.BytesIO(content), dtype=str, low_memory=False)
         d = d[d.comm_plan_name.str.upper().isin(COMM_PLANS)]
         detail = d.service_name_detail.fillna("")
         d = d[(d.service_name == "Street Flooded") | detail.isin({"FLOODED", "PONDING WATER IN GUTTER/STREET"})]
         d = d[~d.public_description.fillna("").str.contains(NOT_RAIN)]
         frames.append(d)
     if not frames:
-        raise RuntimeError("no Get It Done files")
+        return pd.DataFrame(columns=["service_request_id", "time_local", "date", "neighborhood", "area", "block"])
     d = pd.concat(frames).drop_duplicates("service_request_id")
     t = pd.to_datetime(d.date_requested)
     d = d.assign(time_local=t, date=t.dt.date)
@@ -179,8 +186,9 @@ def nws_reports(start: date, end: date, hoods: gpd.GeoDataFrame) -> gpd.GeoDataF
 
 
 def measured_rain(start: date, end: date) -> pd.Series:
+    stop = end + timedelta(days=2)  # archive dates are UTC: a Pacific evening falls on the next UTC day
     r = requests.get(IEM_ASOS, params={"station": "SAN", "data": "p01i", "year1": start.year, "month1": start.month,
-                                       "day1": start.day, "year2": end.year, "month2": end.month, "day2": end.day,
+                                       "day1": start.day, "year2": stop.year, "month2": stop.month, "day2": stop.day,
                                        "tz": "Etc/UTC", "format": "onlycomma", "missing": "M", "trace": "T",
                                        "report_type": 3}, headers=HEADERS, timeout=120)
     r.raise_for_status()
@@ -197,21 +205,25 @@ def snapshots() -> list:
     return sorted(p for p in LOG_DIR.glob("*/*/*Z") if (p / "meta.json").exists())
 
 
-def issued_forecast(day: date, snaps: list) -> tuple[dict | None, str | None]:
-    """Site forecast from the last snapshot saved before `day` began (local), within 36 h."""
-    start = pd.Timestamp(day, tz=TZ)
+def issued_forecast(day: date, snaps: list, before: pd.Timestamp | None = None,
+                    need: str | None = None) -> tuple[dict | None, str | None]:
+    """The forecast the site published last before `before` (default: the start of `day`, local), at most 36 h
+    earlier. need="rain": only forecasts that included the rain section (its own publish time if later)."""
+    cutoff = before if before is not None else pd.Timestamp(day, tz=TZ)
     best = None
     for p in snaps:
-        t = pd.Timestamp(json.loads((p / "meta.json").read_text())["issued_at_utc"]).tz_convert(TZ)
-        if t < start and t >= start - pd.Timedelta(hours=36):
-            best = (p, t)
-    if not best:
-        return None, None
-    p, t = best
-    published = p / "site_forecast.json"
-    if not published.exists():  # nothing was published from this snapshot: don't guess
-        return None, None
-    return json.loads(published.read_text()), t.isoformat()
+        f = p / "site_forecast.json"
+        if not f.exists():  # nothing was published from this snapshot: don't guess
+            continue
+        fc = json.loads(f.read_text())
+        if need == "rain" and not fc.get("rain"):
+            continue
+        when = fc.get("rain_published_at") if need == "rain" and fc.get("rain_published_at") else \
+            fc.get("published_at") or json.loads((p / "meta.json").read_text())["issued_at_utc"]
+        t = pd.Timestamp(when).tz_convert(TZ)
+        if t <= cutoff and t >= cutoff - pd.Timedelta(hours=36) and (best is None or t > best[1]):
+            best = (fc, t)
+    return (best[0], best[1].isoformat()) if best else (None, None)
 
 
 # ---------------------------------------------------------------- scoring
@@ -240,9 +252,18 @@ def main() -> None:
     news = update_news()
     rain = measured_rain(start - timedelta(days=1), today)
     bay = mission_bay_still_water(start - timedelta(days=1), today).tz_convert(TZ)
+    # City reports: add what this run finds to the saved log; never drop a report found earlier
+    # (a report moves from the "open" file to the "closed" file, and a download can fail).
+    log_path = OUT / "city_reports.csv"
+    saved = pd.read_csv(log_path, dtype={"service_request_id": str}) if log_path.exists() else None
     reports = city_reports(start, areas)
+    if saved is not None and "service_request_id" in saved:
+        saved["time_local"] = pd.to_datetime(saved.time_local)
+        saved["date"] = saved.time_local.dt.date
+        reports = pd.concat([saved, reports]).drop_duplicates("service_request_id", keep="last")
+    reports = reports.sort_values("time_local")
+    reports.to_csv(log_path, index=False)
     nws = nws_reports(start, end, hoods)
-    reports.drop(columns="service_request_id").to_csv(OUT / "city_reports.csv", index=False)
     nws.drop(columns="geometry")[["valid", "typetext", "city", "neighborhood", "remark"]].to_csv(
         OUT / "nws_reports.csv", index=False)
 
@@ -256,8 +277,6 @@ def main() -> None:
         if day > end:
             break
         fc, issued = issued_forecast(day, snaps)
-        if fc is None:
-            continue
         final = (today - day).days >= FINAL_AFTER_DAYS
         d0 = pd.Timestamp(day, tz=TZ)
         rain_day = rain[(rain.index >= d0) & (rain.index < d0 + pd.Timedelta(days=1))]
@@ -272,7 +291,7 @@ def main() -> None:
         day_reports = reports[reports.date.isin(rep_days)]
         day_news = news[(news_t.dt.date >= day) & (news_t.dt.date <= day + timedelta(days=1))] if len(news) else news
         day_nws = nws[nws.valid.dt.date == day] if len(nws) else nws
-        issued_label = pd.Timestamp(issued).strftime("%a %b %-d, %-I %p").replace("AM", "am").replace("PM", "pm")
+        stamp = lambda t: pd.Timestamp(t).tz_convert(TZ).strftime("%a %b %-d, %-I:%M %p").replace("AM", "am").replace("PM", "pm")
         label = pd.Timestamp(day).strftime("%a %b %-d, %Y")
 
         def sources(area: str, kinds: set[str]) -> list[dict]:
@@ -284,8 +303,18 @@ def main() -> None:
                 src.append({"name": "City Get It Done reports", "url": GID_PAGE})
             return src[:6]
 
-        # --- rain, per neighborhood
-        for area in (fc.get("rain") or {}).get("areas", []):
+        # --- rain, per neighborhood: forecast published >= RAIN_LEAD_H before the rain began
+        # "The rain began" = first wet hour of the day's heaviest 6 hours (a morning trace doesn't count).
+        if len(rain_day) and rain_day.max() >= 0.01:
+            win_end = rain_day.rolling(6, min_periods=1).sum().idxmax()
+            win = rain_day[(rain_day.index > win_end - pd.Timedelta(hours=6)) & (rain_day.index <= win_end)]
+            wet_hours = win[win >= 0.01]
+        else:
+            wet_hours = rain_day.iloc[0:0]
+        rain_start = wet_hours.index[0] if len(wet_hours) else d0
+        rfc, r_issued = issued_forecast(day, snaps, before=min(d0, rain_start) if not len(wet_hours)
+                                        else rain_start - pd.Timedelta(hours=RAIN_LEAD_H), need="rain")
+        for area in ((rfc or {}).get("rain") or {}).get("areas", []):
             name = area["name"]
             fday = next((x for x in area["days"] if x["date"] == str(day)), None)
             if fday is None:
@@ -296,7 +325,7 @@ def main() -> None:
             n = int((day_reports.neighborhood == name).sum()) if rainy else 0
             lsr = day_nws[(day_nws.neighborhood == name) & day_nws.typetext.isin({"FLOOD", "FLASH FLOOD", "DEBRIS FLOW"})]
             art = [r for r in day_news.itertuples() if name in str(r.areas).split("|")
-                   and re.search(r"flood|rain|storm|downpour|ponding|swamped", r.title, re.I)] if len(day_news) else []
+                   and re.search(r"\b(?:flood\w*|rain\w*|storms?|downpours?|ponding|swamped)\b", r.title, re.I)] if len(day_news) else []
             obs = level_from_reports(n, OBSERVED_RAIN)
             if len(lsr):
                 obs = max(obs, 3 if (lsr.typetext == "FLASH FLOOD").any() else 1)
@@ -312,7 +341,8 @@ def main() -> None:
             scores[key] = {
                 "key": key, "date": str(day), "label": label, "side": "rain", "how": "auto", "title": f"Rain: {name}",
                 "happened": happened,
-                "we_said": f"{fday['level']} (forecast heaviest 6 hours {fday['max_6h_in']:.2f} in), saved {issued_label}.",
+                "we_said": f"{fday['level']} (forecast heaviest 6 hours {fday['max_6h_in']:.2f} in), published {stamp(r_issued)}"
+                           + (f", before the rain began around {stamp(rain_start).split(', ')[1]}." if len(wet_hours) else "."),
                 "result": verdict(f_lv, obs), "observed": LEVELS[obs], "forecast": fday["level"],
                 "final": final, "weak": evidence == 0,
                 "note": ("Preliminary: City reports can still come in. " if not final else "")
@@ -321,6 +351,8 @@ def main() -> None:
             }
 
         # --- coast (tide + waves), per area
+        if fc is None:
+            continue
         alerts = [a for a in (fc.get("nws_alerts") or []) if re.search(r"coastal flood|high surf", a.get("event", ""), re.I)]
         for area in fc.get("areas", []):
             name = area["name"]
@@ -336,7 +368,7 @@ def main() -> None:
             surge = lsr[lsr.typetext.isin({"COASTAL FLOOD", "HIGH ASTR TIDES"}) |
                         lsr.remark.fillna("").str.contains(r"boardwalk|overtop|over the wall|wash|flood", case=False)]
             art = [r for r in day_news.itertuples() if hood in str(r.areas).split("|")
-                   and re.search(r"flood|king tide|high tide|high surf|boardwalk|berm|swamped", r.title, re.I)] if len(day_news) else []
+                   and re.search(r"\b(?:flood\w*|king tides?|high tides?|high surf|boardwalk|berm|swamped)\b", r.title, re.I)] if len(day_news) else []
             obs = level_from_reports(n, OBSERVED_TIDE)
             if len(surge):
                 obs = max(obs, 2 if (surge.typetext == "COASTAL FLOOD").any() else 1)
@@ -355,7 +387,7 @@ def main() -> None:
             scores[key] = {
                 "key": key, "date": str(day), "label": label, "side": "waves" if fday.get("cause") == "ocean" else "bay",
                 "how": "auto", "title": f"Coast: {name}", "happened": happened,
-                "we_said": f"{fday['risk']}{' (' + cause + ')' if cause and f_lv else ''}, saved {issued_label}.",
+                "we_said": f"{fday['risk']}{' (' + cause + ')' if cause and f_lv else ''}, published {stamp(issued)}.",
                 "result": verdict(f_lv, obs) if evidence else "unverified", "observed": LEVELS[obs] if evidence else "No reports",
                 "forecast": fday["risk"], "final": final, "weak": evidence == 0,
                 "note": ("Preliminary: City reports can still come in. " if not final else "")

@@ -1,5 +1,64 @@
 [
  {
+  "key": "2026-11-16|rain|Pacific Beach",
+  "date": "2026-11-16",
+  "label": "Mon Nov 16, 2026",
+  "side": "rain",
+  "how": "auto",
+  "title": "Rain: Pacific Beach",
+  "happened": "0.25 in of rain at San Diego airport (heaviest 6 hours 0.23 in). 2 City flood reports in Pacific Beach.",
+  "we_said": "Low (forecast heaviest 6 hours 0.13 in), published Mon Nov 16, 12:27 pm, before the rain began around 5:00 pm.",
+  "result": "close",
+  "observed": "Minor",
+  "forecast": "Low",
+  "final": false,
+  "weak": false,
+  "note": "Preliminary: City reports can still come in. ",
+  "sources": [
+   {
+    "name": "City Get It Done reports",
+    "url": "https://data.sandiego.gov/datasets/get-it-done-311/"
+   }
+  ],
+  "scored_utc": "2026-11-18T00:04+00:00"
+ },
+ {
+  "key": "2026-11-16|rain|Mission Beach",
+  "date": "2026-11-16",
+  "label": "Mon Nov 16, 2026",
+  "side": "rain",
+  "how": "auto",
+  "title": "Rain: Mission Beach",
+  "happened": "0.25 in of rain at San Diego airport (heaviest 6 hours 0.23 in). No flood reports from Mission Beach to the City, NWS or local news.",
+  "we_said": "Low (forecast heaviest 6 hours 0.13 in), published Mon Nov 16, 12:27 pm, before the rain began around 5:00 pm.",
+  "result": "right",
+  "observed": "Low",
+  "forecast": "Low",
+  "final": false,
+  "weak": true,
+  "note": "Preliminary: City reports can still come in. Weak evidence: most flooding is never reported.",
+  "sources": [],
+  "scored_utc": "2026-11-18T00:04+00:00"
+ },
+ {
+  "key": "2026-11-16|rain|La Jolla",
+  "date": "2026-11-16",
+  "label": "Mon Nov 16, 2026",
+  "side": "rain",
+  "how": "auto",
+  "title": "Rain: La Jolla",
+  "happened": "0.25 in of rain at San Diego airport (heaviest 6 hours 0.23 in). No flood reports from La Jolla to the City, NWS or local news.",
+  "we_said": "Low (forecast heaviest 6 hours 0.13 in), published Mon Nov 16, 12:27 pm, before the rain began around 5:00 pm.",
+  "result": "right",
+  "observed": "Low",
+  "forecast": "Low",
+  "final": false,
+  "weak": true,
+  "note": "Preliminary: City reports can still come in. Weak evidence: most flooding is never reported.",
+  "sources": [],
+  "scored_utc": "2026-11-18T00:04+00:00"
+ },
+ {
   "key": "2026-11-16|coast|Pacific Beach",
   "date": "2026-11-16",
   "label": "Mon Nov 16, 2026",
@@ -7,28 +66,15 @@
   "how": "auto",
   "title": "Coast: Pacific Beach",
   "happened": "Mission Bay peaked at 5.4 ft. No flooding reported from Pacific Beach to the City, NWS or local news.",
-  "we_said": "Low, saved Sun Nov 15, 11 am.",
+  "we_said": "Low, published Sun Nov 15, 11:42 am.",
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Low",
   "final": false,
   "weak": true,
   "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
-  "sources": [
-   {
-    "name": "NBC 7 San Diego: Family hopes to create memorial for 6-year-old killed in Pacific Beach hit-and-r",
-    "url": "https://www.nbcsandiego.com/news/local/family-of-hit-and-run-victim-in-pacific-beach-hopes-to-create-a-lasting-memorial/4102458/"
-   },
-   {
-    "name": "NBC 7 San Diego: Man arrested for DUI after deadly Pacific Beach crash shuts down major streets",
-    "url": "https://www.nbcsandiego.com/news/local/fatal-pacific-beach-crash-shuts-down-major-streets/4097550/"
-   },
-   {
-    "name": "NBC 7 San Diego: Police arrest suspect linked to killing of Crystal Pier security guard",
-    "url": "https://www.nbcsandiego.com/news/local/police-arrest-suspect-in-fatal-crystal-pier-shooting/4097457/"
-   }
-  ],
-  "scored_utc": "2026-11-17T22:10+00:00"
+  "sources": [],
+  "scored_utc": "2026-11-18T00:04+00:00"
  },
  {
   "key": "2026-11-16|coast|Mission Beach",
@@ -38,24 +84,15 @@
   "how": "auto",
   "title": "Coast: Mission Beach",
   "happened": "Mission Bay peaked at 5.4 ft. No flooding reported from Mission Beach to the City, NWS or local news.",
-  "we_said": "Low, saved Sun Nov 15, 11 am.",
+  "we_said": "Low, published Sun Nov 15, 11:42 am.",
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Low",
   "final": false,
   "weak": true,
   "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
-  "sources": [
-   {
-    "name": "NBC 7 San Diego: Police arrest man accused of fondling child at Mission Beach",
-    "url": "https://www.nbcsandiego.com/news/local/police-arrest-man-accused-of-fondling-child-at-mission-beach/4100414/"
-   },
-   {
-    "name": "Times of San Diego: Late punt return propels Mission Bay over Bishop\u2019s in quarterfinals",
-    "url": "https://timesofsandiego.com/sports/2026/11/16/late-punt-return-propels-mission-bay-over-bishops-in-quarterfinals/"
-   }
-  ],
-  "scored_utc": "2026-11-17T22:10+00:00"
+  "sources": [],
+  "scored_utc": "2026-11-18T00:04+00:00"
  },
  {
   "key": "2026-11-16|coast|Crown Point",
@@ -65,28 +102,15 @@
   "how": "auto",
   "title": "Coast: Crown Point",
   "happened": "Mission Bay peaked at 5.4 ft. No flooding reported from Crown Point to the City, NWS or local news.",
-  "we_said": "Low, saved Sun Nov 15, 11 am.",
+  "we_said": "Low, published Sun Nov 15, 11:42 am.",
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Low",
   "final": false,
   "weak": true,
   "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
-  "sources": [
-   {
-    "name": "NBC 7 San Diego: Family hopes to create memorial for 6-year-old killed in Pacific Beach hit-and-r",
-    "url": "https://www.nbcsandiego.com/news/local/family-of-hit-and-run-victim-in-pacific-beach-hopes-to-create-a-lasting-memorial/4102458/"
-   },
-   {
-    "name": "NBC 7 San Diego: Man arrested for DUI after deadly Pacific Beach crash shuts down major streets",
-    "url": "https://www.nbcsandiego.com/news/local/fatal-pacific-beach-crash-shuts-down-major-streets/4097550/"
-   },
-   {
-    "name": "NBC 7 San Diego: Police arrest suspect linked to killing of Crystal Pier security guard",
-    "url": "https://www.nbcsandiego.com/news/local/police-arrest-suspect-in-fatal-crystal-pier-shooting/4097457/"
-   }
-  ],
-  "scored_utc": "2026-11-17T22:10+00:00"
+  "sources": [],
+  "scored_utc": "2026-11-18T00:04+00:00"
  },
  {
   "key": "2026-11-15|coast|Pacific Beach",
@@ -96,28 +120,15 @@
   "how": "auto",
   "title": "Coast: Pacific Beach",
   "happened": "Mission Bay peaked at 5.9 ft. No flooding reported from Pacific Beach to the City, NWS or local news.",
-  "we_said": "Low, saved Sat Nov 14, 12 pm.",
+  "we_said": "Low, published Sat Nov 14, 12:10 pm.",
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Low",
   "final": false,
   "weak": true,
   "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
-  "sources": [
-   {
-    "name": "NBC 7 San Diego: Family hopes to create memorial for 6-year-old killed in Pacific Beach hit-and-r",
-    "url": "https://www.nbcsandiego.com/news/local/family-of-hit-and-run-victim-in-pacific-beach-hopes-to-create-a-lasting-memorial/4102458/"
-   },
-   {
-    "name": "NBC 7 San Diego: Man arrested for DUI after deadly Pacific Beach crash shuts down major streets",
-    "url": "https://www.nbcsandiego.com/news/local/fatal-pacific-beach-crash-shuts-down-major-streets/4097550/"
-   },
-   {
-    "name": "NBC 7 San Diego: Police arrest suspect linked to killing of Crystal Pier security guard",
-    "url": "https://www.nbcsandiego.com/news/local/police-arrest-suspect-in-fatal-crystal-pier-shooting/4097457/"
-   }
-  ],
-  "scored_utc": "2026-11-17T22:10+00:00"
+  "sources": [],
+  "scored_utc": "2026-11-18T00:04+00:00"
  },
  {
   "key": "2026-11-15|coast|Mission Beach",
@@ -127,24 +138,15 @@
   "how": "auto",
   "title": "Coast: Mission Beach",
   "happened": "Mission Bay peaked at 5.9 ft. No flooding reported from Mission Beach to the City, NWS or local news.",
-  "we_said": "Minor (bay water and waves), saved Sat Nov 14, 12 pm.",
+  "we_said": "Minor (bay water and waves), published Sat Nov 14, 12:10 pm.",
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Minor",
   "final": false,
   "weak": true,
   "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
-  "sources": [
-   {
-    "name": "NBC 7 San Diego: Police arrest man accused of fondling child at Mission Beach",
-    "url": "https://www.nbcsandiego.com/news/local/police-arrest-man-accused-of-fondling-child-at-mission-beach/4100414/"
-   },
-   {
-    "name": "Times of San Diego: Late punt return propels Mission Bay over Bishop\u2019s in quarterfinals",
-    "url": "https://timesofsandiego.com/sports/2026/11/16/late-punt-return-propels-mission-bay-over-bishops-in-quarterfinals/"
-   }
-  ],
-  "scored_utc": "2026-11-17T22:10+00:00"
+  "sources": [],
+  "scored_utc": "2026-11-18T00:04+00:00"
  },
  {
   "key": "2026-11-15|coast|Crown Point",
@@ -154,28 +156,15 @@
   "how": "auto",
   "title": "Coast: Crown Point",
   "happened": "Mission Bay peaked at 5.9 ft. No flooding reported from Crown Point to the City, NWS or local news.",
-  "we_said": "Low, saved Sat Nov 14, 12 pm.",
+  "we_said": "Low, published Sat Nov 14, 12:10 pm.",
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Low",
   "final": false,
   "weak": true,
   "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
-  "sources": [
-   {
-    "name": "NBC 7 San Diego: Family hopes to create memorial for 6-year-old killed in Pacific Beach hit-and-r",
-    "url": "https://www.nbcsandiego.com/news/local/family-of-hit-and-run-victim-in-pacific-beach-hopes-to-create-a-lasting-memorial/4102458/"
-   },
-   {
-    "name": "NBC 7 San Diego: Man arrested for DUI after deadly Pacific Beach crash shuts down major streets",
-    "url": "https://www.nbcsandiego.com/news/local/fatal-pacific-beach-crash-shuts-down-major-streets/4097550/"
-   },
-   {
-    "name": "NBC 7 San Diego: Police arrest suspect linked to killing of Crystal Pier security guard",
-    "url": "https://www.nbcsandiego.com/news/local/police-arrest-suspect-in-fatal-crystal-pier-shooting/4097457/"
-   }
-  ],
-  "scored_utc": "2026-11-17T22:10+00:00"
+  "sources": [],
+  "scored_utc": "2026-11-18T00:04+00:00"
  },
  {
   "key": "2026-11-14|coast|Pacific Beach",
@@ -185,7 +174,7 @@
   "how": "auto",
   "title": "Coast: Pacific Beach",
   "happened": "Mission Bay peaked at 6.5 ft. No flooding reported from Pacific Beach to the City, NWS or local news.",
-  "we_said": "Minor (waves), saved Fri Nov 13, 9 pm.",
+  "we_said": "Minor (waves), published Fri Nov 13, 9:27 pm.",
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Minor",
@@ -193,7 +182,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-17T22:10+00:00"
+  "scored_utc": "2026-11-18T00:04+00:00"
  },
  {
   "key": "2026-11-14|coast|Mission Beach",
@@ -203,7 +192,7 @@
   "how": "auto",
   "title": "Coast: Mission Beach",
   "happened": "Mission Bay peaked at 6.5 ft. No flooding reported from Mission Beach to the City, NWS or local news.",
-  "we_said": "Minor (bay water and waves), saved Fri Nov 13, 9 pm.",
+  "we_said": "Minor (bay water and waves), published Fri Nov 13, 9:27 pm.",
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Minor",
@@ -211,7 +200,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-17T22:10+00:00"
+  "scored_utc": "2026-11-18T00:04+00:00"
  },
  {
   "key": "2026-11-14|coast|Crown Point",
@@ -221,7 +210,7 @@
   "how": "auto",
   "title": "Coast: Crown Point",
   "happened": "Mission Bay peaked at 6.5 ft. No flooding reported from Crown Point to the City, NWS or local news.",
-  "we_said": "Low, saved Fri Nov 13, 9 pm.",
+  "we_said": "Low, published Fri Nov 13, 9:27 pm.",
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Low",
@@ -229,6 +218,6 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-17T22:10+00:00"
+  "scored_utc": "2026-11-18T00:04+00:00"
  }
 ]
