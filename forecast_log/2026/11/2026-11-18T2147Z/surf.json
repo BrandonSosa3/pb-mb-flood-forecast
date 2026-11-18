@@ -1,0 +1,15 @@
+{
+  "issued_utc": "2026-11-18T21:15:00+00:00",
+  "zone": "CAZ043",
+  "product_url": "https://api.weather.gov/products/0cdfb1a7-0ddb-4a13-9ec4-38b186f328f3",
+  "days": [
+    {
+      "label": "This Afternoon Through Thursday",
+      "surf": "3 to 5 feet today. 4 to 6 feet with"
+    },
+    {
+      "label": "Friday",
+      "surf": "3 to 5 feet. Sets to 7 feet early."
+    }
+  ]
+}
