@@ -1,0 +1,70 @@
+{
+  "issued_at_utc": "2026-11-20T09:20:00+00:00",
+  "horizon_hours": 96.0,
+  "sources": {
+    "tides": "NOAA CO-OPS API (water_level + predictions, MLLW, feet, 6-min)",
+    "alerts": "https://api.weather.gov/alerts/active?zone=CAZ043",
+    "weather": {
+      "forecast": "https://api.weather.gov/gridpoints/SGX/54,17",
+      "observed": "https://api.weather.gov/stations/KSAN/observations (San Diego airport)",
+      "units": "inches, mph, hPa; rain totals split evenly over each NWS time span"
+    },
+    "rain_areas": {
+      "forecast": {
+        "La Jolla": [
+          "https://api.weather.gov/gridpoints/SGX/54,19",
+          "https://api.weather.gov/gridpoints/SGX/54,20",
+          "https://api.weather.gov/gridpoints/SGX/54,21"
+        ],
+        "Pacific Beach": [
+          "https://api.weather.gov/gridpoints/SGX/54,18"
+        ],
+        "Mission Beach": [
+          "https://api.weather.gov/gridpoints/SGX/54,17"
+        ]
+      },
+      "rule": "wettest grid square each hour; rain split evenly over NWS spans"
+    },
+    "surf": "https://api.weather.gov/products/types/SRF/locations/SGX (zone CAZ043)"
+  },
+  "errors": {
+    "waves": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.13.18/x64/lib/python3.13/site-packages/xarray/backends/file_manager.py\", line 265, in _acquire_with_cache_info\n    file = self._cache[self._key]\n           ~~~~~~~~~~~^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.13.18/x64/lib/python3.13/site-packages/xarray/backends/lru_cache.py\", line 56, in __getitem__\n    value = self._cache[key]\n            ~~~~~~~~~~~^^^^^\nKeyError: [<class 'netCDF4._netCDF4.Dataset'>, ('https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0360_forecast.nc',), 'r', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), '330ff9b7-3ef0-47b0-aa77-e587bc971a78']\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/home/runner/work/pb-mb-flood-forecast/pb-mb-flood-forecast/pipeline/forecast_logger.py\", line 281, in attempt\n    return fn()\n  File \"/home/runner/work/pb-mb-flood-forecast/pb-mb-flood-forecast/pipeline/forecast_logger.py\", line 295, in <lambda>\n    waves = attempt(\"waves\", lambda: log_waves(now))\n                                     ~~~~~~~~~^^^^^\n  File \"/home/runner/work/pb-mb-flood-forecast/pb-mb-flood-forecast/pipeline/forecast_logger.py\", line 157, in log_waves\n    ds = xr.open_dataset(MOP_URL.format(point, model))\nOSError: [Errno -78] NetCDF: Authorization failure: 'https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0360_forecast.nc'\n"
+  },
+  "tides": {
+    "9410230": {
+      "name": "La Jolla (Scripps Pier)",
+      "side": "ocean",
+      "last_observation_utc": "2026-11-20 09:12:00+00:00",
+      "latest_observed_ft": 3.124,
+      "extra_water_25h_ft": 1.093,
+      "peak_still_water_ft": 7.654,
+      "peak_time_utc": "2026-11-23 15:06:00+00:00"
+    },
+    "9410170": {
+      "name": "San Diego (Broadway Pier)",
+      "side": "san_diego_bay",
+      "last_observation_utc": "2026-11-20 09:12:00+00:00",
+      "latest_observed_ft": 3.454,
+      "extra_water_25h_ft": 1.172,
+      "peak_still_water_ft": 8.257,
+      "peak_time_utc": "2026-11-23 15:12:00+00:00"
+    },
+    "9410196": {
+      "name": "Mission Bay (Campland), predictions only",
+      "side": "mission_bay",
+      "extra_water_25h_ft": 1.093,
+      "extra_water_from": "9410230",
+      "peak_still_water_ft": 7.912,
+      "peak_time_utc": "2026-11-23 15:18:00+00:00"
+    }
+  },
+  "active_alerts": [
+    "Beach Hazards Statement"
+  ],
+  "weather": {
+    "grid_updated_utc": "2026-11-20T08:07:05+00:00",
+    "rain_next_4_days_in": 0.03,
+    "max_rain_chance_pct": 24,
+    "max_gust_mph": 16.1
+  }
+}

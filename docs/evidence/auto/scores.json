@@ -1,5 +1,87 @@
 [
  {
+  "key": "2026-11-19|rain|Pacific Beach",
+  "date": "2026-11-19",
+  "label": "Thu Nov 19, 2026",
+  "side": "rain",
+  "how": "auto",
+  "title": "Rain: Pacific Beach",
+  "happened": "0.40 in of rain at San Diego airport (heaviest 6 hours 0.40 in). No flood reports from Pacific Beach to the City, NWS or local news.",
+  "we_said": "Low (forecast heaviest 6 hours 0.20 in), published Thu Nov 19, 1:39 am, before the rain began around 2:00 pm.",
+  "result": "right",
+  "observed": "Low",
+  "forecast": "Low",
+  "final": false,
+  "weak": true,
+  "note": "Preliminary: City reports can still come in. Weak evidence: most flooding is never reported.",
+  "sources": [],
+  "scored_utc": "2026-11-20T09:21+00:00"
+ },
+ {
+  "key": "2026-11-19|rain|Mission Beach",
+  "date": "2026-11-19",
+  "label": "Thu Nov 19, 2026",
+  "side": "rain",
+  "how": "auto",
+  "title": "Rain: Mission Beach",
+  "happened": "0.40 in of rain at San Diego airport (heaviest 6 hours 0.40 in). 0 City flood reports in Mission Beach, 1 news story.",
+  "we_said": "Low (forecast heaviest 6 hours 0.20 in), published Thu Nov 19, 1:39 am, before the rain began around 2:00 pm.",
+  "result": "close",
+  "observed": "Minor",
+  "forecast": "Low",
+  "final": false,
+  "weak": false,
+  "note": "Preliminary: City reports can still come in. ",
+  "sources": [
+   {
+    "name": "10News: Rain, strong winds and high surf hit Mission Beach as latest storm moves through",
+    "url": "https://www.10news.com/news/local-news/rain-strong-winds-and-high-surf-hit-mission-beach-as-latest-storm-moves-through-san-diego"
+   }
+  ],
+  "scored_utc": "2026-11-20T09:21+00:00"
+ },
+ {
+  "key": "2026-11-19|rain|La Jolla",
+  "date": "2026-11-19",
+  "label": "Thu Nov 19, 2026",
+  "side": "rain",
+  "how": "auto",
+  "title": "Rain: La Jolla",
+  "happened": "0.40 in of rain at San Diego airport (heaviest 6 hours 0.40 in). No flood reports from La Jolla to the City, NWS or local news.",
+  "we_said": "Low (forecast heaviest 6 hours 0.21 in), published Thu Nov 19, 1:39 am, before the rain began around 2:00 pm.",
+  "result": "right",
+  "observed": "Low",
+  "forecast": "Low",
+  "final": false,
+  "weak": true,
+  "note": "Preliminary: City reports can still come in. Weak evidence: most flooding is never reported.",
+  "sources": [],
+  "scored_utc": "2026-11-20T09:21+00:00"
+ },
+ {
+  "key": "2026-11-19|coast|Mission Beach",
+  "date": "2026-11-19",
+  "label": "Thu Nov 19, 2026",
+  "side": "bay",
+  "how": "auto",
+  "title": "Coast: Mission Beach",
+  "happened": "Mission Bay peaked at 6.1 ft. 0 City flood reports in Mission Beach on a high-tide day, 1 news story.",
+  "we_said": "Low, published Wed Nov 18, 1:47 pm.",
+  "result": "close",
+  "observed": "Minor",
+  "forecast": "Low",
+  "final": false,
+  "weak": false,
+  "note": "Preliminary: City reports can still come in. ",
+  "sources": [
+   {
+    "name": "10News: Rain, strong winds and high surf hit Mission Beach as latest storm moves through",
+    "url": "https://www.10news.com/news/local-news/rain-strong-winds-and-high-surf-hit-mission-beach-as-latest-storm-moves-through-san-diego"
+   }
+  ],
+  "scored_utc": "2026-11-20T09:21+00:00"
+ },
+ {
   "key": "2026-11-18|coast|Pacific Beach",
   "date": "2026-11-18",
   "label": "Wed Nov 18, 2026",
@@ -15,7 +97,7 @@
   "weak": true,
   "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-18|coast|Mission Beach",
@@ -24,16 +106,21 @@
   "side": "bay",
   "how": "auto",
   "title": "Coast: Mission Beach",
-  "happened": "Mission Bay peaked at 5.5 ft. No flooding reported from Mission Beach to the City, NWS or local news.",
+  "happened": "Mission Bay peaked at 5.5 ft. 0 City flood reports in Mission Beach on a high-tide day, 1 news story.",
   "we_said": "Low, published Tue Nov 17, 2:10 pm.",
-  "result": "unverified",
-  "observed": "No reports",
+  "result": "close",
+  "observed": "Minor",
   "forecast": "Low",
   "final": false,
-  "weak": true,
-  "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
-  "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "weak": false,
+  "note": "Preliminary: City reports can still come in. NWS High Surf Advisory was in effect.",
+  "sources": [
+   {
+    "name": "10News: Rain, strong winds and high surf hit Mission Beach as latest storm moves through",
+    "url": "https://www.10news.com/news/local-news/rain-strong-winds-and-high-surf-hit-mission-beach-as-latest-storm-moves-through-san-diego"
+   }
+  ],
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-18|coast|Crown Point",
@@ -51,7 +138,7 @@
   "weak": true,
   "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-17|coast|Pacific Beach",
@@ -65,11 +152,11 @@
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Low",
-  "final": false,
+  "final": true,
   "weak": true,
-  "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
+  "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-17|coast|Mission Beach",
@@ -83,11 +170,11 @@
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Minor",
-  "final": false,
+  "final": true,
   "weak": true,
-  "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
+  "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-17|coast|Crown Point",
@@ -101,11 +188,11 @@
   "result": "unverified",
   "observed": "No reports",
   "forecast": "Low",
-  "final": false,
+  "final": true,
   "weak": true,
-  "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
+  "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-16|rain|Pacific Beach",
@@ -128,7 +215,7 @@
     "url": "https://data.sandiego.gov/datasets/get-it-done-311/"
    }
   ],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-16|rain|Mission Beach",
@@ -146,7 +233,7 @@
   "weak": true,
   "note": "Weak evidence: most flooding is never reported.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-16|rain|La Jolla",
@@ -164,7 +251,7 @@
   "weak": true,
   "note": "Weak evidence: most flooding is never reported.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-16|coast|Pacific Beach",
@@ -182,7 +269,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-16|coast|Mission Beach",
@@ -200,7 +287,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-16|coast|Crown Point",
@@ -218,7 +305,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-15|coast|Pacific Beach",
@@ -236,7 +323,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-15|coast|Mission Beach",
@@ -254,7 +341,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-15|coast|Crown Point",
@@ -272,7 +359,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-14|coast|Pacific Beach",
@@ -290,7 +377,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-14|coast|Mission Beach",
@@ -308,7 +395,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  },
  {
   "key": "2026-11-14|coast|Crown Point",
@@ -326,6 +413,6 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-19T22:06+00:00"
+  "scored_utc": "2026-11-20T09:21+00:00"
  }
 ]
