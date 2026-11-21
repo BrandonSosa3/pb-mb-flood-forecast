@@ -1,0 +1,15 @@
+{
+  "issued_utc": "2026-11-21T09:27:00+00:00",
+  "zone": "CAZ043",
+  "product_url": "https://api.weather.gov/products/bc2bcaeb-f470-4048-99f4-92b0811d018b",
+  "days": [
+    {
+      "label": "Today",
+      "surf": "3 to 6 feet."
+    },
+    {
+      "label": "Sunday",
+      "surf": "2 to 4 feet."
+    }
+  ]
+}
