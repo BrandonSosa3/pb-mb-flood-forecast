@@ -1,6 +1,6 @@
 # Automatic scorecard
 
-_Rewritten by `pipeline/auto_verify.py` on 2026-11-22 09:00 UTC. Do not edit by hand._
+_Rewritten by `pipeline/auto_verify.py` on 2026-11-22 20:39 UTC. Do not edit by hand._
 
 Every saved forecast is compared with what happened, using evidence collected automatically: measured rain and water level, City Get It Done flood reports, NWS storm reports and local news. Rules are in the script.
 
