@@ -1,0 +1,22 @@
+[
+  {
+    "event": "Coastal Flood Advisory",
+    "severity": "Minor",
+    "headline": "Coastal Flood Advisory issued November 22 at 7:05PM PST until November 24 at 4:00AM PST by NWS San Diego CA",
+    "onset": "2026-11-22T19:05:00-08:00",
+    "ends": "2026-11-24T04:00:00-08:00",
+    "expires": "2026-11-23T06:00:00-08:00",
+    "sent": "2026-11-22T19:05:00-08:00",
+    "description": "* WHAT...For the Coastal Flood Advisory, minor coastal flooding.\nFor the Coastal Flood Warning, significant coastal flooding\nexpected.\n\n* WHERE...San Diego County Coastal Areas and Orange County\nCoastal Areas.\n\n* WHEN...For the Coastal Flood Advisory, until 4 AM PST Tuesday.\nFor the Coastal Flood Warning, from 4 AM Tuesday to 1 PM PST\nFriday. Most susceptible time of flooding will be around the\ntime of the morning high tide, with peak tides trending from 7\nAM on Monday to 10 AM on Friday.\n\n* IMPACTS...Numerous roads may be closed. Low lying property\nincluding homes, businesses, and some critical infrastructure\nwill be inundated. Some shoreline erosion will occur.\n\n* ADDITIONAL DETAILS...King tides peak Tuesday through\nWednesday, reaching 7.9-8.3 feet, likely re-breaking the all-\ntime tidal records set back in late October. Background surf\non top of the tides will remain around 3-5 feet through\nWednesday, but an incoming swell Wednesday into Thursday will\nbring a sharp increase to the surf by Thursday morning's high\ntide. Breaking waves may reach 6-8 feet with sets up to 10\nfeet on west-facing beaches. Surf then moderates some into\nFriday, but still looks to be around 5-8 feet."
+  },
+  {
+    "event": "Coastal Flood Warning",
+    "severity": "Severe",
+    "headline": "Coastal Flood Warning issued November 22 at 7:05PM PST until November 27 at 1:00PM PST by NWS San Diego CA",
+    "onset": "2026-11-24T04:00:00-08:00",
+    "ends": "2026-11-27T13:00:00-08:00",
+    "expires": "2026-11-23T06:00:00-08:00",
+    "sent": "2026-11-22T19:05:00-08:00",
+    "description": "* WHAT...For the Coastal Flood Advisory, minor coastal flooding.\nFor the Coastal Flood Warning, significant coastal flooding\nexpected.\n\n* WHERE...San Diego County Coastal Areas and Orange County\nCoastal Areas.\n\n* WHEN...For the Coastal Flood Advisory, until 4 AM PST Tuesday.\nFor the Coastal Flood Warning, from 4 AM Tuesday to 1 PM PST\nFriday. Most susceptible time of flooding will be around the\ntime of the morning high tide, with peak tides trending from 7\nAM on Monday to 10 AM on Friday.\n\n* IMPACTS...Numerous roads may be closed. Low lying property\nincluding homes, businesses, and some critical infrastructure\nwill be inundated. Some shoreline erosion will occur.\n\n* ADDITIONAL DETAILS...King tides peak Tuesday through\nWednesday, reaching 7.9-8.3 feet, likely re-breaking the all-\ntime tidal records set back in late October. Background surf\non top of the tides will remain around 3-5 feet through\nWednesday, but an incoming swell Wednesday into Thursday will\nbring a sharp increase to the surf by Thursday morning's high\ntide. Breaking waves may reach 6-8 feet with sets up to 10\nfeet on west-facing beaches. Surf then moderates some into\nFriday, but still looks to be around 5-8 feet."
+  }
+]
