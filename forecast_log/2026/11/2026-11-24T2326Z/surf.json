@@ -1,0 +1,15 @@
+{
+  "issued_utc": "2026-11-24T22:00:00+00:00",
+  "zone": "CAZ043",
+  "product_url": "https://api.weather.gov/products/53776e63-6e69-48a3-ae19-5bc2a32cf34c",
+  "days": [
+    {
+      "label": "This Afternoon Through Wednesday",
+      "surf": "3 to 5, sets to 6 feet. Surf increases late Wednesday."
+    },
+    {
+      "label": "Thursday",
+      "surf": "6 to 8 feet, sets to 10-12 feet on west-facing beaches."
+    }
+  ]
+}
