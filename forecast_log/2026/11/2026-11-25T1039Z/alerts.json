@@ -1,0 +1,22 @@
+[
+  {
+    "event": "Coastal Flood Warning",
+    "severity": "Severe",
+    "headline": "Coastal Flood Warning issued November 25 at 1:51AM PST until November 27 at 1:00PM PST by NWS San Diego CA",
+    "onset": "2026-11-25T01:51:00-08:00",
+    "ends": "2026-11-27T13:00:00-08:00",
+    "expires": "2026-11-26T00:00:00-08:00",
+    "sent": "2026-11-25T01:51:00-08:00",
+    "description": "* WHAT...For the Coastal Flood Warning, significant coastal\nflooding expected. For the High Surf Advisory, large breaking\nwaves of 6-8 feet, sets up to 10-12 feet along west-facing\nbeaches.\n\n* WHERE...San Diego County Coastal Areas.\n\n* WHEN...For the Coastal Flood Warning, now through 1 PM PST\nFriday. For the High Surf Advisory, from 1 PM today to 4 AM PST\nFriday. Most susceptible time of flooding will be around the\ntime of the morning high tide, with peak tides trending from 8\nAM today to 10 AM on Friday.\n\n* IMPACTS...Numerous roads may be closed. Low lying property\nincluding homes, businesses, and some critical infrastructure\nwill be inundated. Some shoreline erosion will occur.\nDangerous swimming and surfing conditions and localized beach\nerosion.\n\n* ADDITIONAL DETAILS...King tides peak through Thursday at 7.9-\n8.3 feet, likely breaking the all-time tidal records set back in\nlate October. Background surf on top of the tides will remain\naround 3-6 feet this morning. A long period west swell arrives\nlate this afternoon and will bring elevated to high surf by\nThursday morning's high tide. Breaking waves may reach 6-8 feet\nwith local sets up to 10-12 feet on west-facing beaches. Surf\nlowers to 5-7 feet by Friday morning's high tide."
+  },
+  {
+    "event": "High Surf Advisory",
+    "severity": "Minor",
+    "headline": "High Surf Advisory issued November 25 at 1:51AM PST until November 27 at 4:00AM PST by NWS San Diego CA",
+    "onset": "2026-11-25T13:00:00-08:00",
+    "ends": "2026-11-27T04:00:00-08:00",
+    "expires": "2026-11-26T00:00:00-08:00",
+    "sent": "2026-11-25T01:51:00-08:00",
+    "description": "* WHAT...For the Coastal Flood Warning, significant coastal\nflooding expected. For the High Surf Advisory, large breaking\nwaves of 6-8 feet, sets up to 10-12 feet along west-facing\nbeaches.\n\n* WHERE...San Diego County Coastal Areas.\n\n* WHEN...For the Coastal Flood Warning, now through 1 PM PST\nFriday. For the High Surf Advisory, from 1 PM today to 4 AM PST\nFriday. Most susceptible time of flooding will be around the\ntime of the morning high tide, with peak tides trending from 8\nAM today to 10 AM on Friday.\n\n* IMPACTS...Numerous roads may be closed. Low lying property\nincluding homes, businesses, and some critical infrastructure\nwill be inundated. Some shoreline erosion will occur.\nDangerous swimming and surfing conditions and localized beach\nerosion.\n\n* ADDITIONAL DETAILS...King tides peak through Thursday at 7.9-\n8.3 feet, likely breaking the all-time tidal records set back in\nlate October. Background surf on top of the tides will remain\naround 3-6 feet this morning. A long period west swell arrives\nlate this afternoon and will bring elevated to high surf by\nThursday morning's high tide. Breaking waves may reach 6-8 feet\nwith local sets up to 10-12 feet on west-facing beaches. Surf\nlowers to 5-7 feet by Friday morning's high tide."
+  }
+]
