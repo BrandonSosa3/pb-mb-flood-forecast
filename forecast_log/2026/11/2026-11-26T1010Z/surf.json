@@ -1,0 +1,15 @@
+{
+  "issued_utc": "2026-11-26T08:30:00+00:00",
+  "zone": "CAZ043",
+  "product_url": "https://api.weather.gov/products/aa5e843d-23c0-4f9f-b6ad-8e7d9f4117a1",
+  "days": [
+    {
+      "label": "Today",
+      "surf": "6 to 8 feet, set to 10-11 feet on west-facing beaches."
+    },
+    {
+      "label": "Friday",
+      "surf": "3 to 6 feet, sets to 8 feet."
+    }
+  ]
+}
