@@ -1,0 +1,81 @@
+{
+  "issued_at_utc": "2026-11-26T22:55:00+00:00",
+  "horizon_hours": 96.0,
+  "sources": {
+    "tides": "NOAA CO-OPS API (water_level + predictions, MLLW, feet, 6-min)",
+    "waves": {
+      "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/D0000_<model>.nc",
+      "models": {
+        "forecast": "CDIP MOP driven by NOAA WaveWatch III",
+        "ecmwf_fc": "CDIP MOP driven by ECMWF wave model"
+      },
+      "model_issued_utc": {
+        "forecast": "2026-11-26T19:04:42Z",
+        "ecmwf_fc": "2026-11-26T21:31:22Z"
+      },
+      "points": "D0360-D0425"
+    },
+    "alerts": "https://api.weather.gov/alerts/active?zone=CAZ043",
+    "weather": {
+      "forecast": "https://api.weather.gov/gridpoints/SGX/54,17",
+      "observed": "https://api.weather.gov/stations/KSAN/observations (San Diego airport)",
+      "units": "inches, mph, hPa; rain totals split evenly over each NWS time span"
+    },
+    "rain_areas": {
+      "forecast": {
+        "La Jolla": [
+          "https://api.weather.gov/gridpoints/SGX/54,19",
+          "https://api.weather.gov/gridpoints/SGX/54,20",
+          "https://api.weather.gov/gridpoints/SGX/54,21"
+        ],
+        "Pacific Beach": [
+          "https://api.weather.gov/gridpoints/SGX/54,18"
+        ],
+        "Mission Beach": [
+          "https://api.weather.gov/gridpoints/SGX/54,17"
+        ]
+      },
+      "rule": "wettest grid square each hour; rain split evenly over NWS spans"
+    },
+    "surf": "https://api.weather.gov/products/types/SRF/locations/SGX (zone CAZ043)"
+  },
+  "errors": {},
+  "tides": {
+    "9410230": {
+      "name": "La Jolla (Scripps Pier)",
+      "side": "ocean",
+      "last_observation_utc": "2026-11-26 22:48:00+00:00",
+      "latest_observed_ft": 0.804,
+      "extra_water_25h_ft": 0.998,
+      "peak_still_water_ft": 7.496,
+      "peak_time_utc": "2026-11-27 18:06:00+00:00"
+    },
+    "9410170": {
+      "name": "San Diego (Broadway Pier)",
+      "side": "san_diego_bay",
+      "last_observation_utc": "2026-11-26 22:48:00+00:00",
+      "latest_observed_ft": 1.187,
+      "extra_water_25h_ft": 1.066,
+      "peak_still_water_ft": 7.991,
+      "peak_time_utc": "2026-11-27 18:12:00+00:00"
+    },
+    "9410196": {
+      "name": "Mission Bay (Campland), predictions only",
+      "side": "mission_bay",
+      "extra_water_25h_ft": 0.998,
+      "extra_water_from": "9410230",
+      "peak_still_water_ft": 7.653,
+      "peak_time_utc": "2026-11-27 18:00:00+00:00"
+    }
+  },
+  "active_alerts": [
+    "Coastal Flood Warning",
+    "High Surf Advisory"
+  ],
+  "weather": {
+    "grid_updated_utc": "2026-11-26T19:16:42+00:00",
+    "rain_next_4_days_in": 0.01,
+    "max_rain_chance_pct": 39,
+    "max_gust_mph": 12.7
+  }
+}

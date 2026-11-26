@@ -1,28 +1,28 @@
 {
- "issued_at": "2026-11-26T02:10:00-08:00",
- "snapshot": "2026-11-26T1010Z",
- "built_at": "2026-11-26T10:12:02+00:00",
- "extra_water_ft": 1.063,
+ "issued_at": "2026-11-26T14:55:00-08:00",
+ "snapshot": "2026-11-26T2255Z",
+ "built_at": "2026-11-26T22:55:42+00:00",
+ "extra_water_ft": 0.998,
  "nws_alerts": [
   {
    "event": "Coastal Flood Warning",
    "severity": "Severe",
-   "headline": "Coastal Flood Warning issued November 26 at 1:32AM PST until November 27 at 1:00PM PST by NWS San Diego CA",
-   "onset": "2026-11-26T01:32:00-08:00",
+   "headline": "Coastal Flood Warning issued November 26 at 12:15PM PST until November 27 at 1:00PM PST by NWS San Diego CA",
+   "onset": "2026-11-26T12:15:00-08:00",
    "ends": "2026-11-27T13:00:00-08:00",
-   "expires": "2026-11-26T19:45:00-08:00",
-   "sent": "2026-11-26T01:32:00-08:00",
-   "description": "* WHAT...For the Coastal Flood Warning, significant coastal\nflooding expected. For the High Surf Advisory, large breaking\nwaves of 6-8 feet, sets up to 10-12 feet along west-facing\nbeaches.\n\n* WHERE...San Diego County Coastal Areas.\n\n* WHEN...For the Coastal Flood Warning, through 1 PM PST Friday.\nFor the High Surf Advisory, through 4 AM PST Friday. Most\nsusceptible time of flooding will be around the time of the\nmorning high tide, around 9 AM today and 10 AM on Friday.\n\n* IMPACTS...Numerous roads may be closed. Low lying property\nincluding homes, businesses, and some critical infrastructure\nwill be inundated. Some shoreline erosion will occur.\nDangerous swimming and surfing conditions and localized beach\nerosion.\n\n* ADDITIONAL DETAILS...King tides this morning will peak around 8\nfeet. A long period west swell will bring high surf today, and\nbreaking waves may reach 6-9 feet with local sets up to 10-12\nfeet on west-facing beaches. The higher surf will combine with\nthe morning high tides today to amplify coastal impacts and\nerosion. Surf lowers to 3-6 feet by Friday morning's high tide."
+   "expires": "2026-11-26T22:00:00-08:00",
+   "sent": "2026-11-26T12:15:00-08:00",
+   "description": "* WHAT...For the Coastal Flood Warning, significant coastal\nflooding expected. For the High Surf Advisory, large breaking\nwaves of 6-8 feet, sets up to 10 feet along west-facing\nbeaches.\n\n* WHERE...San Diego County Coastal Areas.\n\n* WHEN...For the Coastal Flood Warning, through 1 PM PST Friday.\nFor the High Surf Advisory, through 4 AM PST Friday. Most\nsusceptible time of flooding will be around the time of the\nmorning high tide, around 9 AM today and 10 AM on Friday.\n\n* IMPACTS...Numerous roads may be closed. Low lying property\nincluding homes, businesses, and some critical infrastructure\nwill be inundated. Some shoreline erosion will occur.\nDangerous swimming and surfing conditions and localized beach\nerosion.\n\n* ADDITIONAL DETAILS...King tides peaked this morning just under 8\nfeet. A long period west swell will bring high surf today, and\nbreaking waves may reach 6-9 feet with local sets up to 10 feet\non west-facing beaches. Surf lowers to 3-6 feet by Friday\nmorning's high tide."
   },
   {
    "event": "High Surf Advisory",
    "severity": "Minor",
-   "headline": "High Surf Advisory issued November 26 at 1:32AM PST until November 27 at 4:00AM PST by NWS San Diego CA",
-   "onset": "2026-11-26T01:32:00-08:00",
+   "headline": "High Surf Advisory issued November 26 at 12:15PM PST until November 27 at 4:00AM PST by NWS San Diego CA",
+   "onset": "2026-11-26T12:15:00-08:00",
    "ends": "2026-11-27T04:00:00-08:00",
-   "expires": "2026-11-26T19:45:00-08:00",
-   "sent": "2026-11-26T01:32:00-08:00",
-   "description": "* WHAT...For the Coastal Flood Warning, significant coastal\nflooding expected. For the High Surf Advisory, large breaking\nwaves of 6-8 feet, sets up to 10-12 feet along west-facing\nbeaches.\n\n* WHERE...San Diego County Coastal Areas.\n\n* WHEN...For the Coastal Flood Warning, through 1 PM PST Friday.\nFor the High Surf Advisory, through 4 AM PST Friday. Most\nsusceptible time of flooding will be around the time of the\nmorning high tide, around 9 AM today and 10 AM on Friday.\n\n* IMPACTS...Numerous roads may be closed. Low lying property\nincluding homes, businesses, and some critical infrastructure\nwill be inundated. Some shoreline erosion will occur.\nDangerous swimming and surfing conditions and localized beach\nerosion.\n\n* ADDITIONAL DETAILS...King tides this morning will peak around 8\nfeet. A long period west swell will bring high surf today, and\nbreaking waves may reach 6-9 feet with local sets up to 10-12\nfeet on west-facing beaches. The higher surf will combine with\nthe morning high tides today to amplify coastal impacts and\nerosion. Surf lowers to 3-6 feet by Friday morning's high tide."
+   "expires": "2026-11-26T22:00:00-08:00",
+   "sent": "2026-11-26T12:15:00-08:00",
+   "description": "* WHAT...For the Coastal Flood Warning, significant coastal\nflooding expected. For the High Surf Advisory, large breaking\nwaves of 6-8 feet, sets up to 10 feet along west-facing\nbeaches.\n\n* WHERE...San Diego County Coastal Areas.\n\n* WHEN...For the Coastal Flood Warning, through 1 PM PST Friday.\nFor the High Surf Advisory, through 4 AM PST Friday. Most\nsusceptible time of flooding will be around the time of the\nmorning high tide, around 9 AM today and 10 AM on Friday.\n\n* IMPACTS...Numerous roads may be closed. Low lying property\nincluding homes, businesses, and some critical infrastructure\nwill be inundated. Some shoreline erosion will occur.\nDangerous swimming and surfing conditions and localized beach\nerosion.\n\n* ADDITIONAL DETAILS...King tides peaked this morning just under 8\nfeet. A long period west swell will bring high surf today, and\nbreaking waves may reach 6-9 feet with local sets up to 10 feet\non west-facing beaches. Surf lowers to 3-6 feet by Friday\nmorning's high tide."
   }
  ],
  "wave_models": {
@@ -36,75 +36,15 @@
    "days": [
     {
      "date": "2026-11-26",
-     "risk": "Major",
-     "could_reach": "Major",
-     "risk_if_berm_fails": "Major",
-     "cause": "ocean",
+     "risk": "Low",
+     "could_reach": "Low",
+     "risk_if_berm_fails": "Low",
+     "cause": "none",
      "rain_ponding": false,
      "rain_day_in": 0.0,
      "rain_near_tide_in": 0.0,
      "rain_chance_pct": 0,
      "rain_hourly": [
-      [
-       "2026-11-26T02:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T03:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T04:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T05:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T06:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T07:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T08:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T09:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T10:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T11:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T12:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T13:00:00-08:00",
-       0.0,
-       0
-      ],
       [
        "2026-11-26T14:00:00-08:00",
        0.0,
@@ -156,205 +96,180 @@
        0
       ]
      ],
-     "worst_time": "2026-11-26T09:00:00-08:00",
-     "bay_peak_ft": 8.09,
-     "bay_peak_time": "2026-11-26T09:12:00-08:00",
+     "worst_time": "2026-11-26T23:36:00-08:00",
+     "bay_peak_ft": 4.6,
+     "bay_peak_time": "2026-11-26T23:36:00-08:00",
      "berm_up": true,
-     "berm_may_leak": true,
+     "berm_may_leak": false,
      "berm_overtopped": false,
-     "properties_below_water": 1064,
+     "properties_below_water": 0,
      "properties_reached": 0,
-     "properties_if_berm_fails": 1043,
-     "stretches_reach_top": 23,
-     "stretches_over": 6,
-     "stretches_reach_top_upper": 23,
+     "properties_if_berm_fails": 0,
+     "stretches_reach_top": 0,
+     "stretches_over": 0,
+     "stretches_reach_top_upper": 0,
      "wave_height_ft": [
-      4.1,
-      9.2
+      4.3,
+      7.5
      ],
      "wave_period_s": [
       13,
-      18
+      17
      ],
      "surf_ft": [
-      11,
-      11
+      9,
+      10
      ],
-     "nws_surf": "6 to 8 feet, set to 10-11 feet on west-facing beaches",
-     "places_to_watch": [
-      {
-       "point": "D0395",
-       "near": "San Rafael Pl",
-       "margin_ft": -0.9,
-       "over": true,
-       "lon": -117.25444,
-       "lat": 32.78753
-      },
-      {
-       "point": "D0396",
-       "near": "Santa Rita Pl",
-       "margin_ft": -0.2,
-       "over": true,
-       "lon": -117.25475,
-       "lat": 32.78901
-      },
-      {
-       "point": "D0371",
-       "near": "San Fernando Pl",
-       "margin_ft": -0.2,
-       "over": true,
-       "lon": -117.25254,
-       "lat": 32.76675
-      }
-     ],
+     "nws_surf": "6 to 9 feet with sets to 10 feet today. 3 to 5 feet Friday",
+     "places_to_watch": [],
      "stretches": {
       "D0365": [
-       4.6,
-       "2026-11-26T09:00:00-08:00"
+       9.0,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0366": [
-       0.7,
-       "2026-11-26T09:00:00-08:00"
+       5.1,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0367": [
-       1.9,
-       "2026-11-26T09:00:00-08:00"
+       6.1,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0368": [
-       1.6,
-       "2026-11-26T09:00:00-08:00"
+       6.0,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0369": [
-       2.1,
-       "2026-11-26T09:00:00-08:00"
+       6.4,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0370": [
-       0.6,
-       "2026-11-26T09:00:00-08:00"
+       5.1,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0371": [
-       -0.2,
-       "2026-11-26T09:00:00-08:00"
+       4.6,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0372": [
-       0.0,
-       "2026-11-26T09:00:00-08:00"
+       4.9,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0373": [
-       2.0,
-       "2026-11-26T09:00:00-08:00"
+       6.5,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0374": [
-       0.9,
-       "2026-11-26T09:00:00-08:00"
+       5.5,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0375": [
-       0.3,
-       "2026-11-26T09:00:00-08:00"
+       4.9,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0376": [
-       3.3,
-       "2026-11-26T09:00:00-08:00"
+       7.7,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0377": [
-       -0.0,
-       "2026-11-26T09:00:00-08:00"
+       4.5,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0378": [
-       1.2,
-       "2026-11-26T09:00:00-08:00"
+       5.9,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0379": [
-       1.5,
-       "2026-11-26T09:00:00-08:00"
+       6.2,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0380": [
-       1.3,
-       "2026-11-26T09:00:00-08:00"
+       5.8,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0381": [
-       -0.0,
-       "2026-11-26T09:00:00-08:00"
+       4.8,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0382": [
-       0.8,
-       "2026-11-26T09:00:00-08:00"
+       5.2,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0383": [
-       2.0,
-       "2026-11-26T09:00:00-08:00"
+       6.5,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0384": [
-       2.0,
-       "2026-11-26T09:00:00-08:00"
+       6.9,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0385": [
-       1.7,
-       "2026-11-26T09:00:00-08:00"
+       6.5,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0386": [
-       -0.0,
-       "2026-11-26T09:00:00-08:00"
+       4.7,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0387": [
-       0.4,
-       "2026-11-26T09:00:00-08:00"
+       4.9,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0388": [
-       0.9,
-       "2026-11-26T09:00:00-08:00"
+       5.4,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0389": [
-       1.7,
-       "2026-11-26T09:00:00-08:00"
+       6.4,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0390": [
-       1.9,
-       "2026-11-26T09:00:00-08:00"
+       6.7,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0391": [
-       2.1,
-       "2026-11-26T09:00:00-08:00"
+       6.6,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0392": [
-       1.7,
-       "2026-11-26T09:00:00-08:00"
+       6.4,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0393": [
-       1.1,
-       "2026-11-26T09:00:00-08:00"
+       5.9,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0394": [
-       0.7,
-       "2026-11-26T09:00:00-08:00"
+       5.4,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0395": [
-       -0.9,
-       "2026-11-26T09:00:00-08:00"
+       3.9,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0396": [
-       -0.2,
-       "2026-11-26T09:00:00-08:00"
+       4.5,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0397": [
-       0.6,
-       "2026-11-26T09:00:00-08:00"
+       5.3,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0398": [
-       2.4,
-       "2026-11-26T09:00:00-08:00"
+       7.1,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0399": [
-       5.4,
-       "2026-11-26T09:00:00-08:00"
+       9.8,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0400": [
-       2.5,
-       "2026-11-26T09:00:00-08:00"
+       7.4,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0401": [
-       1.4,
-       "2026-11-26T09:00:00-08:00"
+       6.4,
+       "2026-11-26T23:00:00-08:00"
       ]
      }
     },
@@ -491,20 +406,20 @@
       ]
      ],
      "worst_time": "2026-11-27T10:00:00-08:00",
-     "bay_peak_ft": 7.72,
+     "bay_peak_ft": 7.65,
      "bay_peak_time": "2026-11-27T10:00:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
      "berm_overtopped": false,
-     "properties_below_water": 967,
+     "properties_below_water": 945,
      "properties_reached": 0,
-     "properties_if_berm_fails": 904,
+     "properties_if_berm_fails": 779,
      "stretches_reach_top": 1,
      "stretches_over": 0,
      "stretches_reach_top_upper": 1,
      "wave_height_ft": [
-      3.6,
-      5.7
+      3.7,
+      5.9
      ],
      "wave_period_s": [
       12,
@@ -514,7 +429,7 @@
       7,
       8
      ],
-     "nws_surf": "3 to 6 feet, sets to 8 feet",
+     "nws_surf": null,
      "places_to_watch": [
       {
        "point": "D0395",
@@ -595,7 +510,7 @@
        "2026-11-27T10:00:00-08:00"
       ],
       "D0382": [
-       3.2,
+       2.8,
        "2026-11-27T10:00:00-08:00"
       ],
       "D0383": [
@@ -603,7 +518,7 @@
        "2026-11-27T10:00:00-08:00"
       ],
       "D0384": [
-       4.6,
+       4.4,
        "2026-11-27T10:00:00-08:00"
       ],
       "D0385": [
@@ -627,7 +542,7 @@
        "2026-11-27T10:00:00-08:00"
       ],
       "D0390": [
-       4.4,
+       4.3,
        "2026-11-27T10:00:00-08:00"
       ],
       "D0391": [
@@ -635,7 +550,7 @@
        "2026-11-27T10:00:00-08:00"
       ],
       "D0392": [
-       4.1,
+       4.0,
        "2026-11-27T10:00:00-08:00"
       ],
       "D0393": [
@@ -643,8 +558,8 @@
        "2026-11-27T11:00:00-08:00"
       ],
       "D0394": [
-       3.1,
-       "2026-11-27T11:00:00-08:00"
+       3.3,
+       "2026-11-27T10:00:00-08:00"
       ],
       "D0395": [
        1.7,
@@ -663,7 +578,7 @@
        "2026-11-27T11:00:00-08:00"
       ],
       "D0399": [
-       7.6,
+       7.7,
        "2026-11-27T10:00:00-08:00"
       ],
       "D0400": [
@@ -809,20 +724,20 @@
       ]
      ],
      "worst_time": "2026-11-28T10:54:00-08:00",
-     "bay_peak_ft": 7.13,
+     "bay_peak_ft": 7.07,
      "bay_peak_time": "2026-11-28T10:54:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
      "berm_overtopped": false,
-     "properties_below_water": 610,
+     "properties_below_water": 585,
      "properties_reached": 0,
      "properties_if_berm_fails": 0,
-     "stretches_reach_top": 3,
+     "stretches_reach_top": 4,
      "stretches_over": 0,
-     "stretches_reach_top_upper": 3,
+     "stretches_reach_top_upper": 4,
      "wave_height_ft": [
       3.2,
-      6.0
+      6.1
      ],
      "wave_period_s": [
       13,
@@ -832,15 +747,23 @@
       8,
       8
      ],
-     "nws_surf": null,
+     "nws_surf": "3 to 6 feet with sets to 7 feet",
      "places_to_watch": [
       {
        "point": "D0395",
        "near": "San Rafael Pl",
-       "margin_ft": 1.5,
+       "margin_ft": 1.2,
        "over": false,
        "lon": -117.25444,
        "lat": 32.78753
+      },
+      {
+       "point": "D0371",
+       "near": "San Fernando Pl",
+       "margin_ft": 1.7,
+       "over": false,
+       "lon": -117.25254,
+       "lat": 32.76675
       },
       {
        "point": "D0396",
@@ -849,14 +772,6 @@
        "over": false,
        "lon": -117.25475,
        "lat": 32.78901
-      },
-      {
-       "point": "D0371",
-       "near": "San Fernando Pl",
-       "margin_ft": 1.9,
-       "over": false,
-       "lon": -117.25254,
-       "lat": 32.76675
       }
      ],
      "stretches": {
@@ -877,7 +792,7 @@
        "2026-11-28T11:00:00-08:00"
       ],
       "D0369": [
-       3.9,
+       3.8,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0370": [
@@ -885,11 +800,11 @@
        "2026-11-28T11:00:00-08:00"
       ],
       "D0371": [
-       1.9,
+       1.7,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0372": [
-       2.2,
+       2.0,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0373": [
@@ -901,15 +816,15 @@
        "2026-11-28T11:00:00-08:00"
       ],
       "D0375": [
-       2.3,
+       2.4,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0376": [
-       5.1,
+       5.2,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0377": [
-       2.0,
+       1.9,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0378": [
@@ -933,11 +848,11 @@
        "2026-11-28T11:00:00-08:00"
       ],
       "D0383": [
-       4.1,
+       3.9,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0384": [
-       4.1,
+       4.2,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0385": [
@@ -965,11 +880,11 @@
        "2026-11-28T11:00:00-08:00"
       ],
       "D0391": [
-       4.1,
+       4.0,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0392": [
-       3.8,
+       3.6,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0393": [
@@ -977,11 +892,11 @@
        "2026-11-28T11:00:00-08:00"
       ],
       "D0394": [
-       2.9,
+       2.8,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0395": [
-       1.5,
+       1.2,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0396": [
@@ -997,12 +912,12 @@
        "2026-11-28T11:00:00-08:00"
       ],
       "D0399": [
-       7.0,
+       7.1,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0400": [
-       4.7,
-       "2026-11-28T11:00:00-08:00"
+       4.5,
+       "2026-11-28T10:00:00-08:00"
       ],
       "D0401": [
        3.9,
@@ -1019,7 +934,7 @@
      "rain_ponding": false,
      "rain_day_in": 0.0,
      "rain_near_tide_in": 0.0,
-     "rain_chance_pct": 12,
+     "rain_chance_pct": 13,
      "rain_hourly": [
       [
        "2026-11-29T00:00:00-08:00",
@@ -1104,58 +1019,58 @@
       [
        "2026-11-29T16:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T17:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T18:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T19:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T20:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T21:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T22:00:00-08:00",
        0.0,
-       12
+       13
       ],
       [
        "2026-11-29T23:00:00-08:00",
        0.0,
-       12
+       13
       ]
      ],
      "worst_time": "2026-11-29T12:00:00-08:00",
-     "bay_peak_ft": 6.41,
+     "bay_peak_ft": 6.34,
      "bay_peak_time": "2026-11-29T12:00:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
      "berm_overtopped": false,
-     "properties_below_water": 240,
+     "properties_below_water": 194,
      "properties_reached": 0,
      "properties_if_berm_fails": 0,
      "stretches_reach_top": 0,
      "stretches_over": 0,
      "stretches_reach_top_upper": 0,
      "wave_height_ft": [
-      1.8,
+      1.9,
       4.6
      ],
      "wave_period_s": [
@@ -1170,151 +1085,151 @@
      "places_to_watch": [],
      "stretches": {
       "D0365": [
-       8.1,
+       8.2,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0366": [
-       4.2,
+       4.3,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0367": [
-       5.3,
+       5.4,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0368": [
-       5.1,
+       5.4,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0369": [
-       5.7,
+       5.8,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0370": [
-       4.3,
+       4.4,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0371": [
-       3.8,
+       4.0,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0372": [
-       4.3,
+       4.4,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0373": [
-       5.9,
+       6.0,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0374": [
-       5.0,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0375": [
-       4.2,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0376": [
-       6.9,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0377": [
-       3.8,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0378": [
-       5.0,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0379": [
-       5.4,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0380": [
        5.1,
        "2026-11-29T12:00:00-08:00"
       ],
-      "D0381": [
-       4.2,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0382": [
-       4.5,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0383": [
-       6.0,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0384": [
-       6.2,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0385": [
-       5.7,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0386": [
-       4.0,
-       "2026-11-29T12:00:00-08:00"
-      ],
-      "D0387": [
+      "D0375": [
        4.3,
        "2026-11-29T12:00:00-08:00"
       ],
+      "D0376": [
+       7.0,
+       "2026-11-29T12:00:00-08:00"
+      ],
+      "D0377": [
+       3.9,
+       "2026-11-29T12:00:00-08:00"
+      ],
+      "D0378": [
+       5.1,
+       "2026-11-29T12:00:00-08:00"
+      ],
+      "D0379": [
+       5.5,
+       "2026-11-29T12:00:00-08:00"
+      ],
+      "D0380": [
+       5.2,
+       "2026-11-29T12:00:00-08:00"
+      ],
+      "D0381": [
+       4.3,
+       "2026-11-29T12:00:00-08:00"
+      ],
+      "D0382": [
+       4.8,
+       "2026-11-29T12:00:00-08:00"
+      ],
+      "D0383": [
+       6.1,
+       "2026-11-29T12:00:00-08:00"
+      ],
+      "D0384": [
+       6.3,
+       "2026-11-29T12:00:00-08:00"
+      ],
+      "D0385": [
+       5.8,
+       "2026-11-29T12:00:00-08:00"
+      ],
+      "D0386": [
+       4.1,
+       "2026-11-29T12:00:00-08:00"
+      ],
+      "D0387": [
+       4.4,
+       "2026-11-29T12:00:00-08:00"
+      ],
       "D0388": [
-       4.7,
+       4.8,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0389": [
-       6.0,
+       6.1,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0390": [
-       6.0,
+       6.1,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0391": [
-       6.0,
+       6.1,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0392": [
-       6.0,
+       6.1,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0393": [
-       5.4,
+       5.5,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0394": [
-       5.0,
+       5.1,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0395": [
-       3.7,
+       3.8,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0396": [
-       4.0,
+       4.1,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0397": [
-       4.6,
+       4.7,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0398": [
-       6.4,
+       6.5,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0399": [
-       9.2,
+       9.3,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0400": [
-       6.6,
+       6.8,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0401": [
-       5.6,
+       5.7,
        "2026-11-29T12:00:00-08:00"
       ]
      }
@@ -1326,75 +1241,15 @@
    "days": [
     {
      "date": "2026-11-26",
-     "risk": "Moderate",
-     "could_reach": "Moderate",
-     "risk_if_berm_fails": "Moderate",
-     "cause": "both",
+     "risk": "Low",
+     "could_reach": "Low",
+     "risk_if_berm_fails": "Low",
+     "cause": "none",
      "rain_ponding": false,
      "rain_day_in": 0.0,
      "rain_near_tide_in": 0.0,
      "rain_chance_pct": 0,
      "rain_hourly": [
-      [
-       "2026-11-26T02:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T03:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T04:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T05:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T06:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T07:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T08:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T09:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T10:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T11:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T12:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T13:00:00-08:00",
-       0.0,
-       0
-      ],
       [
        "2026-11-26T14:00:00-08:00",
        0.0,
@@ -1446,105 +1301,96 @@
        0
       ]
      ],
-     "worst_time": "2026-11-26T09:12:00-08:00",
-     "bay_peak_ft": 8.09,
-     "bay_peak_time": "2026-11-26T09:12:00-08:00",
+     "worst_time": "2026-11-26T23:36:00-08:00",
+     "bay_peak_ft": 4.6,
+     "bay_peak_time": "2026-11-26T23:36:00-08:00",
      "berm_up": true,
-     "berm_may_leak": true,
+     "berm_may_leak": false,
      "berm_overtopped": false,
-     "properties_below_water": 46,
+     "properties_below_water": 0,
      "properties_reached": 0,
-     "properties_if_berm_fails": 33,
+     "properties_if_berm_fails": 0,
      "stretches_reach_top": 0,
-     "stretches_over": 1,
-     "stretches_reach_top_upper": 1,
+     "stretches_over": 0,
+     "stretches_reach_top_upper": 0,
      "wave_height_ft": [
-      3.9,
-      9.6
+      4.0,
+      8.0
      ],
      "wave_period_s": [
       14,
-      18
+      17
      ],
      "surf_ft": [
-      10,
-      12
+      8,
+      10
      ],
-     "nws_surf": "6 to 8 feet, set to 10-11 feet on west-facing beaches",
-     "places_to_watch": [
-      {
-       "point": "D0411",
-       "near": "Chalcedony St",
-       "margin_ft": -0.2,
-       "over": true,
-       "lon": -117.25865,
-       "lat": 32.80052
-      }
-     ],
+     "nws_surf": "6 to 9 feet with sets to 10 feet today. 3 to 5 feet Friday",
+     "places_to_watch": [],
      "stretches": {
       "D0402": [
-       2.1,
-       "2026-11-26T09:00:00-08:00"
+       6.7,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0403": [
-       5.8,
-       "2026-11-26T09:00:00-08:00"
+       10.4,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0404": [
-       8.9,
-       "2026-11-26T09:00:00-08:00"
+       13.6,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0405": [
-       13.1,
-       "2026-11-26T09:00:00-08:00"
+       17.7,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0406": [
-       19.3,
-       "2026-11-26T09:00:00-08:00"
+       23.8,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0407": [
-       26.2,
-       "2026-11-26T09:00:00-08:00"
+       30.8,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0408": [
-       29.8,
-       "2026-11-26T09:00:00-08:00"
+       34.6,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0409": [
-       39.8,
-       "2026-11-26T09:00:00-08:00"
+       44.4,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0410": [
-       46.8,
-       "2026-11-26T09:00:00-08:00"
+       51.4,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0411": [
-       -0.2,
-       "2026-11-26T09:00:00-08:00"
+       4.3,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0412": [
-       34.8,
-       "2026-11-26T09:00:00-08:00"
+       39.2,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0413": [
-       39.5,
-       "2026-11-26T09:00:00-08:00"
+       44.0,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0414": [
-       48.0,
-       "2026-11-26T09:00:00-08:00"
+       52.5,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0415": [
-       58.9,
-       "2026-11-26T09:00:00-08:00"
+       63.3,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0416": [
-       8.2,
-       "2026-11-26T09:00:00-08:00"
+       12.5,
+       "2026-11-26T23:00:00-08:00"
       ],
       "D0417": [
-       58.4,
-       "2026-11-26T09:00:00-08:00"
+       62.5,
+       "2026-11-26T23:00:00-08:00"
       ]
      }
     },
@@ -1681,20 +1527,20 @@
       ]
      ],
      "worst_time": "2026-11-27T10:00:00-08:00",
-     "bay_peak_ft": 7.72,
+     "bay_peak_ft": 7.65,
      "bay_peak_time": "2026-11-27T10:00:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
      "berm_overtopped": false,
-     "properties_below_water": 34,
+     "properties_below_water": 33,
      "properties_reached": 0,
      "properties_if_berm_fails": 26,
      "stretches_reach_top": 1,
      "stretches_over": 0,
      "stretches_reach_top_upper": 1,
      "wave_height_ft": [
-      3.2,
-      5.7
+      3.3,
+      5.9
      ],
      "wave_period_s": [
       13,
@@ -1704,12 +1550,12 @@
       7,
       8
      ],
-     "nws_surf": "3 to 6 feet, sets to 8 feet",
+     "nws_surf": null,
      "places_to_watch": [
       {
        "point": "D0411",
        "near": "Chalcedony St",
-       "margin_ft": 1.8,
+       "margin_ft": 1.9,
        "over": false,
        "lon": -117.25865,
        "lat": 32.80052
@@ -1725,7 +1571,7 @@
        "2026-11-27T10:00:00-08:00"
       ],
       "D0404": [
-       11.4,
+       11.3,
        "2026-11-27T10:00:00-08:00"
       ],
       "D0405": [
@@ -1741,27 +1587,27 @@
        "2026-11-27T10:00:00-08:00"
       ],
       "D0408": [
-       32.2,
+       32.1,
        "2026-11-27T11:00:00-08:00"
       ],
       "D0409": [
-       42.1,
-       "2026-11-27T11:00:00-08:00"
+       42.3,
+       "2026-11-27T10:00:00-08:00"
       ],
       "D0410": [
        49.0,
        "2026-11-27T11:00:00-08:00"
       ],
       "D0411": [
-       1.8,
-       "2026-11-27T11:00:00-08:00"
+       1.9,
+       "2026-11-27T10:00:00-08:00"
       ],
       "D0412": [
        36.9,
        "2026-11-27T10:00:00-08:00"
       ],
       "D0413": [
-       41.4,
+       41.5,
        "2026-11-27T10:00:00-08:00"
       ],
       "D0414": [
@@ -1773,11 +1619,11 @@
        "2026-11-27T10:00:00-08:00"
       ],
       "D0416": [
-       10.0,
+       9.9,
        "2026-11-27T10:00:00-08:00"
       ],
       "D0417": [
-       59.9,
+       59.8,
        "2026-11-27T10:00:00-08:00"
       ]
      }
@@ -1915,12 +1761,12 @@
       ]
      ],
      "worst_time": "2026-11-28T11:00:00-08:00",
-     "bay_peak_ft": 7.13,
+     "bay_peak_ft": 7.07,
      "bay_peak_time": "2026-11-28T10:54:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
      "berm_overtopped": false,
-     "properties_below_water": 23,
+     "properties_below_water": 22,
      "properties_reached": 0,
      "properties_if_berm_fails": 2,
      "stretches_reach_top": 1,
@@ -1928,7 +1774,7 @@
      "stretches_reach_top_upper": 1,
      "wave_height_ft": [
       3.0,
-      6.1
+      6.2
      ],
      "wave_period_s": [
       13,
@@ -1938,12 +1784,12 @@
       7,
       9
      ],
-     "nws_surf": null,
+     "nws_surf": "3 to 6 feet with sets to 7 feet",
      "places_to_watch": [
       {
        "point": "D0411",
        "near": "Chalcedony St",
-       "margin_ft": 1.7,
+       "margin_ft": 1.6,
        "over": false,
        "lon": -117.25865,
        "lat": 32.80052
@@ -1951,7 +1797,7 @@
      ],
      "stretches": {
       "D0402": [
-       4.1,
+       4.0,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0403": [
@@ -1971,7 +1817,7 @@
        "2026-11-28T11:00:00-08:00"
       ],
       "D0407": [
-       28.0,
+       28.1,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0408": [
@@ -1987,19 +1833,19 @@
        "2026-11-28T11:00:00-08:00"
       ],
       "D0411": [
-       1.7,
+       1.6,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0412": [
-       36.8,
+       36.7,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0413": [
-       41.4,
+       41.5,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0414": [
-       49.9,
+       50.0,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0415": [
@@ -2007,7 +1853,7 @@
        "2026-11-28T11:00:00-08:00"
       ],
       "D0416": [
-       10.1,
+       10.2,
        "2026-11-28T11:00:00-08:00"
       ],
       "D0417": [
@@ -2025,7 +1871,7 @@
      "rain_ponding": false,
      "rain_day_in": 0.0,
      "rain_near_tide_in": 0.0,
-     "rain_chance_pct": 12,
+     "rain_chance_pct": 13,
      "rain_hourly": [
       [
        "2026-11-29T00:00:00-08:00",
@@ -2110,62 +1956,62 @@
       [
        "2026-11-29T16:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T17:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T18:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T19:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T20:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T21:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T22:00:00-08:00",
        0.0,
-       12
+       13
       ],
       [
        "2026-11-29T23:00:00-08:00",
        0.0,
-       12
+       13
       ]
      ],
      "worst_time": "2026-11-29T12:00:00-08:00",
-     "bay_peak_ft": 6.41,
+     "bay_peak_ft": 6.34,
      "bay_peak_time": "2026-11-29T12:00:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
      "berm_overtopped": false,
-     "properties_below_water": 8,
+     "properties_below_water": 7,
      "properties_reached": 0,
      "properties_if_berm_fails": 2,
      "stretches_reach_top": 0,
      "stretches_over": 0,
      "stretches_reach_top_upper": 0,
      "wave_height_ft": [
-      2.4,
+      2.3,
       4.5
      ],
      "wave_period_s": [
-      11,
+      12,
       17
      ],
      "surf_ft": [
@@ -2176,67 +2022,67 @@
      "places_to_watch": [],
      "stretches": {
       "D0402": [
-       6.5,
+       6.6,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0403": [
-       9.7,
+       9.8,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0404": [
-       13.0,
+       13.1,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0405": [
-       17.3,
+       17.4,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0406": [
-       23.3,
+       23.4,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0407": [
-       30.0,
+       30.1,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0408": [
-       34.1,
+       34.2,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0409": [
-       43.9,
+       44.0,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0410": [
-       50.8,
+       50.9,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0411": [
-       3.5,
+       3.6,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0412": [
-       38.5,
+       38.6,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0413": [
-       43.0,
+       43.1,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0414": [
-       51.5,
+       51.6,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0415": [
-       62.3,
+       62.4,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0416": [
-       11.6,
+       11.7,
        "2026-11-29T12:00:00-08:00"
       ],
       "D0417": [
-       61.4,
+       61.5,
        "2026-11-29T12:00:00-08:00"
       ]
      }
@@ -2248,75 +2094,15 @@
    "days": [
     {
      "date": "2026-11-26",
-     "risk": "Minor",
-     "could_reach": "Minor",
-     "risk_if_berm_fails": "Minor",
-     "cause": "bay",
+     "risk": "Low",
+     "could_reach": "Low",
+     "risk_if_berm_fails": "Low",
+     "cause": "none",
      "rain_ponding": false,
      "rain_day_in": 0.0,
      "rain_near_tide_in": 0.0,
      "rain_chance_pct": 0,
      "rain_hourly": [
-      [
-       "2026-11-26T02:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T03:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T04:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T05:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T06:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T07:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T08:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T09:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T10:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T11:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T12:00:00-08:00",
-       0.0,
-       0
-      ],
-      [
-       "2026-11-26T13:00:00-08:00",
-       0.0,
-       0
-      ],
       [
        "2026-11-26T14:00:00-08:00",
        0.0,
@@ -2368,13 +2154,13 @@
        0
       ]
      ],
-     "worst_time": "2026-11-26T09:12:00-08:00",
-     "bay_peak_ft": 8.09,
-     "bay_peak_time": "2026-11-26T09:12:00-08:00",
+     "worst_time": "2026-11-26T23:36:00-08:00",
+     "bay_peak_ft": 4.6,
+     "bay_peak_time": "2026-11-26T23:36:00-08:00",
      "berm_up": true,
-     "berm_may_leak": true,
+     "berm_may_leak": false,
      "berm_overtopped": false,
-     "properties_below_water": 3,
+     "properties_below_water": 0,
      "properties_reached": 0,
      "properties_if_berm_fails": 0,
      "stretches_reach_top": null,
@@ -2520,12 +2306,12 @@
       ]
      ],
      "worst_time": "2026-11-27T10:00:00-08:00",
-     "bay_peak_ft": 7.72,
+     "bay_peak_ft": 7.65,
      "bay_peak_time": "2026-11-27T10:00:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
      "berm_overtopped": false,
-     "properties_below_water": 3,
+     "properties_below_water": 2,
      "properties_reached": 0,
      "properties_if_berm_fails": 0,
      "stretches_reach_top": null,
@@ -2671,7 +2457,7 @@
       ]
      ],
      "worst_time": "2026-11-28T10:54:00-08:00",
-     "bay_peak_ft": 7.13,
+     "bay_peak_ft": 7.07,
      "bay_peak_time": "2026-11-28T10:54:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
@@ -2698,7 +2484,7 @@
      "rain_ponding": false,
      "rain_day_in": 0.0,
      "rain_near_tide_in": 0.0,
-     "rain_chance_pct": 12,
+     "rain_chance_pct": 13,
      "rain_hourly": [
       [
        "2026-11-29T00:00:00-08:00",
@@ -2783,51 +2569,51 @@
       [
        "2026-11-29T16:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T17:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T18:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T19:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T20:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T21:00:00-08:00",
        0.0,
-       2
+       1
       ],
       [
        "2026-11-29T22:00:00-08:00",
        0.0,
-       12
+       13
       ],
       [
        "2026-11-29T23:00:00-08:00",
        0.0,
-       12
+       13
       ]
      ],
      "worst_time": "2026-11-29T12:00:00-08:00",
-     "bay_peak_ft": 6.41,
+     "bay_peak_ft": 6.34,
      "bay_peak_time": "2026-11-29T12:00:00-08:00",
      "berm_up": true,
      "berm_may_leak": false,
      "berm_overtopped": false,
-     "properties_below_water": 1,
+     "properties_below_water": 0,
      "properties_reached": 0,
      "properties_if_berm_fails": 0,
      "stretches_reach_top": null,
@@ -2858,7 +2644,7 @@
       "date": "2026-11-26",
       "level": "Low",
       "max_6h_in": 0.0,
-      "heaviest_from": "2026-11-26T02:00:00-08:00",
+      "heaviest_from": "2026-11-26T14:00:00-08:00",
       "total_in": 0.0,
       "chance_pct": 0
      },
@@ -2882,9 +2668,9 @@
       "date": "2026-11-29",
       "level": "Low",
       "max_6h_in": 0.0,
-      "heaviest_from": "2026-11-29T00:00:00-08:00",
+      "heaviest_from": "2026-11-29T23:00:00-08:00",
       "total_in": 0.0,
-      "chance_pct": 14
+      "chance_pct": 16
      }
     ]
    },
@@ -2895,7 +2681,7 @@
       "date": "2026-11-26",
       "level": "Low",
       "max_6h_in": 0.0,
-      "heaviest_from": "2026-11-26T02:00:00-08:00",
+      "heaviest_from": "2026-11-26T14:00:00-08:00",
       "total_in": 0.0,
       "chance_pct": 0
      },
@@ -2919,7 +2705,7 @@
       "date": "2026-11-29",
       "level": "Low",
       "max_6h_in": 0.0,
-      "heaviest_from": "2026-11-29T00:00:00-08:00",
+      "heaviest_from": "2026-11-29T23:00:00-08:00",
       "total_in": 0.0,
       "chance_pct": 13
      }
@@ -2932,7 +2718,7 @@
       "date": "2026-11-26",
       "level": "Low",
       "max_6h_in": 0.0,
-      "heaviest_from": "2026-11-26T02:00:00-08:00",
+      "heaviest_from": "2026-11-26T14:00:00-08:00",
       "total_in": 0.0,
       "chance_pct": 0
      },
@@ -2956,9 +2742,9 @@
       "date": "2026-11-29",
       "level": "Low",
       "max_6h_in": 0.0,
-      "heaviest_from": "2026-11-29T00:00:00-08:00",
+      "heaviest_from": "2026-11-29T23:00:00-08:00",
       "total_in": 0.0,
-      "chance_pct": 12
+      "chance_pct": 13
      }
     ]
    }
