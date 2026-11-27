@@ -1,19 +1,22 @@
 # Automatic scorecard
 
-_Rewritten by `pipeline/auto_verify.py` on 2026-11-26 22:55 UTC. Do not edit by hand._
+_Rewritten by `pipeline/auto_verify.py` on 2026-11-27 10:17 UTC. Do not edit by hand._
 
 Every saved forecast is compared with what happened, using evidence collected automatically: measured rain and water level, City Get It Done flood reports, NWS storm reports and local news. Rules are in the script.
 
-**6 right · 12 close · 0 missed · 0 false alarms**, plus 20 coast days not scored (no reports either way). 4 rain scores rest on zero City reports (weak evidence).
+**8 right · 13 close · 0 missed · 0 false alarms**, plus 20 coast days not scored (no reports either way). 4 rain scores rest on zero City reports (weak evidence).
 
 | Day | What | We said | Observed | Result | Evidence |
 |---|---|---|---|---|---|
-| 2026-11-25 | Coast: Pacific Beach | Moderate | Minor | close (prelim.) | Mission Bay peaked at 8.3 ft. 1 City flood report in Pacific Beach on a high-tide day. |
-| 2026-11-25 | Coast: Mission Beach | Moderate | Minor | close (prelim.) | Mission Bay peaked at 8.3 ft. 2 City flood reports in Mission Beach on a high-tide day. |
-| 2026-11-25 | Coast: Crown Point | Minor | No reports | unverified (prelim.) | Mission Bay peaked at 8.3 ft. No flooding reported from Crown Point to the City, NWS or local news. |
-| 2026-11-24 | Coast: Pacific Beach | Moderate | Minor | close (prelim.) | Mission Bay peaked at 8.2 ft. 1 City flood report in Pacific Beach on a high-tide day. |
-| 2026-11-24 | Coast: Mission Beach | Moderate | Moderate | right (prelim.) | Mission Bay peaked at 8.2 ft. 2 City flood reports in Mission Beach on a high-tide day, 1 NWS storm report, 2 news storys. |
-| 2026-11-24 | Coast: Crown Point | Minor | No reports | unverified (prelim.) | Mission Bay peaked at 8.2 ft. No flooding reported from Crown Point to the City, NWS or local news. |
+| 2026-11-26 | Coast: Pacific Beach | Moderate | No reports | unverified (prelim.) | Mission Bay peaked at 8.1 ft. No flooding reported from Pacific Beach to the City, NWS or local news. |
+| 2026-11-26 | Coast: Mission Beach | Major | Moderate | close (prelim.) | Mission Bay peaked at 8.1 ft. 0 City flood reports in Mission Beach on a high-tide day, 1 NWS storm report. |
+| 2026-11-26 | Coast: Crown Point | Minor | No reports | unverified (prelim.) | Mission Bay peaked at 8.1 ft. No flooding reported from Crown Point to the City, NWS or local news. |
+| 2026-11-25 | Coast: Pacific Beach | Moderate | Minor | close (prelim.) | Mission Bay peaked at 8.3 ft. 1 City flood report in Pacific Beach on a high-tide day, 3 news storys. |
+| 2026-11-25 | Coast: Mission Beach | Moderate | Minor | close (prelim.) | Mission Bay peaked at 8.3 ft. 2 City flood reports in Mission Beach on a high-tide day, 3 news storys. |
+| 2026-11-25 | Coast: Crown Point | Minor | Minor | right (prelim.) | Mission Bay peaked at 8.3 ft. 0 City flood reports in Crown Point on a high-tide day, 3 news storys. |
+| 2026-11-24 | Coast: Pacific Beach | Moderate | Minor | close | Mission Bay peaked at 8.2 ft. 1 City flood report in Pacific Beach on a high-tide day, 3 news storys. |
+| 2026-11-24 | Coast: Mission Beach | Moderate | Moderate | right | Mission Bay peaked at 8.2 ft. 2 City flood reports in Mission Beach on a high-tide day, 1 NWS storm report, 5 news storys. |
+| 2026-11-24 | Coast: Crown Point | Minor | Minor | right | Mission Bay peaked at 8.2 ft. 0 City flood reports in Crown Point on a high-tide day, 3 news storys. |
 | 2026-11-23 | Coast: Pacific Beach | Moderate | Minor | close | Mission Bay peaked at 8.0 ft. 1 City flood report in Pacific Beach on a high-tide day. |
 | 2026-11-23 | Coast: Mission Beach | Moderate | Minor | close | Mission Bay peaked at 8.0 ft. 0 City flood reports in Mission Beach on a high-tide day, 2 news storys. |
 | 2026-11-23 | Coast: Crown Point | Minor | No reports | unverified | Mission Bay peaked at 8.0 ft. No flooding reported from Crown Point to the City, NWS or local news. |

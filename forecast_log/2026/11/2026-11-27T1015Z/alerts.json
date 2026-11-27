@@ -1,0 +1,32 @@
+[
+  {
+    "event": "Beach Hazards Statement",
+    "severity": "Moderate",
+    "headline": "Beach Hazards Statement issued November 27 at 12:10AM PST until November 28 at 4:00PM PST by NWS San Diego CA",
+    "onset": "2026-11-27T13:00:00-08:00",
+    "ends": "2026-11-28T16:00:00-08:00",
+    "expires": "2026-11-27T08:15:00-08:00",
+    "sent": "2026-11-27T00:10:00-08:00",
+    "description": "* WHAT...For the Coastal Flood Warning, significant coastal\nflooding. For the High Surf Advisory, large breaking waves of\n6-8 feet, sets up to 10 feet along west-facing beaches. For the\nBeach Hazards Statement, surf of 4 to 6 feet with sets to 7 feed\nand minor coastal flooding expected.\n\n* WHERE...San Diego County Coastal Areas.\n\n* WHEN...For the Coastal Flood Warning, until 1 PM PST this\nafternoon. For the High Surf Advisory, until 4 AM PST early this\nmorning. For the Beach Hazards Statement, from 1 PM PST this\nafternoon through Saturday afternoon.\n\n* IMPACTS...Numerous roads may be closed. Low lying property\nincluding homes, businesses, and some critical infrastructure\nwill be inundated. Some shoreline erosion will occur. Dangerous\nswimming and surfing conditions and localized beach erosion.\n\n* ADDITIONAL DETAILS...King Tides peak this morning around 7.5-7.7\nfeet MLLW. Surf will be falling this morning but remain elevated\ninto Saturday, especially for west-facing beaches. Sets up to 7\nfeet. Despite lower surf and waning tides, localized coastal\nflooding is still likely through the Saturday morning high\ntides."
+  },
+  {
+    "event": "High Surf Advisory",
+    "severity": "Minor",
+    "headline": "High Surf Advisory issued November 27 at 12:10AM PST until November 27 at 4:00AM PST by NWS San Diego CA",
+    "onset": "2026-11-27T00:10:00-08:00",
+    "ends": "2026-11-27T04:00:00-08:00",
+    "expires": "2026-11-27T08:15:00-08:00",
+    "sent": "2026-11-27T00:10:00-08:00",
+    "description": "* WHAT...For the Coastal Flood Warning, significant coastal\nflooding. For the High Surf Advisory, large breaking waves of\n6-8 feet, sets up to 10 feet along west-facing beaches. For the\nBeach Hazards Statement, surf of 4 to 6 feet with sets to 7 feed\nand minor coastal flooding expected.\n\n* WHERE...San Diego County Coastal Areas.\n\n* WHEN...For the Coastal Flood Warning, until 1 PM PST this\nafternoon. For the High Surf Advisory, until 4 AM PST early this\nmorning. For the Beach Hazards Statement, from 1 PM PST this\nafternoon through Saturday afternoon.\n\n* IMPACTS...Numerous roads may be closed. Low lying property\nincluding homes, businesses, and some critical infrastructure\nwill be inundated. Some shoreline erosion will occur. Dangerous\nswimming and surfing conditions and localized beach erosion.\n\n* ADDITIONAL DETAILS...King Tides peak this morning around 7.5-7.7\nfeet MLLW. Surf will be falling this morning but remain elevated\ninto Saturday, especially for west-facing beaches. Sets up to 7\nfeet. Despite lower surf and waning tides, localized coastal\nflooding is still likely through the Saturday morning high\ntides."
+  },
+  {
+    "event": "Coastal Flood Warning",
+    "severity": "Severe",
+    "headline": "Coastal Flood Warning issued November 27 at 12:10AM PST until November 27 at 1:00PM PST by NWS San Diego CA",
+    "onset": "2026-11-27T00:10:00-08:00",
+    "ends": "2026-11-27T13:00:00-08:00",
+    "expires": "2026-11-27T08:15:00-08:00",
+    "sent": "2026-11-27T00:10:00-08:00",
+    "description": "* WHAT...For the Coastal Flood Warning, significant coastal\nflooding. For the High Surf Advisory, large breaking waves of\n6-8 feet, sets up to 10 feet along west-facing beaches. For the\nBeach Hazards Statement, surf of 4 to 6 feet with sets to 7 feed\nand minor coastal flooding expected.\n\n* WHERE...San Diego County Coastal Areas.\n\n* WHEN...For the Coastal Flood Warning, until 1 PM PST this\nafternoon. For the High Surf Advisory, until 4 AM PST early this\nmorning. For the Beach Hazards Statement, from 1 PM PST this\nafternoon through Saturday afternoon.\n\n* IMPACTS...Numerous roads may be closed. Low lying property\nincluding homes, businesses, and some critical infrastructure\nwill be inundated. Some shoreline erosion will occur. Dangerous\nswimming and surfing conditions and localized beach erosion.\n\n* ADDITIONAL DETAILS...King Tides peak this morning around 7.5-7.7\nfeet MLLW. Surf will be falling this morning but remain elevated\ninto Saturday, especially for west-facing beaches. Sets up to 7\nfeet. Despite lower surf and waning tides, localized coastal\nflooding is still likely through the Saturday morning high\ntides."
+  }
+]

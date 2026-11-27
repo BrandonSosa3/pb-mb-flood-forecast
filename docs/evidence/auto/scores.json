@@ -1,12 +1,71 @@
 [
  {
+  "key": "2026-11-26|coast|Pacific Beach",
+  "date": "2026-11-26",
+  "label": "Thu Nov 26, 2026",
+  "side": "bay",
+  "how": "auto",
+  "title": "Coast: Pacific Beach",
+  "happened": "Mission Bay peaked at 8.1 ft. No flooding reported from Pacific Beach to the City, NWS or local news.",
+  "we_said": "Moderate (bay water and waves), published Wed Nov 25, 3:03 pm.",
+  "result": "unverified",
+  "observed": "No reports",
+  "forecast": "Moderate",
+  "final": false,
+  "weak": true,
+  "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Warning and High Surf Advisory was in effect.",
+  "sources": [],
+  "scored_utc": "2026-11-27T10:17+00:00"
+ },
+ {
+  "key": "2026-11-26|coast|Mission Beach",
+  "date": "2026-11-26",
+  "label": "Thu Nov 26, 2026",
+  "side": "waves",
+  "how": "auto",
+  "title": "Coast: Mission Beach",
+  "happened": "Mission Bay peaked at 8.1 ft. 0 City flood reports in Mission Beach on a high-tide day, 1 NWS storm report.",
+  "we_said": "Major (waves), published Wed Nov 25, 3:03 pm.",
+  "result": "close",
+  "observed": "Moderate",
+  "forecast": "Major",
+  "final": false,
+  "weak": false,
+  "note": "Preliminary: City reports can still come in. NWS Coastal Flood Warning and High Surf Advisory was in effect.",
+  "sources": [
+   {
+    "name": "NWS storm reports",
+    "url": "https://mesonet.agron.iastate.edu/lsr/"
+   }
+  ],
+  "scored_utc": "2026-11-27T10:17+00:00"
+ },
+ {
+  "key": "2026-11-26|coast|Crown Point",
+  "date": "2026-11-26",
+  "label": "Thu Nov 26, 2026",
+  "side": "bay",
+  "how": "auto",
+  "title": "Coast: Crown Point",
+  "happened": "Mission Bay peaked at 8.1 ft. No flooding reported from Crown Point to the City, NWS or local news.",
+  "we_said": "Minor (bay water), published Wed Nov 25, 3:03 pm.",
+  "result": "unverified",
+  "observed": "No reports",
+  "forecast": "Minor",
+  "final": false,
+  "weak": true,
+  "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Warning and High Surf Advisory was in effect.",
+  "sources": [],
+  "scored_utc": "2026-11-27T10:17+00:00"
+ },
+ {
   "key": "2026-11-25|coast|Pacific Beach",
   "date": "2026-11-25",
   "label": "Wed Nov 25, 2026",
   "side": "bay",
   "how": "auto",
   "title": "Coast: Pacific Beach",
-  "happened": "Mission Bay peaked at 8.3 ft. 1 City flood report in Pacific Beach on a high-tide day.",
+  "happened": "Mission Bay peaked at 8.3 ft. 1 City flood report in Pacific Beach on a high-tide day, 3 news storys.",
   "we_said": "Moderate (bay water), published Tue Nov 24, 3:28 pm.",
   "result": "close",
   "observed": "Minor",
@@ -16,11 +75,31 @@
   "note": "Preliminary: City reports can still come in. NWS Coastal Flood Warning and High Surf Advisory was in effect.",
   "sources": [
    {
+    "name": "NBC 7 San Diego: Cold, fast-moving storm brings rain, wind, dangerous surf San Diego County",
+    "url": "https://www.nbcsandiego.com/news/local/fast-moving-storm-targets-san-diego-county/4104096/"
+   },
+   {
+    "name": "NBC 7 San Diego: King tides cause coastal flooding around San Diego, break water level record",
+    "url": "https://www.nbcsandiego.com/news/local/king-tides-cause-coastal-flooding-around-san-diego-break-water-level-record/4106584/"
+   },
+   {
+    "name": "NBC 7 San Diego: Warm weekend, then rain chances next week",
+    "url": "https://www.nbcsandiego.com/weather/today-san-diego-weather-tomorrow-forecast/4071298/"
+   },
+   {
+    "name": "NBC 7 San Diego: San Diego prepares coastal communities ahead of king tides Thanksgiving week",
+    "url": "https://www.nbcsandiego.com/news/local/san-diego-prepares-coastal-communities-ahead-king-tides-thanksgiving-week/4104818/"
+   },
+   {
+    "name": "NBC 7 San Diego: Port closes 2 trails along San Diego Bay ahead of expected high tides",
+    "url": "https://www.nbcsandiego.com/news/local/port-closes-2-trails-along-san-diego-bay-ahead-of-expected-high-tides/4104636/"
+   },
+   {
     "name": "City Get It Done reports",
     "url": "https://data.sandiego.gov/datasets/get-it-done-311/"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-25|coast|Mission Beach",
@@ -29,7 +108,7 @@
   "side": "bay",
   "how": "auto",
   "title": "Coast: Mission Beach",
-  "happened": "Mission Bay peaked at 8.3 ft. 2 City flood reports in Mission Beach on a high-tide day.",
+  "happened": "Mission Bay peaked at 8.3 ft. 2 City flood reports in Mission Beach on a high-tide day, 3 news storys.",
   "we_said": "Moderate (bay water), published Tue Nov 24, 3:28 pm.",
   "result": "close",
   "observed": "Minor",
@@ -39,11 +118,31 @@
   "note": "Preliminary: City reports can still come in. NWS Coastal Flood Warning and High Surf Advisory was in effect.",
   "sources": [
    {
+    "name": "NBC 7 San Diego: Cold, fast-moving storm brings rain, wind, dangerous surf San Diego County",
+    "url": "https://www.nbcsandiego.com/news/local/fast-moving-storm-targets-san-diego-county/4104096/"
+   },
+   {
+    "name": "NBC 7 San Diego: King tides cause coastal flooding around San Diego, break water level record",
+    "url": "https://www.nbcsandiego.com/news/local/king-tides-cause-coastal-flooding-around-san-diego-break-water-level-record/4106584/"
+   },
+   {
+    "name": "NBC 7 San Diego: Warm weekend, then rain chances next week",
+    "url": "https://www.nbcsandiego.com/weather/today-san-diego-weather-tomorrow-forecast/4071298/"
+   },
+   {
+    "name": "NBC 7 San Diego: San Diego prepares coastal communities ahead of king tides Thanksgiving week",
+    "url": "https://www.nbcsandiego.com/news/local/san-diego-prepares-coastal-communities-ahead-king-tides-thanksgiving-week/4104818/"
+   },
+   {
+    "name": "NBC 7 San Diego: Port closes 2 trails along San Diego Bay ahead of expected high tides",
+    "url": "https://www.nbcsandiego.com/news/local/port-closes-2-trails-along-san-diego-bay-ahead-of-expected-high-tides/4104636/"
+   },
+   {
     "name": "City Get It Done reports",
     "url": "https://data.sandiego.gov/datasets/get-it-done-311/"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-25|coast|Crown Point",
@@ -52,16 +151,37 @@
   "side": "bay",
   "how": "auto",
   "title": "Coast: Crown Point",
-  "happened": "Mission Bay peaked at 8.3 ft. No flooding reported from Crown Point to the City, NWS or local news.",
+  "happened": "Mission Bay peaked at 8.3 ft. 0 City flood reports in Crown Point on a high-tide day, 3 news storys.",
   "we_said": "Minor (bay water), published Tue Nov 24, 3:28 pm.",
-  "result": "unverified",
-  "observed": "No reports",
+  "result": "right",
+  "observed": "Minor",
   "forecast": "Minor",
   "final": false,
-  "weak": true,
-  "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Warning and High Surf Advisory was in effect.",
-  "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "weak": false,
+  "note": "Preliminary: City reports can still come in. NWS Coastal Flood Warning and High Surf Advisory was in effect.",
+  "sources": [
+   {
+    "name": "NBC 7 San Diego: Cold, fast-moving storm brings rain, wind, dangerous surf San Diego County",
+    "url": "https://www.nbcsandiego.com/news/local/fast-moving-storm-targets-san-diego-county/4104096/"
+   },
+   {
+    "name": "NBC 7 San Diego: King tides cause coastal flooding around San Diego, break water level record",
+    "url": "https://www.nbcsandiego.com/news/local/king-tides-cause-coastal-flooding-around-san-diego-break-water-level-record/4106584/"
+   },
+   {
+    "name": "NBC 7 San Diego: Warm weekend, then rain chances next week",
+    "url": "https://www.nbcsandiego.com/weather/today-san-diego-weather-tomorrow-forecast/4071298/"
+   },
+   {
+    "name": "NBC 7 San Diego: San Diego prepares coastal communities ahead of king tides Thanksgiving week",
+    "url": "https://www.nbcsandiego.com/news/local/san-diego-prepares-coastal-communities-ahead-king-tides-thanksgiving-week/4104818/"
+   },
+   {
+    "name": "NBC 7 San Diego: Port closes 2 trails along San Diego Bay ahead of expected high tides",
+    "url": "https://www.nbcsandiego.com/news/local/port-closes-2-trails-along-san-diego-bay-ahead-of-expected-high-tides/4104636/"
+   }
+  ],
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-24|coast|Pacific Beach",
@@ -70,21 +190,41 @@
   "side": "bay",
   "how": "auto",
   "title": "Coast: Pacific Beach",
-  "happened": "Mission Bay peaked at 8.2 ft. 1 City flood report in Pacific Beach on a high-tide day.",
+  "happened": "Mission Bay peaked at 8.2 ft. 1 City flood report in Pacific Beach on a high-tide day, 3 news storys.",
   "we_said": "Moderate (bay water), published Mon Nov 23, 5:37 pm.",
   "result": "close",
   "observed": "Minor",
   "forecast": "Moderate",
-  "final": false,
+  "final": true,
   "weak": false,
-  "note": "Preliminary: City reports can still come in. NWS Coastal Flood Advisory and Coastal Flood Warning and High Surf Advisory was in effect.",
+  "note": "NWS Coastal Flood Advisory and Coastal Flood Warning and High Surf Advisory was in effect.",
   "sources": [
+   {
+    "name": "NBC 7 San Diego: Cold, fast-moving storm brings rain, wind, dangerous surf San Diego County",
+    "url": "https://www.nbcsandiego.com/news/local/fast-moving-storm-targets-san-diego-county/4104096/"
+   },
+   {
+    "name": "NBC 7 San Diego: King tides cause coastal flooding around San Diego, break water level record",
+    "url": "https://www.nbcsandiego.com/news/local/king-tides-cause-coastal-flooding-around-san-diego-break-water-level-record/4106584/"
+   },
+   {
+    "name": "NBC 7 San Diego: Warm weekend, then rain chances next week",
+    "url": "https://www.nbcsandiego.com/weather/today-san-diego-weather-tomorrow-forecast/4071298/"
+   },
+   {
+    "name": "NBC 7 San Diego: San Diego prepares coastal communities ahead of king tides Thanksgiving week",
+    "url": "https://www.nbcsandiego.com/news/local/san-diego-prepares-coastal-communities-ahead-king-tides-thanksgiving-week/4104818/"
+   },
+   {
+    "name": "NBC 7 San Diego: Port closes 2 trails along San Diego Bay ahead of expected high tides",
+    "url": "https://www.nbcsandiego.com/news/local/port-closes-2-trails-along-san-diego-bay-ahead-of-expected-high-tides/4104636/"
+   },
    {
     "name": "City Get It Done reports",
     "url": "https://data.sandiego.gov/datasets/get-it-done-311/"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-24|coast|Mission Beach",
@@ -93,14 +233,14 @@
   "side": "bay",
   "how": "auto",
   "title": "Coast: Mission Beach",
-  "happened": "Mission Bay peaked at 8.2 ft. 2 City flood reports in Mission Beach on a high-tide day, 1 NWS storm report, 2 news storys.",
+  "happened": "Mission Bay peaked at 8.2 ft. 2 City flood reports in Mission Beach on a high-tide day, 1 NWS storm report, 5 news storys.",
   "we_said": "Moderate (bay water), published Mon Nov 23, 5:37 pm.",
   "result": "right",
   "observed": "Moderate",
   "forecast": "Moderate",
-  "final": false,
+  "final": true,
   "weak": false,
-  "note": "Preliminary: City reports can still come in. NWS Coastal Flood Advisory and Coastal Flood Warning and High Surf Advisory was in effect.",
+  "note": "NWS Coastal Flood Advisory and Coastal Flood Warning and High Surf Advisory was in effect.",
   "sources": [
    {
     "name": "10News: Coastal Flood Warning for San Diego in effect as sand berms hold steady against ",
@@ -111,15 +251,23 @@
     "url": "https://fox5sandiego.com/news/local-news/coastal/king-tide-flooding-san-diego-mission-beach/"
    },
    {
-    "name": "NWS storm reports",
-    "url": "https://mesonet.agron.iastate.edu/lsr/"
+    "name": "NBC 7 San Diego: Cold, fast-moving storm brings rain, wind, dangerous surf San Diego County",
+    "url": "https://www.nbcsandiego.com/news/local/fast-moving-storm-targets-san-diego-county/4104096/"
    },
    {
-    "name": "City Get It Done reports",
-    "url": "https://data.sandiego.gov/datasets/get-it-done-311/"
+    "name": "NBC 7 San Diego: King tides cause coastal flooding around San Diego, break water level record",
+    "url": "https://www.nbcsandiego.com/news/local/king-tides-cause-coastal-flooding-around-san-diego-break-water-level-record/4106584/"
+   },
+   {
+    "name": "NBC 7 San Diego: Warm weekend, then rain chances next week",
+    "url": "https://www.nbcsandiego.com/weather/today-san-diego-weather-tomorrow-forecast/4071298/"
+   },
+   {
+    "name": "NBC 7 San Diego: San Diego prepares coastal communities ahead of king tides Thanksgiving week",
+    "url": "https://www.nbcsandiego.com/news/local/san-diego-prepares-coastal-communities-ahead-king-tides-thanksgiving-week/4104818/"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-24|coast|Crown Point",
@@ -128,16 +276,37 @@
   "side": "bay",
   "how": "auto",
   "title": "Coast: Crown Point",
-  "happened": "Mission Bay peaked at 8.2 ft. No flooding reported from Crown Point to the City, NWS or local news.",
+  "happened": "Mission Bay peaked at 8.2 ft. 0 City flood reports in Crown Point on a high-tide day, 3 news storys.",
   "we_said": "Minor (bay water), published Mon Nov 23, 5:37 pm.",
-  "result": "unverified",
-  "observed": "No reports",
+  "result": "right",
+  "observed": "Minor",
   "forecast": "Minor",
-  "final": false,
-  "weak": true,
-  "note": "Preliminary: City reports can still come in. Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and Coastal Flood Warning and High Surf Advisory was in effect.",
-  "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "final": true,
+  "weak": false,
+  "note": "NWS Coastal Flood Advisory and Coastal Flood Warning and High Surf Advisory was in effect.",
+  "sources": [
+   {
+    "name": "NBC 7 San Diego: Cold, fast-moving storm brings rain, wind, dangerous surf San Diego County",
+    "url": "https://www.nbcsandiego.com/news/local/fast-moving-storm-targets-san-diego-county/4104096/"
+   },
+   {
+    "name": "NBC 7 San Diego: King tides cause coastal flooding around San Diego, break water level record",
+    "url": "https://www.nbcsandiego.com/news/local/king-tides-cause-coastal-flooding-around-san-diego-break-water-level-record/4106584/"
+   },
+   {
+    "name": "NBC 7 San Diego: Warm weekend, then rain chances next week",
+    "url": "https://www.nbcsandiego.com/weather/today-san-diego-weather-tomorrow-forecast/4071298/"
+   },
+   {
+    "name": "NBC 7 San Diego: San Diego prepares coastal communities ahead of king tides Thanksgiving week",
+    "url": "https://www.nbcsandiego.com/news/local/san-diego-prepares-coastal-communities-ahead-king-tides-thanksgiving-week/4104818/"
+   },
+   {
+    "name": "NBC 7 San Diego: Port closes 2 trails along San Diego Bay ahead of expected high tides",
+    "url": "https://www.nbcsandiego.com/news/local/port-closes-2-trails-along-san-diego-bay-ahead-of-expected-high-tides/4104636/"
+   }
+  ],
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-23|coast|Pacific Beach",
@@ -160,7 +329,7 @@
     "url": "https://data.sandiego.gov/datasets/get-it-done-311/"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-23|coast|Mission Beach",
@@ -187,7 +356,7 @@
     "url": "https://fox5sandiego.com/news/local-news/coastal/king-tide-flooding-san-diego-mission-beach/"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-23|coast|Crown Point",
@@ -205,7 +374,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and Coastal Flood Watch was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-22|coast|Pacific Beach",
@@ -232,7 +401,7 @@
     "url": "https://data.sandiego.gov/datasets/get-it-done-311/"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-22|coast|Mission Beach",
@@ -250,7 +419,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and Coastal Flood Watch was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-22|coast|Crown Point",
@@ -273,7 +442,7 @@
     "url": "https://fox5sandiego.com/news/local-news/coastal-flood-warning-pacific-beach/"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-21|coast|Pacific Beach",
@@ -296,7 +465,7 @@
     "url": "https://fox5sandiego.com/news/local-news/coastal-flood-warning-pacific-beach/"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-21|coast|Mission Beach",
@@ -314,7 +483,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and Coastal Flood Watch was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-21|coast|Crown Point",
@@ -337,7 +506,7 @@
     "url": "https://fox5sandiego.com/news/local-news/coastal-flood-warning-pacific-beach/"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-20|coast|Mission Beach",
@@ -355,7 +524,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. ",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-19|rain|Pacific Beach",
@@ -373,7 +542,7 @@
   "weak": true,
   "note": "Weak evidence: most flooding is never reported.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-19|rain|Mission Beach",
@@ -396,7 +565,7 @@
     "url": "https://www.10news.com/news/local-news/rain-strong-winds-and-high-surf-hit-mission-beach-as-latest-storm-moves-through-san-diego"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-19|rain|La Jolla",
@@ -414,7 +583,7 @@
   "weak": true,
   "note": "Weak evidence: most flooding is never reported.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-19|coast|Mission Beach",
@@ -437,7 +606,7 @@
     "url": "https://www.10news.com/news/local-news/rain-strong-winds-and-high-surf-hit-mission-beach-as-latest-storm-moves-through-san-diego"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-18|coast|Pacific Beach",
@@ -455,7 +624,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-18|coast|Mission Beach",
@@ -478,7 +647,7 @@
     "url": "https://www.10news.com/news/local-news/rain-strong-winds-and-high-surf-hit-mission-beach-as-latest-storm-moves-through-san-diego"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-18|coast|Crown Point",
@@ -496,7 +665,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-17|coast|Pacific Beach",
@@ -514,7 +683,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-17|coast|Mission Beach",
@@ -532,7 +701,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-17|coast|Crown Point",
@@ -550,7 +719,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-16|rain|Pacific Beach",
@@ -573,7 +742,7 @@
     "url": "https://data.sandiego.gov/datasets/get-it-done-311/"
    }
   ],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-16|rain|Mission Beach",
@@ -591,7 +760,7 @@
   "weak": true,
   "note": "Weak evidence: most flooding is never reported.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-16|rain|La Jolla",
@@ -609,7 +778,7 @@
   "weak": true,
   "note": "Weak evidence: most flooding is never reported.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-16|coast|Pacific Beach",
@@ -627,7 +796,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-16|coast|Mission Beach",
@@ -645,7 +814,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-16|coast|Crown Point",
@@ -663,7 +832,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-15|coast|Pacific Beach",
@@ -681,7 +850,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-15|coast|Mission Beach",
@@ -699,7 +868,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-15|coast|Crown Point",
@@ -717,7 +886,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-14|coast|Pacific Beach",
@@ -735,7 +904,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-14|coast|Mission Beach",
@@ -753,7 +922,7 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  },
  {
   "key": "2026-11-14|coast|Crown Point",
@@ -771,6 +940,6 @@
   "weak": true,
   "note": "Not scored: no reports either way, and water on the boardwalk is almost never reported. NWS Coastal Flood Advisory and High Surf Advisory was in effect.",
   "sources": [],
-  "scored_utc": "2026-11-26T22:55+00:00"
+  "scored_utc": "2026-11-27T10:17+00:00"
  }
 ]
